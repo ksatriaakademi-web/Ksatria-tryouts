@@ -457,3 +457,52 @@ BUTTON PREMIUM
     transform:translateY(-4px);
 
 }
+/*==================================================
+STATISTICS PREMIUM
+==================================================*/
+
+.statistics{
+    padding:90px 0;
+}
+
+.stat-card{
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:24px;
+    text-align:center;
+    padding:40px 20px;
+    transition:.35s;
+    backdrop-filter:blur(18px);
+}
+
+.stat-card:hover{
+
+    transform:translateY(-10px);
+
+    border-color:#FFC83D;
+
+    box-shadow:0 25px 45px rgba(0,0,0,.35);
+
+}
+
+.stat-card h2{
+
+    color:#FFC83D;
+
+    font-size:48px;
+
+    font-weight:800;
+
+    margin-bottom:12px;
+
+}
+
+.stat-card p{
+
+    color:#d9d9d9;
+
+    margin:0;
+
+    font-size:17px;
+
+}
