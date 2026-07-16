@@ -1,1 +1,259 @@
+/* ===================================================
+   KSATRIA AKADEMI
+   LOGIN PAGE V1
+=================================================== */
+
+/* RESET */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,body{
+    height:100%;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:#081F4D;
+    overflow-x:hidden;
+    color:#fff;
+}
+
+/* BACKGROUND */
+
+.login-page{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    overflow:hidden;
+    padding:40px 0;
+}
+
+.login-page::before{
+    content:'';
+    position:absolute;
+    width:550px;
+    height:550px;
+    border-radius:50%;
+    background:rgba(255,200,61,.08);
+    filter:blur(90px);
+    top:-180px;
+    left:-180px;
+}
+
+.login-page::after{
+    content:'';
+    position:absolute;
+    width:500px;
+    height:500px;
+    border-radius:50%;
+    background:rgba(0,132,255,.10);
+    filter:blur(90px);
+    bottom:-200px;
+    right:-160px;
+}
+
+/* CARD */
+
+.login-card{
+    position:relative;
+    z-index:2;
+    background:rgba(255,255,255,.07);
+    backdrop-filter:blur(20px);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:28px;
+    padding:50px;
+    box-shadow:0 25px 45px rgba(0,0,0,.30);
+    transition:.35s;
+}
+
+.login-card:hover{
+    transform:translateY(-6px);
+}
+
+/* LOGO */
+
+.login-logo{
+    width:95px;
+    margin-bottom:20px;
+}
+
+.login-card h2{
+    font-weight:800;
+    margin-bottom:8px;
+}
+
+.login-card p{
+    color:#d6d6d6;
+}
+
+/* FORM */
+
+.form-label{
+    font-weight:600;
+    margin-bottom:8px;
+}
+
+.input-group{
+    margin-bottom:10px;
+}
+
+.input-group-text{
+    background:#102B63;
+    border:none;
+    color:#FFC83D;
+}
+
+.form-control{
+    background:#163875;
+    border:none;
+    color:#fff;
+    height:54px;
+}
+
+.form-control:focus{
+    background:#163875;
+    color:#fff;
+    box-shadow:none;
+    border:1px solid #FFC83D;
+}
+
+.form-control::placeholder{
+    color:#b9c3d5;
+}
+
+.btn-outline-secondary{
+    border:none;
+    background:#163875;
+    color:#fff;
+}
+
+.btn-outline-secondary:hover{
+    background:#204487;
+    color:#FFC83D;
+}
+/* ===================================================
+   LOGIN BUTTON
+=================================================== */
+
+.login-btn{
+    height:55px;
+    border:none;
+    border-radius:14px;
+    background:#FFC83D;
+    color:#081F4D;
+    font-weight:700;
+    font-size:17px;
+    transition:.3s;
+}
+
+.login-btn:hover{
+    background:#FFD75D;
+    transform:translateY(-3px);
+    box-shadow:0 15px 30px rgba(255,200,61,.35);
+}
+
+/* ===================================================
+   LINK
+=================================================== */
+
+a{
+    text-decoration:none;
+    color:#FFC83D;
+    transition:.3s;
+}
+
+a:hover{
+    color:#FFD75D;
+}
+
+/* ===================================================
+   CHECKBOX
+=================================================== */
+
+.form-check-input:checked{
+    background:#FFC83D;
+    border-color:#FFC83D;
+}
+
+.form-check-label{
+    color:#ddd;
+}
+
+/* ===================================================
+   ANIMATION
+=================================================== */
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+        transform:translateY(30px);
+
+    }
+
+    to{
+
+        opacity:1;
+        transform:translateY(0);
+
+    }
+
+}
+
+.login-card{
+
+    animation:fadeUp .8s ease;
+
+}
+
+/* ===================================================
+   RESPONSIVE
+=================================================== */
+
+@media(max-width:768px){
+
+    .login-card{
+
+        padding:35px 25px;
+
+        margin:20px;
+
+    }
+
+    .login-logo{
+
+        width:75px;
+
+    }
+
+    .login-card h2{
+
+        font-size:28px;
+
+    }
+
+}
+
+@media(max-width:576px){
+
+    .login-card{
+
+        padding:28px 20px;
+
+    }
+
+    .login-btn{
+
+        font-size:16px;
+
+    }
+
+}
 
