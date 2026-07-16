@@ -428,3 +428,32 @@ section{
 }
 
 }
+/*==================================================
+BUTTON PREMIUM
+==================================================*/
+
+.btn-warning{
+
+    transition:.35s;
+
+}
+
+.btn-warning:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:0 18px 35px rgba(255,200,61,.35);
+
+}
+
+.btn-outline-light{
+
+    transition:.35s;
+
+}
+
+.btn-outline-light:hover{
+
+    transform:translateY(-4px);
+
+}
