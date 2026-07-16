@@ -1,1 +1,190 @@
+/* ===================================================
+   KSATRIA AKADEMI
+   STYLE.CSS V1
+=================================================== */
 
+/* RESET */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+
+    font-family:'Poppins',sans-serif;
+
+    background:#081F4D;
+
+    color:#ffffff;
+
+    overflow-x:hidden;
+
+}
+
+
+
+/* ===================================================
+   NAVBAR
+=================================================== */
+
+.navbar{
+
+    background:rgba(8,31,77,.92);
+
+    backdrop-filter:blur(12px);
+
+    padding:18px 0;
+
+    transition:.3s;
+
+}
+
+.logo{
+
+    width:55px;
+
+}
+
+.navbar-brand h3{
+
+    font-size:20px;
+
+    font-weight:700;
+
+    margin:0;
+
+    color:#fff;
+
+}
+
+.navbar-brand span{
+
+    font-size:13px;
+
+    color:#d9d9d9;
+
+}
+
+.nav-link{
+
+    color:#ffffff!important;
+
+    margin:0 12px;
+
+    font-weight:500;
+
+}
+
+.nav-link:hover{
+
+    color:#FFC83D!important;
+
+}
+
+.btn-login{
+
+    background:#FFC83D;
+
+    color:#081F4D;
+
+    font-weight:700;
+
+    padding:10px 24px;
+
+    border-radius:30px;
+
+}
+
+.btn-login:hover{
+
+    background:#ffd75d;
+
+}
+
+
+
+/* ===================================================
+   HERO
+=================================================== */
+
+.hero{
+
+    padding-top:170px;
+
+    padding-bottom:120px;
+
+}
+
+.hero-badge{
+
+    display:inline-block;
+
+    background:#FFC83D;
+
+    color:#081F4D;
+
+    padding:10px 18px;
+
+    border-radius:30px;
+
+    font-weight:600;
+
+    margin-bottom:25px;
+
+}
+
+.hero-title{
+
+    font-size:60px;
+
+    font-weight:800;
+
+    line-height:1.2;
+
+    margin-bottom:25px;
+
+}
+
+.hero-title span{
+
+    color:#FFC83D;
+
+}
+
+.hero-desc{
+
+    color:#d6d6d6;
+
+    font-size:18px;
+
+    line-height:1.9;
+
+    margin-bottom:35px;
+
+}
+
+.hero-button{
+
+    display:flex;
+
+    gap:15px;
+
+    flex-wrap:wrap;
+
+}
+
+.hero-image{
+
+    max-width:520px;
+
+    width:100%;
+
+    animation:float 5s ease-in-out infinite;
+
+}
