@@ -188,3 +188,235 @@ body{
     animation:float 5s ease-in-out infinite;
 
 }
+/* ===================================================
+   ANIMATION
+=================================================== */
+
+@keyframes float{
+
+    0%{
+        transform:translateY(0px);
+    }
+
+    50%{
+        transform:translateY(-15px);
+    }
+
+    100%{
+        transform:translateY(0px);
+    }
+
+}
+
+
+/* ===================================================
+   EXAM CARD
+=================================================== */
+
+.exam-card{
+
+    background:rgba(255,255,255,.08);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:20px;
+
+    text-align:center;
+
+    padding:25px 15px;
+
+    margin-top:20px;
+
+    transition:.35s;
+
+    cursor:pointer;
+
+    height:100%;
+
+}
+
+.exam-card:hover{
+
+    transform:translateY(-8px);
+
+    background:#102B63;
+
+    border-color:#FFC83D;
+
+    box-shadow:0 20px 35px rgba(0,0,0,.30);
+
+}
+
+.exam-icon{
+
+    font-size:42px;
+
+    margin-bottom:15px;
+
+}
+
+.exam-card h6{
+
+    margin:0;
+
+    color:#ffffff;
+
+    font-weight:600;
+
+}
+
+
+
+/* ===================================================
+   BUTTON
+=================================================== */
+
+.btn-warning{
+
+    background:#FFC83D;
+
+    border:none;
+
+    color:#081F4D;
+
+    font-weight:700;
+
+    padding:14px 30px;
+
+    border-radius:35px;
+
+}
+
+.btn-warning:hover{
+
+    background:#FFD75D;
+
+    color:#081F4D;
+
+}
+
+.btn-outline-light{
+
+    border-radius:35px;
+
+    padding:14px 30px;
+
+    font-weight:600;
+
+}
+
+
+
+/* ===================================================
+   SECTION
+=================================================== */
+
+section{
+
+    position:relative;
+
+}
+
+
+
+/* ===================================================
+   RESPONSIVE
+=================================================== */
+
+@media(max-width:991px){
+
+.hero{
+
+    text-align:center;
+
+}
+
+.hero-title{
+
+    font-size:44px;
+
+}
+
+.hero-button{
+
+    justify-content:center;
+
+}
+
+.hero-image{
+
+    max-width:380px;
+
+    margin-top:60px;
+
+}
+
+}
+
+
+
+@media(max-width:768px){
+
+.hero{
+
+    padding-top:140px;
+
+}
+
+.hero-title{
+
+    font-size:34px;
+
+}
+
+.hero-desc{
+
+    font-size:16px;
+
+}
+
+.logo{
+
+    width:45px;
+
+}
+
+.navbar-brand h3{
+
+    font-size:18px;
+
+}
+
+.exam-card{
+
+    margin-bottom:20px;
+
+}
+
+}
+
+
+
+@media(max-width:576px){
+
+.hero-title{
+
+    font-size:30px;
+
+}
+
+.hero-badge{
+
+    font-size:14px;
+
+}
+
+.btn-warning,
+
+.btn-outline-light{
+
+    width:100%;
+
+}
+
+}
