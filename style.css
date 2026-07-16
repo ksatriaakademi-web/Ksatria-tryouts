@@ -900,4 +900,18 @@ RESPONSIVE IMPROVEMENT
 
 }
 
+}/*==================================================
+NAVBAR SCROLL
+==================================================*/
+
+.navbar-scroll{
+
+    background:#061733 !important;
+
+    padding:10px 0;
+
+    box-shadow:0 15px 35px rgba(0,0,0,.35);
+
+    transition:.35s;
+
 }
