@@ -137,3 +137,122 @@ body{
     background:#204487;
     color:#FFC83D;
 }
+/* ===================================================
+   LOGIN BUTTON
+=================================================== */
+
+.login-btn{
+    height:55px;
+    border:none;
+    border-radius:14px;
+    background:#FFC83D;
+    color:#081F4D;
+    font-weight:700;
+    font-size:17px;
+    transition:.3s;
+}
+
+.login-btn:hover{
+    background:#FFD75D;
+    transform:translateY(-3px);
+    box-shadow:0 15px 30px rgba(255,200,61,.35);
+}
+
+/* ===================================================
+   LINK
+=================================================== */
+
+a{
+    text-decoration:none;
+    color:#FFC83D;
+    transition:.3s;
+}
+
+a:hover{
+    color:#FFD75D;
+}
+
+/* ===================================================
+   CHECKBOX
+=================================================== */
+
+.form-check-input:checked{
+    background:#FFC83D;
+    border-color:#FFC83D;
+}
+
+.form-check-label{
+    color:#ddd;
+}
+
+/* ===================================================
+   ANIMATION
+=================================================== */
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+        transform:translateY(30px);
+
+    }
+
+    to{
+
+        opacity:1;
+        transform:translateY(0);
+
+    }
+
+}
+
+.login-card{
+
+    animation:fadeUp .8s ease;
+
+}
+
+/* ===================================================
+   RESPONSIVE
+=================================================== */
+
+@media(max-width:768px){
+
+    .login-card{
+
+        padding:35px 25px;
+
+        margin:20px;
+
+    }
+
+    .login-logo{
+
+        width:75px;
+
+    }
+
+    .login-card h2{
+
+        font-size:28px;
+
+    }
+
+}
+
+@media(max-width:576px){
+
+    .login-card{
+
+        padding:28px 20px;
+
+    }
+
+    .login-btn{
+
+        font-size:16px;
+
+    }
+
+}
