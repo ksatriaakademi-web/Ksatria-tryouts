@@ -1,1 +1,147 @@
+/* ===================================================
+   KSATRIA AKADEMI
+   REGISTER PAGE V1
+=================================================== */
 
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,body{
+    height:100%;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:#081F4D;
+    color:#fff;
+    overflow-x:hidden;
+}
+
+/* ===================================================
+   BACKGROUND
+=================================================== */
+
+.register-page{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    overflow:hidden;
+    padding:40px 0;
+}
+
+.register-page::before{
+    content:'';
+    position:absolute;
+    width:600px;
+    height:600px;
+    background:rgba(255,200,61,.08);
+    border-radius:50%;
+    filter:blur(90px);
+    top:-220px;
+    left:-180px;
+}
+
+.register-page::after{
+    content:'';
+    position:absolute;
+    width:520px;
+    height:520px;
+    background:rgba(0,132,255,.10);
+    border-radius:50%;
+    filter:blur(90px);
+    right:-170px;
+    bottom:-180px;
+}
+
+/* ===================================================
+   CARD
+=================================================== */
+
+.register-card{
+    position:relative;
+    z-index:2;
+    background:rgba(255,255,255,.08);
+    backdrop-filter:blur(20px);
+    border:1px solid rgba(255,255,255,.10);
+    border-radius:28px;
+    padding:50px;
+    box-shadow:0 25px 45px rgba(0,0,0,.35);
+    transition:.35s;
+}
+
+.register-card:hover{
+    transform:translateY(-6px);
+}
+
+/* ===================================================
+   LOGO
+=================================================== */
+
+.register-logo{
+    width:90px;
+    margin-bottom:18px;
+}
+
+.register-card h2{
+    font-size:32px;
+    font-weight:800;
+    margin-bottom:10px;
+}
+
+.register-card p{
+    color:#d6d6d6;
+    margin-bottom:30px;
+}
+
+/* ===================================================
+   FORM
+=================================================== */
+
+.form-label{
+    font-weight:600;
+    margin-bottom:8px;
+}
+
+.input-group{
+    margin-bottom:15px;
+}
+
+.input-group-text{
+    background:#12316D;
+    color:#FFC83D;
+    border:none;
+}
+
+.form-control{
+    background:#163875;
+    border:none;
+    color:#fff;
+    height:54px;
+}
+
+.form-control::placeholder{
+    color:#bcc7da;
+}
+
+.form-control:focus{
+    background:#163875;
+    color:#fff;
+    border:1px solid #FFC83D;
+    box-shadow:none;
+}
+
+.btn-outline-secondary{
+    background:#163875;
+    border:none;
+    color:#fff;
+}
+
+.btn-outline-secondary:hover{
+    background:#204487;
+    color:#FFC83D;
+}
