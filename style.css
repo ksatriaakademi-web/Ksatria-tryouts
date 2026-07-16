@@ -47,7 +47,7 @@ body{
 
 .logo{
 
-    width:55px;
+    width:65px;
 
 }
 
@@ -115,9 +115,15 @@ body{
 
 .hero{
 
+    min-height:100vh;
+
+    display:flex;
+
+    align-items:center;
+
     padding-top:170px;
 
-    padding-bottom:120px;
+    padding-bottom:80px;
 
 }
 
@@ -181,11 +187,13 @@ body{
 
 .hero-image{
 
-    max-width:520px;
-
     width:100%;
 
-    animation:float 5s ease-in-out infinite;
+    max-width:480px;
+
+    display:block;
+
+    margin:auto;
 
 }
 /* ===================================================
