@@ -1,150 +1,107 @@
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+
+margin:0;
+
+padding:0;
+
+box-sizing:border-box;
+
 }
 
 body{
 
-    font-family:Arial, sans-serif;
-    background:#eef4ff;
+font-family:'Poppins',sans-serif;
+
+background:#071B45;
 
 }
 
-/* HEADER */
-
 header{
 
-    background:#0B5ED7;
-    color:white;
+height:90px;
 
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+padding:0 60px;
 
-    padding:20px 60px;
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+background:#071B45;
+
+border-bottom:1px solid rgba(255,255,255,.08);
 
 }
 
 .logo h2{
 
-    color:#FFD700;
+color:white;
+
+font-size:32px;
+
+font-weight:700;
+
+}
+
+.logo p{
+
+color:#d7d7d7;
+
+font-size:14px;
+
+margin-top:-5px;
+
+}
+
+nav{
+
+display:flex;
+
+align-items:center;
+
+gap:35px;
 
 }
 
 nav a{
 
-    color:white;
-    text-decoration:none;
-    margin-left:20px;
-    font-weight:bold;
+color:white;
+
+text-decoration:none;
+
+font-weight:600;
+
+transition:.3s;
 
 }
 
 nav a:hover{
 
-    color:#FFD700;
+color:#FFC83D;
 
 }
 
-/* HERO */
+nav button{
 
-.hero{
+background:#FFC83D;
 
-    text-align:center;
+padding:14px 35px;
 
-    padding:80px 20px;
+border:none;
 
-}
+border-radius:12px;
 
-.hero h1{
+font-weight:700;
 
-    font-size:48px;
-    color:#0B5ED7;
-    margin-bottom:20px;
+cursor:pointer;
 
-}
-
-.hero p{
-
-    font-size:20px;
-    max-width:700px;
-    margin:auto;
-
-    line-height:1.8;
+transition:.3s;
 
 }
 
-.btn{
+nav button:hover{
 
-    display:inline-block;
-
-    margin-top:35px;
-
-    background:#FFD700;
-    color:black;
-
-    padding:15px 35px;
-
-    border-radius:8px;
-
-    text-decoration:none;
-
-    font-weight:bold;
-
-}
-
-.btn:hover{
-
-    background:#FFC107;
-
-}
-
-/* FITUR */
-
-.fitur{
-
-    display:grid;
-
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-
-    gap:25px;
-
-    padding:60px;
-
-}
-
-.card{
-
-    background:white;
-
-    padding:30px;
-
-    border-radius:10px;
-
-    box-shadow:0 5px 15px rgba(0,0,0,.1);
-
-    text-align:center;
-
-}
-
-.card h3{
-
-    color:#0B5ED7;
-    margin-bottom:15px;
-
-}
-
-/* FOOTER */
-
-footer{
-
-    background:#0B5ED7;
-
-    color:white;
-
-    text-align:center;
-
-    padding:20px;
+transform:translateY(-2px);
 
 }
