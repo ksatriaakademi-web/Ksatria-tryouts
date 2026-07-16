@@ -26,3 +26,63 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 });
+/*==================================================
+COUNTER ANIMATION
+==================================================*/
+
+const statsSection = document.querySelector("#stats");
+const counters = document.querySelectorAll(".counter");
+
+let counterStarted = false;
+
+function startCounter() {
+
+    if (counterStarted) return;
+
+    counterStarted = true;
+
+    counters.forEach(counter => {
+
+        const target = parseInt(counter.dataset.target);
+
+        let current = 0;
+
+        const increment = Math.ceil(target / 100);
+
+        function updateCounter() {
+
+            current += increment;
+
+            if (current >= target) {
+
+                counter.innerText = target.toLocaleString("id-ID") + "+";
+
+            } else {
+
+                counter.innerText = current.toLocaleString("id-ID");
+
+                requestAnimationFrame(updateCounter);
+
+            }
+
+        }
+
+        updateCounter();
+
+    });
+
+}
+
+window.addEventListener("scroll", () => {
+
+    if (!statsSection) return;
+
+    const position = statsSection.getBoundingClientRect().top;
+
+    if (position < window.innerHeight - 100) {
+
+        startCounter();
+
+    }
+
+});
