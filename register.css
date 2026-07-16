@@ -145,3 +145,114 @@ body{
     background:#204487;
     color:#FFC83D;
 }
+/* ===================================================
+   BUTTON
+=================================================== */
+
+.register-btn{
+    height:55px;
+    border:none;
+    border-radius:14px;
+    background:#FFC83D;
+    color:#081F4D;
+    font-size:17px;
+    font-weight:700;
+    transition:.3s;
+}
+
+.register-btn:hover{
+    background:#FFD75D;
+    transform:translateY(-3px);
+    box-shadow:0 15px 30px rgba(255,200,61,.35);
+}
+
+/* ===================================================
+   CHECKBOX
+=================================================== */
+
+.form-check{
+    margin-top:5px;
+}
+
+.form-check-input{
+    cursor:pointer;
+}
+
+.form-check-input:checked{
+    background:#FFC83D;
+    border-color:#FFC83D;
+}
+
+.form-check-label{
+    color:#ddd;
+    cursor:pointer;
+}
+
+/* ===================================================
+   LINK
+=================================================== */
+
+a{
+    color:#FFC83D;
+    text-decoration:none;
+    transition:.3s;
+}
+
+a:hover{
+    color:#FFD75D;
+}
+
+/* ===================================================
+   ANIMATION
+=================================================== */
+
+@keyframes fadeUp{
+
+    from{
+        opacity:0;
+        transform:translateY(35px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+.register-card{
+    animation:fadeUp .8s ease;
+}
+
+/* ===================================================
+   RESPONSIVE
+=================================================== */
+
+@media(max-width:768px){
+
+    .register-card{
+        padding:35px 25px;
+        margin:20px;
+    }
+
+    .register-logo{
+        width:75px;
+    }
+
+    .register-card h2{
+        font-size:28px;
+    }
+
+}
+
+@media(max-width:576px){
+
+    .register-card{
+        padding:28px 20px;
+    }
+
+    .register-btn{
+        font-size:16px;
+    }
+
+}
