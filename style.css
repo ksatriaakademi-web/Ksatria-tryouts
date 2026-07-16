@@ -936,3 +936,68 @@ SCROLL REVEAL
     transform:translateY(0);
 
 }
+/*==================================================
+BACK TO TOP
+==================================================*/
+
+#backToTop{
+
+    position:fixed;
+
+    right:30px;
+
+    bottom:30px;
+
+    width:55px;
+
+    height:55px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:#FFC83D;
+
+    color:#081F4D;
+
+    font-size:22px;
+
+    cursor:pointer;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    box-shadow:0 12px 30px rgba(0,0,0,.25);
+
+    opacity:0;
+
+    visibility:hidden;
+
+    transform:translateY(20px);
+
+    transition:all .35s ease;
+
+    z-index:9999;
+
+}
+
+#backToTop:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:0 20px 40px rgba(255,200,61,.35);
+
+}
+
+#backToTop.show{
+
+    opacity:1;
+
+    visibility:visible;
+
+    transform:translateY(0);
+
+}
