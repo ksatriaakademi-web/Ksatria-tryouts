@@ -515,6 +515,194 @@ font-size:32px;
 
 }
 
+/* ================================= */
+/* PART 1B */
+/* KEUNGGULAN */
+/* ================================= */
+
+.features{
+    padding:100px 0;
+    background:#0c275d;
+}
+
+.section-title{
+    font-size:42px;
+    font-weight:700;
+    color:#ffffff;
+}
+
+.section-title span{
+    color:#ffc83d;
+}
+
+.section-subtitle{
+    color:#cfd8ea;
+    font-size:18px;
+    margin-top:15px;
+}
+
+.feature-card{
+
+    background:#102b63;
+
+    border-radius:20px;
+
+    padding:35px 25px;
+
+    text-align:center;
+
+    transition:.35s;
+
+    height:100%;
+
+    border:1px solid rgba(255,255,255,.08);
+
+}
+
+.feature-card:hover{
+
+    transform:translateY(-10px);
+
+    border-color:#ffc83d;
+
+    box-shadow:0 15px 35px rgba(0,0,0,.30);
+
+}
+
+.feature-icon{
+
+    font-size:55px;
+
+    margin-bottom:20px;
+
+}
+
+.feature-card h4{
+
+    color:#fff;
+
+    margin-bottom:15px;
+
+    font-weight:600;
+
+}
+
+.feature-card p{
+
+    color:#d7d7d7;
+
+    font-size:15px;
+
+    line-height:1.7;
+
+}
+
+/* ================================= */
+/* STATISTIK */
+/* ================================= */
+
+.statistics{
+
+    padding:90px 0;
+
+    background:#081f4d;
+
+}
+
+.stat-card{
+
+    background:#102b63;
+
+    padding:35px;
+
+    border-radius:20px;
+
+    transition:.3s;
+
+}
+
+.stat-card:hover{
+
+    transform:translateY(-8px);
+
+    background:#143878;
+
+}
+
+.stat-card h2{
+
+    color:#ffc83d;
+
+    font-size:42px;
+
+    font-weight:700;
+
+}
+
+.stat-card p{
+
+    color:#e3e3e3;
+
+    margin-top:10px;
+
+}
+
+/* ================================= */
+/* PROGRAM */
+/* ================================= */
+
+.program{
+
+    padding:100px 0;
+
+    background:#0d2a66;
+
+}
+
+.program-card{
+
+    background:#102b63;
+
+    padding:40px 30px;
+
+    border-radius:20px;
+
+    text-align:center;
+
+    transition:.3s;
+
+    height:100%;
+
+}
+
+.program-card:hover{
+
+    transform:translateY(-10px);
+
+    box-shadow:0 20px 40px rgba(0,0,0,.35);
+
+}
+
+.program-card h3{
+
+    color:#ffc83d;
+
+    margin-bottom:20px;
+
+    font-size:28px;
+
+    font-weight:700;
+
+}
+
+.program-card p{
+
+    color:#d9d9d9;
+
+    line-height:1.8;
+
+    margin-bottom:25px;
+
 }
 
 /* ================================= */
