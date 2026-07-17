@@ -1,1 +1,1000 @@
+/* ==========================================
+   KSATRIA AKADEMI
+   CBT V2 CSS
+========================================== */
 
+
+:root{
+
+    --primary:#0B1F3A;
+
+    --secondary:#F4B400;
+
+    --white:#FFFFFF;
+
+    --background:#F4F7FB;
+
+    --text:#1E293B;
+
+    --gray:#64748B;
+
+    --danger:#EF4444;
+
+    --success:#22C55E;
+
+    --border:#E2E8F0;
+
+    --shadow:
+    0 15px 40px rgba(0,0,0,.08);
+
+}
+
+
+
+*{
+
+    margin:0;
+
+    padding:0;
+
+    box-sizing:border-box;
+
+}
+
+
+
+body{
+
+    font-family:'Poppins',sans-serif;
+
+    background:var(--background);
+
+    color:var(--text);
+
+    min-height:100vh;
+
+}
+
+
+
+/* ==========================================
+        Header CBT
+========================================== */
+
+
+.cbt-header{
+
+    background:white;
+
+    padding:18px 25px;
+
+    box-shadow:0 5px 20px rgba(0,0,0,.06);
+
+    position:sticky;
+
+    top:0;
+
+    z-index:100;
+
+}
+
+
+
+.cbt-navbar{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:20px;
+
+}
+
+
+
+/* Brand */
+
+
+.cbt-brand{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+}
+
+
+
+.cbt-brand img{
+
+    width:55px;
+
+    height:55px;
+
+    object-fit:contain;
+
+}
+
+
+
+.cbt-brand h4{
+
+    margin:0;
+
+    font-size:1.1rem;
+
+    font-weight:800;
+
+    color:var(--primary);
+
+}
+
+
+
+.cbt-brand span{
+
+    color:var(--gray);
+
+    font-size:.85rem;
+
+}
+
+
+
+/* Exam Info */
+
+
+.exam-info{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:20px;
+
+}
+
+
+
+.program-name{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    color:var(--primary);
+
+    font-weight:700;
+
+}
+
+
+
+.program-name i{
+
+    color:var(--secondary);
+
+}
+
+
+
+/* Timer */
+
+
+.timer-box{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    background:var(--primary);
+
+    color:white;
+
+    padding:12px 22px;
+
+    border-radius:50px;
+
+    font-size:1.1rem;
+
+    font-weight:700;
+
+}
+
+
+
+.timer-box i{
+
+    color:var(--secondary);
+
+}
+/* ==========================================
+   Main Layout
+========================================== */
+
+.cbt-container{
+
+    padding:35px 20px 50px;
+
+}
+
+.question-card{
+
+    background:var(--white);
+
+    border-radius:22px;
+
+    padding:35px;
+
+    box-shadow:var(--shadow);
+
+}
+
+/* ==========================================
+   Question Header
+========================================== */
+
+.question-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    flex-wrap:wrap;
+
+    gap:15px;
+
+    margin-bottom:30px;
+
+    padding-bottom:18px;
+
+    border-bottom:1px solid var(--border);
+
+}
+
+.question-number{
+
+    font-size:1rem;
+
+    font-weight:700;
+
+    color:var(--primary);
+
+}
+
+.question-status{
+
+    background:#FFF7E6;
+
+    color:#B7791F;
+
+    padding:8px 16px;
+
+    border-radius:50px;
+
+    font-size:.9rem;
+
+    font-weight:600;
+
+}
+
+.question-status i{
+
+    margin-right:6px;
+
+}
+
+/* ==========================================
+   Question
+========================================== */
+
+.question-content{
+
+    margin-bottom:35px;
+
+}
+
+.question-content h3{
+
+    font-size:1.35rem;
+
+    line-height:1.8;
+
+    font-weight:600;
+
+    color:var(--text);
+
+}
+
+/* ==========================================
+   Answer List
+========================================== */
+
+.answer-list{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+}
+
+.answer-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+    padding:18px 22px;
+
+    border:2px solid var(--border);
+
+    border-radius:18px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    background:white;
+
+}
+
+.answer-item:hover{
+
+    border-color:var(--secondary);
+
+    transform:translateY(-2px);
+
+    box-shadow:0 12px 28px rgba(0,0,0,.06);
+
+}
+
+.answer-item input{
+
+    display:none;
+
+}
+
+.option-letter{
+
+    width:42px;
+
+    height:42px;
+
+    border-radius:50%;
+
+    background:var(--primary);
+
+    color:white;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-weight:700;
+
+    flex-shrink:0;
+
+}
+
+.option-text{
+
+    flex:1;
+
+    font-size:1rem;
+
+    color:var(--text);
+
+    line-height:1.6;
+
+}
+
+/* Jawaban terpilih */
+
+.answer-item:has(input:checked){
+
+    border-color:var(--secondary);
+
+    background:#FFF8E8;
+
+}
+
+.answer-item:has(input:checked) .option-letter{
+
+    background:var(--secondary);
+
+    color:var(--primary);
+
+}
+
+/* ==========================================
+   Navigation
+========================================== */
+
+.question-navigation{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-top:40px;
+
+}
+
+.nav-btn{
+
+    border:none;
+
+    padding:14px 28px;
+
+    border-radius:14px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.previous-btn{
+
+    background:#E5E7EB;
+
+    color:var(--text);
+
+}
+
+.previous-btn:hover{
+
+    background:#D1D5DB;
+
+}
+
+.next-btn{
+
+    background:var(--primary);
+
+    color:white;
+
+}
+
+.next-btn:hover{
+
+    background:#08172D;
+
+}
+/* ==========================================
+   Question Panel
+========================================== */
+
+.question-panel{
+
+    background:white;
+
+    border-radius:22px;
+
+    padding:25px;
+
+    box-shadow:var(--shadow);
+
+    position:sticky;
+
+    top:100px;
+
+}
+
+
+
+.panel-header{
+
+    padding-bottom:18px;
+
+    border-bottom:1px solid var(--border);
+
+    margin-bottom:25px;
+
+}
+
+
+
+.panel-header h5{
+
+    margin:0;
+
+    color:var(--primary);
+
+    font-weight:700;
+
+}
+
+
+
+.panel-header i{
+
+    color:var(--secondary);
+
+    margin-right:8px;
+
+}
+
+
+
+/* ==========================================
+   Number Grid
+========================================== */
+
+
+.number-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(5,1fr);
+
+    gap:12px;
+
+}
+
+
+
+.number-item{
+
+    width:100%;
+
+    aspect-ratio:1/1;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#F1F5F9;
+
+    color:var(--text);
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+
+
+.number-item:hover{
+
+    transform:translateY(-3px);
+
+}
+
+
+
+/* Soal aktif */
+
+.number-item.active{
+
+    background:var(--primary);
+
+    color:white;
+
+}
+
+
+
+/* Soal sudah dijawab */
+
+.number-item.answered{
+
+    background:var(--success);
+
+    color:white;
+
+}
+
+
+
+/* ==========================================
+   Status Info
+========================================== */
+
+
+.status-info{
+
+    margin-top:30px;
+
+    padding-top:25px;
+
+    border-top:1px solid var(--border);
+
+}
+
+
+
+.status-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    margin-bottom:15px;
+
+    color:var(--gray);
+
+    font-size:.9rem;
+
+}
+
+
+
+.status-color{
+
+    width:14px;
+
+    height:14px;
+
+    border-radius:50%;
+
+}
+
+
+
+.status-color.unanswered{
+
+    background:#CBD5E1;
+
+}
+
+
+
+.status-color.answered{
+
+    background:var(--success);
+
+}
+
+
+
+.status-color.current{
+
+    background:var(--primary);
+
+}
+
+
+
+/* ==========================================
+   Finish Button
+========================================== */
+
+
+.finish-btn{
+
+    width:100%;
+
+    margin-top:25px;
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:16px;
+
+    background:linear-gradient(
+        135deg,
+        #DC2626,
+        #EF4444
+    );
+
+    color:white;
+
+    font-weight:700;
+
+    font-size:1rem;
+
+    transition:.3s;
+
+}
+
+
+
+.finish-btn i{
+
+    margin-right:8px;
+
+}
+
+
+
+.finish-btn:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 15px 30px rgba(239,68,68,.25);
+
+}
+
+
+
+/* ==========================================
+   Footer
+========================================== */
+
+
+.cbt-footer{
+
+    text-align:center;
+
+    padding:25px;
+
+    background:white;
+
+    border-top:1px solid var(--border);
+
+}
+
+
+
+.cbt-footer p{
+
+    margin-bottom:5px;
+
+    color:var(--primary);
+
+    font-weight:700;
+
+}
+
+
+
+.cbt-footer span{
+
+    color:var(--gray);
+
+    font-size:.9rem;
+
+}
+/* ==========================================
+   Responsive Design
+========================================== */
+
+
+@media(max-width:992px){
+
+
+    .cbt-navbar{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+    }
+
+
+    .exam-info{
+
+        width:100%;
+
+        justify-content:space-between;
+
+    }
+
+
+    .question-panel{
+
+        position:relative;
+
+        top:0;
+
+    }
+
+
+    .number-grid{
+
+        grid-template-columns:repeat(8,1fr);
+
+    }
+
+
+}
+
+
+
+
+
+@media(max-width:768px){
+
+
+    .cbt-header{
+
+        padding:15px;
+
+    }
+
+
+    .cbt-brand img{
+
+        width:45px;
+
+        height:45px;
+
+    }
+
+
+    .cbt-brand h4{
+
+        font-size:.95rem;
+
+    }
+
+
+    .cbt-brand span{
+
+        font-size:.75rem;
+
+    }
+
+
+    .exam-info{
+
+        flex-direction:column;
+
+        align-items:stretch;
+
+        gap:12px;
+
+    }
+
+
+    .program-name{
+
+        justify-content:center;
+
+    }
+
+
+    .timer-box{
+
+        justify-content:center;
+
+        width:100%;
+
+    }
+
+
+    .cbt-container{
+
+        padding:20px 12px;
+
+    }
+
+
+    .question-card{
+
+        padding:22px;
+
+        border-radius:18px;
+
+    }
+
+
+    .question-content h3{
+
+        font-size:1.1rem;
+
+    }
+
+
+    .answer-item{
+
+        padding:15px;
+
+        gap:12px;
+
+    }
+
+
+    .option-letter{
+
+        width:35px;
+
+        height:35px;
+
+        font-size:.9rem;
+
+    }
+
+
+    .option-text{
+
+        font-size:.9rem;
+
+    }
+
+
+    .question-navigation{
+
+        flex-direction:column;
+
+        gap:15px;
+
+    }
+
+
+    .nav-btn{
+
+        width:100%;
+
+    }
+
+
+    .number-grid{
+
+        grid-template-columns:repeat(5,1fr);
+
+    }
+
+
+}
+
+
+
+
+
+@media(max-width:480px){
+
+
+    .cbt-brand{
+
+        gap:10px;
+
+    }
+
+
+    .question-header{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+    }
+
+
+    .question-status{
+
+        font-size:.8rem;
+
+    }
+
+
+    .number-grid{
+
+        grid-template-columns:repeat(4,1fr);
+
+    }
+
+
+    .finish-btn{
+
+        font-size:.9rem;
+
+    }
+
+
+}
