@@ -1,1 +1,49 @@
+{
+    "title": "Demo Tryout SKD KSATRIA AKADEMI",
 
+    "category": "SKD",
+
+    "duration": 60,
+
+    "totalQuestion": 60,
+
+    "questions": [
+        {
+            "id": 1,
+
+            "type": "TWK",
+
+            "question": "Indonesia merdeka pada tanggal?",
+
+            "options": [
+                "17 Agustus 1945",
+                "20 Mei 1908",
+                "28 Oktober 1928",
+                "1 Juni 1945"
+            ],
+
+            "answer": "A",
+
+            "explanation": "Proklamasi Kemerdekaan Indonesia dibacakan oleh Soekarno pada tanggal 17 Agustus 1945."
+        },
+
+        {
+            "id": 2,
+
+            "type": "TWK",
+
+            "question": "Dasar negara Indonesia adalah?",
+
+            "options": [
+                "UUD 1945",
+                "Pancasila",
+                "Bhinneka Tunggal Ika",
+                "NKRI"
+            ],
+
+            "answer": "B",
+
+            "explanation": "Pancasila merupakan dasar negara Republik Indonesia."
+        }
+    ]
+}
