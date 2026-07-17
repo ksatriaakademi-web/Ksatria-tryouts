@@ -1,1 +1,524 @@
+/* ===================================================
+   KSATRIA AKADEMI
+   STYLE.CSS
+=================================================== */
 
+/* ==========================
+   RESET
+========================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:#081F4D;
+    color:#ffffff;
+    overflow-x:hidden;
+}
+
+/* ==========================
+   SECTION
+========================== */
+
+section{
+    position:relative;
+    padding:90px 0;
+}
+
+.section-title{
+    font-size:40px;
+    font-weight:800;
+    margin-bottom:15px;
+}
+
+.section-title+p{
+    color:#d8d8d8;
+}
+
+/* ==========================
+   NAVBAR
+========================== */
+
+.navbar{
+    background:rgba(8,31,77,.94);
+    backdrop-filter:blur(12px);
+    transition:.3s;
+    padding:18px 0;
+}
+
+.logo{
+    width:65px;
+}
+
+.navbar-brand h3{
+    margin:0;
+    font-size:22px;
+    font-weight:700;
+    color:#fff;
+}
+
+.navbar-brand span{
+    color:#d8d8d8;
+    font-size:13px;
+}
+
+.nav-link{
+    color:#fff!important;
+    margin:0 10px;
+    font-weight:500;
+    transition:.3s;
+}
+
+.nav-link:hover{
+    color:#FFC83D!important;
+}
+
+.btn-login{
+    background:#FFC83D;
+    color:#081F4D;
+    font-weight:700;
+    border-radius:35px;
+    padding:10px 24px;
+}
+
+.btn-login:hover{
+    background:#FFD75D;
+}
+
+/* ==========================
+   HERO
+========================== */
+
+.hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    padding-top:170px;
+}
+
+.hero-badge{
+    display:inline-block;
+    background:#FFC83D;
+    color:#081F4D;
+    padding:10px 18px;
+    border-radius:30px;
+    font-weight:600;
+    margin-bottom:25px;
+}
+
+.hero-title{
+    font-size:60px;
+    font-weight:800;
+    line-height:1.2;
+    margin-bottom:25px;
+}
+
+.hero-title span{
+    color:#FFC83D;
+}
+
+.hero-desc{
+    color:#d7d7d7;
+    font-size:18px;
+    line-height:1.9;
+    margin-bottom:35px;
+}
+
+.hero-button{
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.hero-image{
+    width:100%;
+    max-width:480px;
+    display:block;
+    margin:auto;
+    animation:float 4s ease-in-out infinite;
+}
+
+/* ==========================
+   BUTTON
+========================== */
+
+.btn-warning{
+    background:#FFC83D;
+    color:#081F4D;
+    border:none;
+    border-radius:35px;
+    padding:14px 30px;
+    font-weight:700;
+}
+
+.btn-warning:hover{
+    background:#FFD75D;
+    color:#081F4D;
+}
+
+.btn-outline-light{
+    border-radius:35px;
+    padding:14px 30px;
+    font-weight:600;
+}
+/* ===================================================
+   COUNTER
+=================================================== */
+
+.counter{
+    background:#0B275F;
+}
+
+.counter-box{
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:20px;
+    padding:30px 20px;
+    transition:.35s;
+    height:100%;
+}
+
+.counter-box:hover{
+    transform:translateY(-8px);
+    border-color:#FFC83D;
+    box-shadow:0 20px 35px rgba(0,0,0,.30);
+}
+
+.counter-box h2{
+    color:#FFC83D;
+    font-size:42px;
+    font-weight:800;
+    margin-bottom:10px;
+}
+
+.counter-box p{
+    margin:0;
+    color:#ddd;
+}
+
+/* ===================================================
+   PROGRAM & CARD
+=================================================== */
+
+.program{
+    background:#081F4D;
+}
+
+.exam-card{
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:22px;
+    padding:30px 22px;
+    text-align:center;
+    transition:.35s;
+    height:100%;
+}
+
+.exam-card:hover{
+    transform:translateY(-8px);
+    background:#12316D;
+    border-color:#FFC83D;
+    box-shadow:0 20px 35px rgba(0,0,0,.35);
+}
+
+.exam-icon{
+    font-size:48px;
+    margin-bottom:18px;
+}
+
+.exam-card h5{
+    font-weight:700;
+    margin-bottom:15px;
+}
+
+.exam-card p{
+    color:#d7d7d7;
+    line-height:1.8;
+    margin:0;
+}
+
+/* ===================================================
+   KEUNGGULAN
+=================================================== */
+
+#keunggulan{
+    background:#0B275F;
+}
+
+/* ===================================================
+   TESTIMONI
+=================================================== */
+
+#testimoni{
+    background:#081F4D;
+}
+
+#testimoni .exam-card small{
+    color:#FFC83D;
+}
+/* ===================================================
+   FAQ
+=================================================== */
+
+#faq{
+    background:#0B275F;
+}
+
+.accordion{
+    --bs-accordion-bg:rgba(255,255,255,.08);
+    --bs-accordion-border-color:rgba(255,255,255,.08);
+    --bs-accordion-btn-bg:rgba(255,255,255,.08);
+    --bs-accordion-active-bg:#12316D;
+    --bs-accordion-active-color:#FFC83D;
+    --bs-accordion-color:#ffffff;
+    --bs-accordion-btn-color:#ffffff;
+}
+
+.accordion-item{
+    border-radius:14px !important;
+    overflow:hidden;
+    margin-bottom:15px;
+}
+
+.accordion-button{
+    font-weight:600;
+    box-shadow:none !important;
+}
+
+.accordion-button:not(.collapsed){
+    box-shadow:none;
+}
+
+.accordion-body{
+    color:#d8d8d8;
+    line-height:1.8;
+}
+
+/* ===================================================
+   CTA
+=================================================== */
+
+.cta{
+    background:linear-gradient(135deg,#102B63,#081F4D);
+    text-align:center;
+}
+
+.cta h2{
+    font-size:42px;
+    font-weight:800;
+    margin-bottom:20px;
+}
+
+.cta p{
+    color:#d8d8d8;
+    max-width:700px;
+    margin:auto auto 35px;
+}
+
+/* ===================================================
+   FOOTER
+=================================================== */
+
+footer{
+    background:#06173B;
+    border-top:1px solid rgba(255,255,255,.08);
+}
+
+footer p{
+    color:#cfcfcf;
+    margin:0;
+}
+
+/* ===================================================
+   BACK TO TOP
+=================================================== */
+
+.back-to-top{
+    position:fixed;
+    right:25px;
+    bottom:25px;
+    width:50px;
+    height:50px;
+    border:none;
+    border-radius:50%;
+    background:#FFC83D;
+    color:#081F4D;
+    font-size:22px;
+    cursor:pointer;
+    display:none;
+    transition:.3s;
+    z-index:999;
+}
+
+.back-to-top:hover{
+    transform:translateY(-5px);
+    background:#FFD75D;
+}
+
+/* ===================================================
+   ANIMATION
+=================================================== */
+
+@keyframes float{
+
+    0%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-15px);
+    }
+
+    100%{
+        transform:translateY(0);
+    }
+
+}
+
+.fade-up{
+    animation:fadeUp .8s ease;
+}
+
+@keyframes fadeUp{
+
+    from{
+        opacity:0;
+        transform:translateY(30px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+/* ===================================================
+   RESPONSIVE
+=================================================== */
+
+@media (max-width:991px){
+
+    .navbar{
+        padding:15px 0;
+    }
+
+    .navbar-collapse{
+        margin-top:20px;
+        background:#102B63;
+        padding:20px;
+        border-radius:18px;
+    }
+
+    .nav-link{
+        margin:10px 0;
+    }
+
+    .hero{
+        text-align:center;
+        padding-top:150px;
+    }
+
+    .hero-title{
+        font-size:46px;
+    }
+
+    .hero-button{
+        justify-content:center;
+    }
+
+    .hero-image{
+        max-width:380px;
+        margin-top:50px;
+    }
+
+}
+
+@media (max-width:768px){
+
+    section{
+        padding:70px 0;
+    }
+
+    .section-title{
+        font-size:32px;
+    }
+
+    .hero-title{
+        font-size:38px;
+    }
+
+    .hero-desc{
+        font-size:16px;
+    }
+
+    .counter-box h2{
+        font-size:34px;
+    }
+
+    .exam-card{
+        padding:25px 18px;
+    }
+
+    .logo{
+        width:50px;
+    }
+
+    .navbar-brand h3{
+        font-size:18px;
+    }
+
+    .navbar-brand span{
+        font-size:12px;
+    }
+
+}
+
+@media (max-width:576px){
+
+    .hero{
+        padding-top:130px;
+    }
+
+    .hero-title{
+        font-size:30px;
+    }
+
+    .hero-badge{
+        font-size:14px;
+        padding:8px 16px;
+    }
+
+    .hero-button{
+        flex-direction:column;
+    }
+
+    .btn-warning,
+    .btn-outline-light,
+    .btn-login{
+        width:100%;
+    }
+
+    .hero-image{
+        max-width:280px;
+    }
+
+    .back-to-top{
+        width:45px;
+        height:45px;
+        right:18px;
+        bottom:18px;
+    }
+
+}
+
+/* ===================================================
+   END OF FILE
+=================================================== */
