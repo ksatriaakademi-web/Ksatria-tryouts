@@ -1,1 +1,315 @@
+/* ==========================================
+   KSATRIA AKADEMI
+   CERTIFICATE
+========================================== */
 
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    font-family:"Poppins",sans-serif;
+
+    background:#eceff3;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    min-height:100vh;
+
+    padding:40px;
+
+}
+
+
+/* ==========================================
+   KERTAS
+========================================== */
+
+.certificate{
+
+    width:1123px;
+    height:794px;
+
+    background:#fff;
+
+    position:relative;
+
+    overflow:hidden;
+
+    border:14px solid #0d2f5b;
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.15);
+
+}
+
+
+/* ==========================================
+   BORDER DALAM
+========================================== */
+
+.certificate::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:18px;
+
+    border:2px solid #d7b65d;
+
+}
+
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.header{
+
+    text-align:center;
+
+    margin-top:40px;
+
+}
+
+.logo{
+
+    width:140px;
+
+    margin-bottom:10px;
+
+}
+
+.title{
+
+    font-size:42px;
+
+    font-weight:700;
+
+    color:#0d2f5b;
+
+    letter-spacing:4px;
+
+}
+
+.subtitle{
+
+    margin-top:5px;
+
+    font-size:15px;
+
+    color:#777;
+
+}
+
+
+/* ==========================================
+   NAMA
+========================================== */
+
+.name{
+
+    margin-top:45px;
+
+    text-align:center;
+
+}
+
+.name h2{
+
+    font-size:42px;
+
+    color:#0d2f5b;
+
+    font-weight:700;
+
+    border-bottom:2px solid #d7b65d;
+
+    display:inline-block;
+
+    padding:8px 45px;
+
+}
+
+
+/* ==========================================
+   NARASI
+========================================== */
+
+.description{
+
+    width:82%;
+
+    margin:35px auto;
+
+    text-align:center;
+
+    font-size:17px;
+
+    line-height:34px;
+
+    color:#444;
+
+}
+
+
+/* ==========================================
+   FOOTER
+========================================== */
+
+.footer{
+
+    position:absolute;
+
+    left:70px;
+
+    right:70px;
+
+    bottom:55px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-end;
+
+}
+
+
+/* ==========================================
+   TANGGAL
+========================================== */
+
+.date{
+
+    font-size:16px;
+
+    color:#444;
+
+}
+
+.date strong{
+
+    display:block;
+
+    margin-top:10px;
+
+}
+
+
+/* ==========================================
+   TANDA TANGAN
+========================================== */
+
+.signature{
+
+    text-align:center;
+
+    position:relative;
+
+}
+
+.signature img.signature-image{
+
+    width:180px;
+
+    margin-bottom:-10px;
+
+}
+
+.signature h4{
+
+    font-size:18px;
+
+    color:#0d2f5b;
+
+    margin-top:10px;
+
+}
+
+.signature p{
+
+    font-size:14px;
+
+    color:#666;
+
+}
+
+
+/* ==========================================
+   STEMPEL
+========================================== */
+
+.stamp{
+
+    position:absolute;
+
+    left:-80px;
+
+    top:25px;
+
+    width:120px;
+
+    opacity:.9;
+
+}
+
+
+/* ==========================================
+   WATERMARK
+========================================== */
+
+.watermark{
+
+    position:absolute;
+
+    inset:0;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    pointer-events:none;
+
+}
+
+.watermark img{
+
+    width:420px;
+
+    opacity:.04;
+
+}
+
+
+/* ==========================================
+   PRINT
+========================================== */
+
+@media print{
+
+    body{
+
+        background:#fff;
+
+        padding:0;
+
+    }
+
+    .certificate{
+
+        box-shadow:none;
+
+        border:none;
+
+    }
+
+}
