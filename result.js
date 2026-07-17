@@ -1,7 +1,6 @@
 /* ==========================================
    KSATRIA AKADEMI
-   RESULT V2 JAVASCRIPT
-   PART 1
+   RESULT V2 FINAL JAVASCRIPT
 ========================================== */
 
 
@@ -11,9 +10,9 @@ function(){
 
 
 
-// ==========================================
-// Ambil Data Hasil CBT
-// ==========================================
+// ===============================
+// AMBIL DATA HASIL
+// ===============================
 
 
 const resultData =
@@ -28,32 +27,28 @@ sessionStorage.getItem(
 
 
 
-
-
 if(!resultData){
 
 
-    alert(
-        "Data hasil ujian tidak ditemukan."
-    );
+alert(
+"Data hasil tidak ditemukan"
+);
 
 
-    window.location.href =
-    "index.html";
+window.location.href =
+"index.html";
 
 
-    return;
+return;
 
 
 }
 
 
 
-
-
-// ==========================================
-// Data Peserta
-// ==========================================
+// ===============================
+// DATA PESERTA
+// ===============================
 
 
 const participant =
@@ -85,54 +80,61 @@ participant.program || "-";
 
 
 
-
-
-// ==========================================
-// Tanggal Ujian
-// ==========================================
-
-
 document.getElementById(
 "examDate"
 ).innerText =
 
-resultData.date;
+resultData.date || "-";
 
 
 
 
 
-// ==========================================
-// Statistik Nilai
-// ==========================================
+
+// ===============================
+// NILAI
+// ===============================
 
 
-const scoreData =
+const result =
 resultData.result;
+
+
+
+const score =
+result.score;
+
+
+
+const correct =
+result.correct;
+
+
+
+const wrong =
+result.wrong;
+
 
 
 
 document.getElementById(
 "score"
 ).innerText =
-
-scoreData.score;
+score;
 
 
 
 document.getElementById(
 "correctAnswer"
 ).innerText =
-
-scoreData.correct;
+correct;
 
 
 
 document.getElementById(
 "wrongAnswer"
 ).innerText =
-
-scoreData.wrong;
+wrong;
 
 
 
@@ -140,17 +142,19 @@ document.getElementById(
 "totalAnswer"
 ).innerText =
 
-scoreData.correct +
-scoreData.wrong;
+correct + wrong;
 
 
 
-// ==========================================
-// Status Nilai
-// ==========================================
 
 
-const statusText =
+
+// ===============================
+// STATUS NILAI
+// ===============================
+
+
+const statusElement =
 
 document.getElementById(
 "statusText"
@@ -158,29 +162,29 @@ document.getElementById(
 
 
 
-if(scoreData.score >= 90){
+if(score >= 90){
 
 
-    statusText.innerText =
-    "Sangat Baik";
-
-
-}
-
-else if(scoreData.score >= 75){
-
-
-    statusText.innerText =
-    "Baik";
+statusElement.innerText =
+"Sangat Baik";
 
 
 }
 
-else if(scoreData.score >= 60){
+else if(score >=75){
 
 
-    statusText.innerText =
-    "Cukup";
+statusElement.innerText =
+"Baik";
+
+
+}
+
+else if(score >=60){
+
+
+statusElement.innerText =
+"Cukup";
 
 
 }
@@ -188,8 +192,8 @@ else if(scoreData.score >= 60){
 else{
 
 
-    statusText.innerText =
-    "Perlu Latihan";
+statusElement.innerText =
+"Perlu Latihan";
 
 
 }
@@ -197,68 +201,97 @@ else{
 
 
 
-});
-// ==========================================
-// Animasi Nilai
-// ==========================================
 
 
-const scoreElement =
+// ===============================
+// ANIMASI NILAI
+// ===============================
+
+
+let count = 0;
+
+
+
+const animation =
+
+setInterval(
+function(){
+
+
 document.getElementById(
-    "score"
+"score"
+).innerText =
+count;
+
+
+
+count++;
+
+
+
+if(count > score){
+
+
+clearInterval(animation);
+
+
+
+document.getElementById(
+"score"
+).innerText =
+score;
+
+
+
+}
+
+
+
+},
+20);
+
+
+
+
+
+
+// ===============================
+// TOMBOL KEMBALI
+// ===============================
+
+
+const homeBtn =
+
+document.getElementById(
+"homeBtn"
 );
 
 
-let finalScore =
-Number(scoreData.score);
+
+if(homeBtn){
 
 
-
-let counter = 0;
-
-
-
-const scoreAnimation =
-
-setInterval(function(){
+homeBtn.onclick =
+function(){
 
 
-
-    scoreElement.innerText =
-    counter;
-
+window.location.href =
+"index.html";
 
 
-    counter++;
+};
 
 
-
-    if(counter > finalScore){
-
-
-        clearInterval(
-            scoreAnimation
-        );
-
-
-        scoreElement.innerText =
-        finalScore;
-
-
-    }
-
-
-
-},20);
+}
 
 
 
 
 
 
-// ==========================================
-// Tombol Pembahasan
-// ==========================================
+// ===============================
+// TOMBOL PEMBAHASAN
+// ===============================
 
 
 const discussionBtn =
@@ -269,64 +302,22 @@ document.getElementById(
 
 
 
-discussionBtn.addEventListener(
-"click",
+if(discussionBtn){
+
+
+discussionBtn.onclick =
 function(){
 
 
-
-    alert(
-
-    "Pembahasan soal akan tersedia setelah sistem bank soal selesai."
-
-    );
-
-
-});
-
-
-
-
-
-
-// ==========================================
-// Efek Card Masuk
-// ==========================================
-
-
-const card =
-
-document.querySelector(
-".result-card"
+alert(
+"Pembahasan akan tersedia setelah bank soal selesai."
 );
 
 
-
-card.style.opacity = "0";
-
-card.style.transform =
-"translateY(30px)";
+};
 
 
-
-setTimeout(function(){
-
-
-    card.style.transition =
-    "0.6s ease";
-
-
-    card.style.opacity =
-    "1";
-
-
-    card.style.transform =
-    "translateY(0)";
-
-
-
-},100);
-
+}
 
 
 
