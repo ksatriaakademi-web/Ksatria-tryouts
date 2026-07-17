@@ -1,53 +1,65 @@
 /* ==========================================
    KSATRIA AKADEMI
-   CERTIFICATE
+   CERTIFICATE JS V2
+   PART 1 OF 2
 ========================================== */
 
 document.addEventListener(
-"DOMContentLoaded",
-function(){
+    "DOMContentLoaded",
+    function(){
 
 
-/* ==========================================
-   Ambil Data
-========================================== */
+
+// ==========================================
+// AMBIL HASIL TRYOUT
+// ==========================================
 
 const resultData =
 JSON.parse(
 sessionStorage.getItem(
 "ksatriaResult"
-));
+)
+);
 
+
+
+// ==========================================
+// VALIDASI
+// ==========================================
 
 if(!resultData){
 
-alert(
-"Data sertifikat tidak ditemukan."
-);
+    alert(
+        "Data sertifikat tidak ditemukan."
+    );
 
-window.location.href="index.html";
+    window.location.href =
+    "index.html";
 
-return;
+    return;
 
 }
 
 
-/* ==========================================
-   Shortcut
-========================================== */
+
+// ==========================================
+// DATA PESERTA
+// ==========================================
 
 const participant =
 resultData.participant;
 
 
-/* ==========================================
-   Isi Data Sertifikat
-========================================== */
+
+// ==========================================
+// TAMPILKAN DATA
+// ==========================================
 
 document.getElementById(
 "participantName"
 ).innerText =
 participant.name;
+
 
 
 document.getElementById(
@@ -56,10 +68,12 @@ document.getElementById(
 participant.school;
 
 
+
 document.getElementById(
 "participantProgram"
 ).innerText =
 participant.program;
+
 
 
 document.getElementById(
@@ -68,50 +82,244 @@ document.getElementById(
 resultData.date;
 
 
-/* ==========================================
-   Nomor Sertifikat
-========================================== */
+
+// ==========================================
+// NOMOR SERTIFIKAT
+// ==========================================
 
 const today =
 new Date();
+
 
 
 const year =
 today.getFullYear();
 
 
-const month =
-String(
-today.getMonth()+1
-).padStart(2,"0");
 
-
-const random =
+const randomNumber =
 Math.floor(
-1000 +
-Math.random()*9000
+100000 + Math.random()*900000
 );
+
+
+
+const certificateNumber =
+"KSA-" +
+year +
+"-" +
+randomNumber;
+
 
 
 document.getElementById(
 "certificateNumber"
 ).innerText =
-`CERT/${year}/${month}/${random}`;
+certificateNumber;
 
 
+
+});
 /* ==========================================
-   Download PDF
+   KSATRIA AKADEMI
+   CERTIFICATE JS V2
+   PART 2 OF 2
 ========================================== */
 
-const downloadBtn =
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+
+
+// ==========================================
+// AMBIL HASIL TRYOUT
+// ==========================================
+
+const resultData =
+JSON.parse(
+sessionStorage.getItem(
+"ksatriaResult"
+)
+);
+
+
+
+// ==========================================
+// VALIDASI
+// ==========================================
+
+if(!resultData){
+
+    alert(
+        "Data sertifikat tidak ditemukan."
+    );
+
+    window.location.href =
+    "index.html";
+
+    return;
+
+}
+
+
+
+// ==========================================
+// DATA PESERTA
+// ==========================================
+
+const participant =
+resultData.participant;
+
+
+
+// ==========================================
+// TAMPILKAN DATA
+// ==========================================
+
+document.getElementById(
+"participantName"
+).innerText =
+participant.name;
+
+
+
+document.getElementById(
+"participantSchool"
+).innerText =
+participant.school;
+
+
+
+document.getElementById(
+"participantProgram"
+).innerText =
+participant.program;
+
+
+
+document.getElementById(
+"certificateDate"
+).innerText =
+resultData.date;
+
+
+
+// ==========================================
+// NOMOR SERTIFIKAT
+// ==========================================
+
+const today =
+new Date();
+
+
+
+const year =
+today.getFullYear();
+
+
+
+const randomNumber =
+Math.floor(
+100000 + Math.random()*900000
+);
+
+
+
+const certificateNumber =
+"KSA-" +
+year +
+"-" +
+randomNumber;
+
+
+
+document.getElementById(
+"certificateNumber"
+).innerText =
+certificateNumber;
+
+
+
+// ==========================================
+// DOWNLOAD PDF
+// ==========================================
+
+const downloadButton =
 document.getElementById(
 "downloadCertificate"
 );
 
 
-if(downloadBtn){
 
-downloadBtn.addEventListener(
+downloadButton.addEventListener(
+"click",
+function(){
+
+
+
+const element =
+document.getElementById(
+"certificateArea"
+);
+
+
+
+const option = {
+
+margin:0,
+
+filename:
+"Sertifikat-" +
+participant.name +
+".pdf",
+
+image:{
+type:"jpeg",
+quality:1
+},
+
+html2canvas:{
+scale:2,
+useCORS:true
+},
+
+jsPDF:{
+unit:"mm",
+format:"a4",
+orientation:"landscape"
+}
+
+};
+
+
+
+html2pdf()
+
+.set(option)
+
+.from(element)
+
+.save();
+
+
+
+});
+
+
+
+// ==========================================
+// PRINT
+// ==========================================
+
+const printButton =
+document.getElementById(
+"printCertificate"
+);
+
+
+
+printButton.addEventListener(
 "click",
 function(){
 
@@ -119,31 +327,6 @@ window.print();
 
 });
 
-}
-
-
-/* ==========================================
-   Kembali
-========================================== */
-
-const backBtn =
-document.getElementById(
-"goHome"
-);
-
-
-if(backBtn){
-
-backBtn.addEventListener(
-"click",
-function(){
-
-window.location.href=
-"index.html";
-
-});
-
-}
 
 
 });
