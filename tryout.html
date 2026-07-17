@@ -1,1 +1,493 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Tryout Gratis | KSATRIA AKADEMI</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet"
+          href="tryout.css">
+
+</head>
+
+<body>
+
+    <!-- Background -->
+
+    <div class="background-shape shape-1"></div>
+
+    <div class="background-shape shape-2"></div>
+
+    <!-- Header -->
+
+    <header class="top-navbar">
+
+        <div class="container">
+
+            <div class="navbar-wrapper">
+
+                <a href="index.html"
+                   class="back-btn">
+
+                    <i class="bi bi-arrow-left-circle"></i>
+
+                    <span>Kembali ke Beranda</span>
+
+                </a>
+
+                <a href="login.html"
+                   class="login-btn">
+
+                    <i class="bi bi-box-arrow-in-right"></i>
+
+                    <span>Login Member</span>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+    <!-- Main -->
+
+    <main class="tryout-section">
+
+        <div class="container">
+
+            <div class="row justify-content-center">
+
+                <div class="col-xl-10">
+
+                    <div class="tryout-card">
+
+                        <!-- Hero -->
+
+                        <div class="hero-content">
+
+                            <img src="images/logo.png"
+                                 alt="Logo KSATRIA AKADEMI"
+                                 class="logo">
+
+                            <span class="badge bg-warning text-dark">
+
+                                TRYOUT GRATIS
+
+                            </span>
+
+                            <h1>
+
+                                KSATRIA AKADEMI
+
+                            </h1>
+
+                            <h5>
+
+                                Belajar • Berjuang • Berprestasi
+
+                            </h5>
+
+                            <p>
+
+                                Selamat datang di platform Tryout Online
+                                KSATRIA AKADEMI.
+
+                                Persiapkan kemampuanmu menghadapi seleksi
+                                Sekolah Kedinasan, SNBT, maupun Tes Bahasa
+                                melalui simulasi yang dirancang menyerupai
+                                ujian sebenarnya.
+
+                            </p>
+
+                        </div>
+
+                        <!-- Information Card -->
+
+                        <div class="info-box">
+
+                            <div class="row">
+
+                                <div class="col-md-4">
+
+                                    <div class="info-item">
+
+                                        <i class="bi bi-file-earmark-text-fill"></i>
+
+                                        <h6>Jumlah Soal</h6>
+
+                                        <p>50 Soal Demo</p>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-4">
+
+                                    <div class="info-item">
+
+                                        <i class="bi bi-clock-fill"></i>
+
+                                        <h6>Durasi</h6>
+
+                                        <p>50 Menit</p>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-4">
+
+                                    <div class="info-item">
+
+                                        <i class="bi bi-award-fill"></i>
+
+                                        <h6>Hasil</h6>
+
+                                        <p>Nilai Otomatis</p>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                                              <!-- Form -->
+
+                        <form id="tryoutForm"
+                              class="tryout-form">
+
+                            <div class="row">
+
+                                <!-- Nama -->
+
+                                <div class="col-lg-6 mb-4">
+
+                                    <label class="form-label">
+
+                                        Nama Lengkap
+
+                                    </label>
+
+                                    <div class="input-group">
+
+                                        <span class="input-group-text">
+
+                                            <i class="bi bi-person-fill"></i>
+
+                                        </span>
+
+                                        <input type="text"
+                                               class="form-control"
+                                               id="fullName"
+                                               placeholder="Masukkan nama lengkap"
+                                               autocomplete="off"
+                                               required>
+
+                                    </div>
+
+                                </div>
+
+                                <!-- Sekolah -->
+
+                                <div class="col-lg-6 mb-4">
+
+                                    <label class="form-label">
+
+                                        Asal Sekolah / Instansi
+
+                                    </label>
+
+                                    <div class="input-group">
+
+                                        <span class="input-group-text">
+
+                                            <i class="bi bi-building"></i>
+
+                                        </span>
+
+                                        <input type="text"
+                                               class="form-control"
+                                               id="school"
+                                               placeholder="Contoh : SMAN 1 Bogor"
+                                               autocomplete="off"
+                                               required>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <!-- Program -->
+
+                            <div class="mb-4">
+
+                                <label class="form-label">
+
+                                    Pilih Program Tryout
+
+                                </label>
+
+                                <div class="program-wrapper">
+
+                                    <label class="program-card">
+
+                                        <input type="radio"
+                                               name="program"
+                                               value="SKD"
+                                               checked>
+
+                                        <div class="program-content">
+
+                                            <i class="bi bi-shield-check"></i>
+
+                                            <h5>SKD</h5>
+
+                                            <p>Sekolah Kedinasan, CPNS, BUMN</p>
+
+                                        </div>
+
+                                    </label>
+
+                                    <label class="program-card">
+
+                                        <input type="radio"
+                                               name="program"
+                                               value="SNBT">
+
+                                        <div class="program-content">
+
+                                            <i class="bi bi-mortarboard-fill"></i>
+
+                                            <h5>SNBT</h5>
+
+                                            <p>Persiapan Masuk Perguruan Tinggi</p>
+
+                                        </div>
+
+                                    </label>
+
+                                    <label class="program-card">
+
+                                        <input type="radio"
+                                               name="program"
+                                               value="Bahasa">
+
+                                        <div class="program-content">
+
+                                            <i class="bi bi-translate"></i>
+
+                                            <h5>Bahasa</h5>
+
+                                            <p>Bahasa Inggris & TOEFL</p>
+
+                                        </div>
+
+                                    </label>
+
+                                </div>
+
+                            </div>
+
+                            <!-- Paket -->
+
+                            <div class="package-box">
+
+                                <div class="package-header">
+
+                                    <h4>
+
+                                        <i class="bi bi-gift-fill"></i>
+
+                                        Paket Demo Gratis
+
+                                    </h4>
+
+                                </div>
+
+                                <div class="package-body">
+
+                                    <div class="row">
+
+                                        <div class="col-md-6">
+
+                                            <ul>
+
+                                                <li>
+                                                    <i class="bi bi-check-circle-fill"></i>
+                                                    50 Soal Pilihan Ganda
+                                                </li>
+
+                                                <li>
+                                                    <i class="bi bi-check-circle-fill"></i>
+                                                    Durasi 50 Menit
+                                                </li>
+
+                                            </ul>
+
+                                        </div>
+
+                                        <div class="col-md-6">
+
+                                            <ul>
+
+                                                <li>
+                                                    <i class="bi bi-check-circle-fill"></i>
+                                                    Nilai Otomatis
+                                                </li>
+
+                                                <li>
+                                                    <i class="bi bi-check-circle-fill"></i>
+                                                    Pembahasan Soal
+                                                </li>
+
+                                            </ul>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                                                      <!-- Agreement -->
+
+                            <div class="agreement-box">
+
+                                <div class="form-check">
+
+                                    <input class="form-check-input"
+                                           type="checkbox"
+                                           id="agreement">
+
+                                    <label class="form-check-label"
+                                           for="agreement">
+
+                                        Saya menyatakan siap mengikuti tryout
+                                        dengan jujur, mandiri, dan tidak
+                                        melakukan kecurangan selama ujian
+                                        berlangsung.
+
+                                    </label>
+
+                                </div>
+
+                            </div>
+
+                            <!-- Tips -->
+
+                            <div class="tips-box">
+
+                                <h4>
+
+                                    <i class="bi bi-lightbulb-fill"></i>
+
+                                    Petunjuk Sebelum Memulai
+
+                                </h4>
+
+                                <ul>
+
+                                    <li>
+                                        Pastikan perangkat memiliki koneksi internet yang stabil.
+                                    </li>
+
+                                    <li>
+                                        Kerjakan seluruh soal secara mandiri dan jujur.
+                                    </li>
+
+                                    <li>
+                                        Timer akan mulai berjalan setelah tombol
+                                        <strong>Mulai Tryout</strong> ditekan.
+                                    </li>
+
+                                    <li>
+                                        Jangan menutup browser selama ujian berlangsung.
+                                    </li>
+
+                                    <li>
+                                        Nilai akan ditampilkan secara otomatis
+                                        setelah tryout selesai.
+                                    </li>
+
+                                </ul>
+
+                            </div>
+
+                            <!-- Button -->
+
+                            <div class="text-center mt-5">
+
+                                <button type="submit"
+                                        class="start-btn">
+
+                                    <i class="bi bi-play-circle-fill"></i>
+
+                                    Mulai Tryout
+
+                                </button>
+
+                            </div>
+
+                        </form>
+
+                        <!-- Footer -->
+
+                        <div class="tryout-footer">
+
+                            <p>
+
+                                © 2025 KSATRIA AKADEMI
+
+                            </p>
+
+                            <span>
+
+                                Belajar • Berjuang • Berprestasi
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Bootstrap JS -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JavaScript -->
+
+    <script src="tryout.js"></script>
+
+</body>
+
+</html>
 
