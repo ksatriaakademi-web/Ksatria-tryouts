@@ -8,10 +8,13 @@
     "totalQuestion": 60,
 
     "questions": [
+
         {
             "id": 1,
 
-            "type": "TWK",
+            "category": "SKD",
+
+            "subCategory": "TWK",
 
             "question": "Indonesia merdeka pada tanggal?",
 
@@ -24,15 +27,18 @@
 
             "answer": "A",
 
-            "explanation": "Proklamasi Kemerdekaan Indonesia dibacakan oleh Soekarno pada tanggal 17 Agustus 1945."
+            "explanation": "Proklamasi Kemerdekaan Indonesia dibacakan pada tanggal 17 Agustus 1945 oleh Soekarno didampingi Mohammad Hatta."
         },
+
 
         {
             "id": 2,
 
-            "type": "TWK",
+            "category": "SKD",
 
-            "question": "Dasar negara Indonesia adalah?",
+            "subCategory": "TWK",
+
+            "question": "Dasar negara Republik Indonesia adalah?",
 
             "options": [
                 "UUD 1945",
@@ -43,7 +49,53 @@
 
             "answer": "B",
 
-            "explanation": "Pancasila merupakan dasar negara Republik Indonesia."
+            "explanation": "Pancasila merupakan dasar negara Indonesia yang menjadi landasan dalam kehidupan berbangsa dan bernegara."
+        },
+
+
+        {
+            "id": 3,
+
+            "category": "SKD",
+
+            "subCategory": "TIU",
+
+            "question": "Jika semua siswa belajar rajin, maka prestasi meningkat. Andi adalah siswa yang belajar rajin. Kesimpulan yang benar adalah?",
+
+            "options": [
+                "Andi pasti berprestasi meningkat",
+                "Andi tidak belajar",
+                "Prestasi semua siswa sama",
+                "Tidak ada hubungan"
+            ],
+
+            "answer": "A",
+
+            "explanation": "Berdasarkan pernyataan umum, siswa yang belajar rajin memiliki peluang prestasi meningkat."
+        },
+
+
+        {
+            "id": 4,
+
+            "category": "SKD",
+
+            "subCategory": "TKP",
+
+            "question": "Anda mendapat tugas kelompok dengan waktu terbatas. Sikap terbaik adalah?",
+
+            "options": [
+                "Menghindari tugas",
+                "Bekerja sama dan menyelesaikan tugas",
+                "Menunggu teman bekerja",
+                "Menyalahkan anggota lain"
+            ],
+
+            "answer": "B",
+
+            "explanation": "Kerja sama dan tanggung jawab merupakan sikap profesional dalam menyelesaikan tugas."
         }
+
     ]
+
 }
