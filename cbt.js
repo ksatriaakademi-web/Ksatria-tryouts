@@ -1,69 +1,60 @@
 /* ==========================================
    KSATRIA AKADEMI
-   CBT V2 JAVASCRIPT
-   PART 1
+   CBT V2 FINAL JAVASCRIPT
 ========================================== */
 
 
-
 document.addEventListener(
-    "DOMContentLoaded",
-    function(){
+"DOMContentLoaded",
+function(){
 
 
 
-// ==========================================
-// Ambil Data Peserta
-// ==========================================
+// ===============================
+// DATA PESERTA
+// ===============================
 
 
 const participantData =
-    JSON.parse(
-        sessionStorage.getItem(
-            "ksatriaParticipant"
-        )
-    );
+
+JSON.parse(
+
+sessionStorage.getItem(
+"ksatriaParticipant"
+)
+
+);
 
 
 
 if(!participantData){
 
-    alert(
-        "Data peserta tidak ditemukan."
-    );
 
-    window.location.href =
-        "tryout.html";
+alert(
+"Data peserta tidak ditemukan"
+);
 
-    return;
+
+window.location.href =
+"tryout.html";
+
+
+return;
+
 
 }
 
 
 
-// ==========================================
-// Data Ujian
-// ==========================================
-
-
-let currentQuestion = 0;
-
-
-let answers = [];
-
-
-let totalQuestion = 5;
-
-
-// Demo soal awal
-// Nanti diganti bank soal PDF
+// ===============================
+// DATABASE SOAL
+// ===============================
 
 
 const questions = [
 
 
 {
-
 question:
 "Indonesia merdeka pada tanggal?",
 
@@ -79,9 +70,7 @@ answer:"A"
 },
 
 
-
 {
-
 question:
 "Lambang negara Indonesia adalah?",
 
@@ -97,9 +86,7 @@ answer:"A"
 },
 
 
-
 {
-
 question:
 "Jumlah sila dalam Pancasila adalah?",
 
@@ -115,9 +102,7 @@ answer:"C"
 },
 
 
-
 {
-
 question:
 "Ibu kota Indonesia saat ini adalah?",
 
@@ -133,9 +118,7 @@ answer:"B"
 },
 
 
-
 {
-
 question:
 "Proklamasi kemerdekaan dibacakan oleh?",
 
@@ -156,21 +139,70 @@ answer:"A"
 
 
 
-// ==========================================
-// Set Total Soal
-// ==========================================
+
+// ===============================
+// VARIABEL UJIAN
+// ===============================
 
 
+let currentQuestion = 0;
+
+
+let answers = [];
+
+
+let timeLeft = 50 * 60;
+
+
+const totalQuestion =
+questions.length;
+
+
+
+
+
+// ===============================
+// ELEMENT HTML
+// ===============================
+
+
+const questionText =
 document.getElementById(
-    "totalQuestion"
-).innerText =
+"questionText"
+);
+
+
+const answerArea =
+document.querySelector(
+".answer-list"
+);
+
+
+const currentNumber =
+document.getElementById(
+"currentNumber"
+);
+
+
+const totalNumber =
+document.getElementById(
+"totalQuestion"
+);
+
+
+
+
+
+totalNumber.innerText =
 totalQuestion;
 
 
 
-// ==========================================
-// Tampilkan Soal
-// ==========================================
+
+
+// ===============================
+// TAMPILKAN SOAL
+// ===============================
 
 
 function loadQuestion(){
@@ -182,38 +214,22 @@ questions[currentQuestion];
 
 
 
-document.getElementById(
-    "currentNumber"
-).innerText =
+currentNumber.innerText =
 currentQuestion + 1;
 
 
 
-document.getElementById(
-    "questionText"
-).innerText =
+questionText.innerText =
 data.question;
 
 
 
-const answerArea =
-document.querySelector(
-    ".answer-list"
-);
-
-
-
-answerArea.innerHTML = "";
+answerArea.innerHTML="";
 
 
 
 const letters =
-[
-"A",
-"B",
-"C",
-"D"
-];
+["A","B","C","D"];
 
 
 
@@ -221,14 +237,34 @@ data.options.forEach(
 function(option,index){
 
 
+let checked="";
+
+
+if(
+answers[currentQuestion]
+===
+letters[index]
+){
+
+checked="checked";
+
+}
+
+
+
 answerArea.innerHTML += `
+
 
 <label class="answer-item">
 
 
 <input type="radio"
+
 name="answer"
-value="${letters[index]}">
+
+value="${letters[index]}"
+
+${checked}>
 
 
 <span class="option-letter">
@@ -247,6 +283,7 @@ ${option}
 
 </label>
 
+
 `;
 
 
@@ -254,37 +291,41 @@ ${option}
 
 
 
+updateNumber();
+
+
 }
 
 
 
-// Jalankan soal pertama
-
-loadQuestion();
 
 
-
-});
-// ==========================================
-// Simpan Jawaban
-// ==========================================
+// ===============================
+// SIMPAN JAWABAN
+// ===============================
 
 
 function saveAnswer(){
 
 
-    const selected =
-        document.querySelector(
-            'input[name="answer"]:checked'
-        );
+const selected =
+
+document.querySelector(
+'input[name="answer"]:checked'
+);
 
 
-    if(selected){
 
-        answers[currentQuestion] =
-            selected.value;
+if(selected){
 
-    }
+
+answers[currentQuestion]
+=
+selected.value;
+
+
+}
+
 
 
 }
@@ -293,107 +334,19 @@ function saveAnswer(){
 
 
 
-// ==========================================
-// Tombol Berikutnya
-// ==========================================
+
+// ===============================
+// NOMOR SOAL
+// ===============================
 
 
-const nextBtn =
-document.getElementById(
-    "nextBtn"
-);
-
-
-
-nextBtn.addEventListener(
-"click",
-function(){
-
-
-
-    saveAnswer();
-
-
-
-    if(currentQuestion < totalQuestion - 1){
-
-
-        currentQuestion++;
-
-
-        loadQuestion();
-
-
-    }else{
-
-
-        alert(
-            "Ini adalah soal terakhir."
-        );
-
-
-    }
-
-
-
-});
-
-
-
-
-
-// ==========================================
-// Tombol Sebelumnya
-// ==========================================
-
-
-const previousBtn =
-document.getElementById(
-    "previousBtn"
-);
-
-
-
-previousBtn.addEventListener(
-"click",
-function(){
-
-
-
-    saveAnswer();
-
-
-
-    if(currentQuestion > 0){
-
-
-        currentQuestion--;
-
-
-        loadQuestion();
-
-
-    }
-
-
-
-});
-
-
-
-
-
-// ==========================================
-// Update Status Nomor Soal
-// ==========================================
-
-
-function updateQuestionNumber(){
+function updateNumber(){
 
 
 const numbers =
+
 document.querySelectorAll(
-    ".number-item"
+".number-item"
 );
 
 
@@ -402,163 +355,121 @@ numbers.forEach(
 function(item,index){
 
 
-    item.classList.remove(
-        "active"
-    );
+
+item.classList.remove(
+"active"
+);
 
 
-    if(index === currentQuestion){
+
+item.classList.remove(
+"answered"
+);
 
 
-        item.classList.add(
-            "active"
-        );
+
+if(index===currentQuestion){
 
 
-    }
+item.classList.add(
+"active"
+);
 
 
-    if(answers[index]){
+}
 
 
-        item.classList.add(
-            "answered"
-        );
+
+if(answers[index]){
 
 
-    }
+item.classList.add(
+"answered"
+);
+
+
+}
+
 
 
 });
 
 
+
 }
-// ==========================================
-// TIMER UJIAN
-// ==========================================
 
 
-let timeLeft = 50 * 60; // 50 menit
 
 
-const timerElement =
+
+
+// Klik nomor soal
+
+
+document
+.querySelectorAll(
+".number-item"
+)
+.forEach(
+function(item,index){
+
+
+item.addEventListener(
+"click",
+function(){
+
+
+saveAnswer();
+
+
+currentQuestion=index;
+
+
+loadQuestion();
+
+
+});
+
+
+});
+
+
+
+
+
+
+// ===============================
+// BUTTON NEXT
+// ===============================
+
+
+const nextBtn =
+
 document.getElementById(
-    "timer"
+"nextBtn"
 );
 
 
 
-function startTimer(){
+nextBtn.onclick =
+function(){
 
 
-    const timer =
-    setInterval(function(){
-
-
-
-        let minutes =
-        Math.floor(timeLeft / 60);
+saveAnswer();
 
 
 
-        let seconds =
-        timeLeft % 60;
+if(currentQuestion <
+totalQuestion-1){
 
 
-
-        seconds =
-        seconds < 10
-        ? "0" + seconds
-        : seconds;
+currentQuestion++;
 
 
-
-        timerElement.innerText =
-        minutes + ":" + seconds;
-
-
-
-        timeLeft--;
-
-
-
-        if(timeLeft < 0){
-
-
-            clearInterval(timer);
-
-
-            finishExam();
-
-
-        }
-
-
-
-    },1000);
-
+loadQuestion();
 
 
 }
-
-
-
-startTimer();
-
-
-
-
-
-// ==========================================
-// HITUNG NILAI
-// ==========================================
-
-
-function calculateScore(){
-
-
-
-let correct = 0;
-
-
-
-questions.forEach(
-function(question,index){
-
-
-
-    if(
-        answers[index] === question.answer
-    ){
-
-        correct++;
-
-    }
-
-
-
-});
-
-
-
-let score =
-Math.round(
-    (correct / totalQuestion) * 100
-);
-
-
-
-return {
-
-
-    correct:correct,
-
-
-    wrong:
-    totalQuestion - correct,
-
-
-    score:score
 
 
 
@@ -566,48 +477,220 @@ return {
 
 
 
+
+
+
+// ===============================
+// BUTTON PREVIOUS
+// ===============================
+
+
+const previousBtn =
+
+document.getElementById(
+"previousBtn"
+);
+
+
+
+previousBtn.onclick =
+function(){
+
+
+saveAnswer();
+
+
+
+if(currentQuestion>0){
+
+
+currentQuestion--;
+
+
+loadQuestion();
+
+
+}
+
+
+
+};
+
+
+
+
+
+
+
+// ===============================
+// TIMER
+// ===============================
+
+
+const timerElement =
+
+document.getElementById(
+"timer"
+);
+
+
+
+const timer =
+
+setInterval(
+function(){
+
+
+let minute =
+Math.floor(timeLeft/60);
+
+
+
+let second =
+timeLeft%60;
+
+
+
+if(second<10){
+
+second="0"+second;
+
+}
+
+
+
+timerElement.innerText =
+
+minute + ":" + second;
+
+
+
+timeLeft--;
+
+
+
+if(timeLeft<0){
+
+
+clearInterval(timer);
+
+
+finishExam();
+
+
+}
+
+
+
+},
+1000);
+
+
+
+
+
+
+
+
+// ===============================
+// HITUNG NILAI
+// ===============================
+
+
+function calculateScore(){
+
+
+
+let correct=0;
+
+
+
+questions.forEach(
+function(item,index){
+
+
+
+if(
+answers[index]
+===
+item.answer
+){
+
+correct++;
+
+}
+
+
+
+});
+
+
+
+return {
+
+
+correct:correct,
+
+
+wrong:
+totalQuestion-correct,
+
+
+score:
+
+Math.round(
+(correct/totalQuestion)*100
+)
+
+
+};
+
+
 }
 
 
 
 
 
-// ==========================================
+
+
+// ===============================
 // SELESAI UJIAN
-// ==========================================
+// ===============================
 
 
 const finishBtn =
+
 document.getElementById(
-    "finishBtn"
+"finishBtn"
 );
 
 
 
-finishBtn.addEventListener(
-"click",
+finishBtn.onclick =
 function(){
 
 
+let confirmTest =
 
-    let confirmFinish =
-    confirm(
-        "Apakah kamu yakin ingin menyelesaikan ujian?"
-    );
-
-
-
-    if(confirmFinish){
-
-
-        finishExam();
-
-
-    }
+confirm(
+"Yakin ingin menyelesaikan ujian?"
+);
 
 
 
-});
+if(confirmTest){
+
+
+finishExam();
+
+
+}
+
+
+};
+
+
 
 
 
@@ -617,56 +700,61 @@ function finishExam(){
 
 
 
-    const result =
-    calculateScore();
+const result =
 
-
-
-
-    const finalResult = {
-
-
-
-        participant:
-        participantData,
-
-
-
-        result:result,
-
-
-
-        answers:answers,
-
-
-
-        date:
-        new Date()
-        .toLocaleDateString("id-ID")
-
-
-
-    };
-
-
-
-
-    sessionStorage.setItem(
-
-        "ksatriaResult",
-
-        JSON.stringify(finalResult)
-
-    );
+calculateScore();
 
 
 
 
 
-    window.location.href =
-    "result.html";
+sessionStorage.setItem(
+
+"ksatriaResult",
+
+JSON.stringify({
+
+participant:
+participantData,
+
+
+result:result,
+
+
+answers:answers,
+
+
+date:
+new Date()
+.toLocaleDateString(
+"id-ID"
+)
+
+
+})
+
+);
+
+
+
+
+window.location.href =
+"result.html";
 
 
 
 }
 
+
+
+
+
+
+// MULAI CBT
+
+
+loadQuestion();
+
+
+
+});
