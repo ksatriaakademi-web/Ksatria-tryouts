@@ -698,50 +698,64 @@ finishExam();
 
 function finishExam(){
 
-
-
-const result =
-
-calculateScore();
+    const result =
+    calculateScore();
 
 
 
+    // ==========================================
+    // NOMOR SERTIFIKAT
+    // ==========================================
 
+    const year =
+    new Date().getFullYear();
 
-sessionStorage.setItem(
+    const runningNumber =
+    String(Date.now()).slice(-6);
 
-"ksatriaResult",
-
-JSON.stringify({
-
-participant:
-participantData,
-
-
-result:result,
-
-
-answers:answers,
-
-
-date:
-new Date()
-.toLocaleDateString(
-"id-ID"
-)
-
-
-})
-
-);
+    const certificateNumber =
+    `KSA-TRYOUT-${year}-${runningNumber}`;
 
 
 
+    // ==========================================
+    // DATA HASIL
+    // ==========================================
 
-window.location.href =
-"result.html";
+    const finalResult = {
+
+        participant:
+        participantData,
+
+        result:
+        result,
+
+        answers:
+        answers,
+
+        date:
+        new Date()
+        .toLocaleDateString("id-ID"),
+
+        certificateNumber:
+        certificateNumber
+
+    };
 
 
+
+    sessionStorage.setItem(
+
+        "ksatriaResult",
+
+        JSON.stringify(finalResult)
+
+    );
+
+
+
+    window.location.href =
+    "result.html";
 
 }
 
