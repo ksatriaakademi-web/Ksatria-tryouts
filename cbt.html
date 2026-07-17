@@ -1,1 +1,558 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>CBT Tryout | KSATRIA AKADEMI</title>
+
+
+    <!-- Bootstrap -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+
+    <!-- Bootstrap Icons -->
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+
+    <!-- Google Font -->
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+
+    <!-- CSS -->
+
+    <link rel="stylesheet"
+          href="cbt.css">
+
+
+</head>
+
+
+<body>
+
+
+<!-- Header CBT -->
+
+<header class="cbt-header">
+
+
+    <div class="container-fluid">
+
+
+        <div class="cbt-navbar">
+
+
+            <!-- Brand -->
+
+            <div class="cbt-brand">
+
+
+                <img src="images/logo.png"
+                     alt="Logo KSATRIA AKADEMI">
+
+
+                <div>
+
+                    <h4>
+                        KSATRIA AKADEMI
+                    </h4>
+
+                    <span>
+                        Platform Tryout Online
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- Exam Info -->
+
+
+            <div class="exam-info">
+
+
+                <div class="program-name">
+
+
+                    <i class="bi bi-journal-check"></i>
+
+
+                    <span>
+                        SKD TRYOUT
+                    </span>
+
+
+                </div>
+
+
+
+                <div class="timer-box">
+
+
+                    <i class="bi bi-clock-fill"></i>
+
+
+                    <span id="timer">
+
+                        50:00
+
+                    </span>
+
+
+                </div>
+
+
+            </div>
+
+
+
+        </div>
+
+
+    </div>
+
+
+</header>
+
+
+
+<!-- Main CBT -->
+
+<main class="cbt-container">
+
+
+    <div class="container-fluid">
+
+
+        <div class="row g-4">
+        <!-- Question Area -->
+
+        <div class="col-lg-8">
+
+
+            <div class="question-card">
+
+
+                <!-- Question Header -->
+
+
+                <div class="question-header">
+
+
+                    <span class="question-number">
+
+                        Soal <b id="currentNumber">1</b>
+                        dari
+                        <b id="totalQuestion">50</b>
+
+                    </span>
+
+
+
+                    <span class="question-status">
+
+                        <i class="bi bi-pencil-square"></i>
+
+                        Belum Dijawab
+
+                    </span>
+
+
+                </div>
+
+
+
+                <!-- Question -->
+
+
+                <div class="question-content">
+
+
+                    <h3 id="questionText">
+
+                        Indonesia merdeka pada tanggal?
+
+                    </h3>
+
+
+                </div>
+
+
+
+
+                <!-- Answer -->
+
+
+                <div class="answer-list">
+
+
+
+                    <label class="answer-item">
+
+
+                        <input type="radio"
+                               name="answer"
+                               value="A">
+
+
+                        <span class="option-letter">
+
+                            A
+
+                        </span>
+
+
+                        <span class="option-text">
+
+                            17 Agustus 1945
+
+                        </span>
+
+
+                    </label>
+
+
+
+
+                    <label class="answer-item">
+
+
+                        <input type="radio"
+                               name="answer"
+                               value="B">
+
+
+                        <span class="option-letter">
+
+                            B
+
+                        </span>
+
+
+                        <span class="option-text">
+
+                            20 Mei 1908
+
+                        </span>
+
+
+                    </label>
+
+
+
+
+                    <label class="answer-item">
+
+
+                        <input type="radio"
+                               name="answer"
+                               value="C">
+
+
+                        <span class="option-letter">
+
+                            C
+
+                        </span>
+
+
+                        <span class="option-text">
+
+                            28 Oktober 1928
+
+                        </span>
+
+
+                    </label>
+
+
+
+
+                    <label class="answer-item">
+
+
+                        <input type="radio"
+                               name="answer"
+                               value="D">
+
+
+                        <span class="option-letter">
+
+                            D
+
+                        </span>
+
+
+                        <span class="option-text">
+
+                            1 Juni 1945
+
+                        </span>
+
+
+                    </label>
+
+
+
+
+                </div>
+
+
+
+                <!-- Navigation -->
+
+
+                <div class="question-navigation">
+
+
+
+                    <button class="nav-btn previous-btn"
+                            id="previousBtn">
+
+
+                        <i class="bi bi-arrow-left"></i>
+
+                        Sebelumnya
+
+
+                    </button>
+
+
+
+
+
+                    <button class="nav-btn next-btn"
+                            id="nextBtn">
+
+
+                        Berikutnya
+
+                        <i class="bi bi-arrow-right"></i>
+
+
+                    </button>
+
+
+
+
+                </div>
+
+
+
+            </div>
+
+
+        </div>
+                  <!-- Question Navigation Panel -->
+
+        <div class="col-lg-4">
+
+
+            <div class="question-panel">
+
+
+                <div class="panel-header">
+
+                    <h5>
+
+                        <i class="bi bi-grid-fill"></i>
+
+                        Nomor Soal
+
+                    </h5>
+
+
+                </div>
+
+
+
+                <div class="number-grid"
+                     id="questionNumbers">
+
+
+                    <!-- Nomor soal dibuat oleh JavaScript -->
+
+
+                    <button class="number-item active">
+
+                        1
+
+                    </button>
+
+
+                    <button class="number-item">
+
+                        2
+
+                    </button>
+
+
+                    <button class="number-item">
+
+                        3
+
+                    </button>
+
+
+                    <button class="number-item">
+
+                        4
+
+                    </button>
+
+
+                    <button class="number-item">
+
+                        5
+
+                    </button>
+
+
+                </div>
+
+
+
+
+                <!-- Status -->
+
+
+                <div class="status-info">
+
+
+                    <div class="status-item">
+
+
+                        <span class="status-color unanswered"></span>
+
+
+                        Belum Dijawab
+
+
+                    </div>
+
+
+
+                    <div class="status-item">
+
+
+                        <span class="status-color answered"></span>
+
+
+                        Sudah Dijawab
+
+
+                    </div>
+
+
+
+                    <div class="status-item">
+
+
+                        <span class="status-color current"></span>
+
+
+                        Sedang Dikerjakan
+
+
+                    </div>
+
+
+                </div>
+
+
+
+
+
+                <!-- Finish Button -->
+
+
+                <button class="finish-btn"
+                        id="finishBtn">
+
+
+                    <i class="bi bi-send-check-fill"></i>
+
+
+                    Selesai Ujian
+
+
+                </button>
+
+
+
+            </div>
+
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+</main>
+
+
+
+
+<!-- Footer -->
+
+
+<footer class="cbt-footer">
+
+
+    <p>
+
+        © 2025 KSATRIA AKADEMI
+
+    </p>
+
+
+    <span>
+
+        Belajar • Berjuang • Berprestasi
+
+    </span>
+
+
+</footer>
+
+
+
+
+
+<!-- Bootstrap JS -->
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+<!-- CBT JS -->
+
+
+<script src="cbt.js"></script>
+
+
+
+</body>
+
+
+</html>
 
