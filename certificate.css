@@ -1,6 +1,7 @@
 /* ==========================================
    KSATRIA AKADEMI
-   CERTIFICATE
+   CERTIFICATE CSS V2
+   PART 1 OF 4
 ========================================== */
 
 *{
@@ -13,165 +14,719 @@ body{
 
     font-family:"Poppins",sans-serif;
 
-    background:#eceff3;
+    background:#eef2f7;
 
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    min-height:100vh;
-
-    padding:40px;
+    color:#333;
 
 }
 
+.certificate-section{
 
-/* ==========================================
-   KERTAS
-========================================== */
+    width:100%;
 
-.certificate{
+    padding:50px 20px;
 
-    width:1123px;
-    height:794px;
+}
 
-    background:#fff;
+.certificate-container{
 
     position:relative;
 
+    width:1123px;
+
+    min-height:794px;
+
+    margin:auto;
+
+    background:#ffffff;
+
+    border:14px solid #123a73;
+
     overflow:hidden;
 
-    border:14px solid #0d2f5b;
-
     box-shadow:
-        0 20px 50px rgba(0,0,0,.15);
+    0 15px 45px rgba(0,0,0,.15);
 
 }
-
 
 /* ==========================================
    BORDER DALAM
 ========================================== */
 
-.certificate::before{
+.certificate-container::before{
 
     content:"";
 
     position:absolute;
 
-    inset:18px;
+    top:18px;
+    left:18px;
+    right:18px;
+    bottom:18px;
 
-    border:2px solid #d7b65d;
+    border:2px solid #d4af37;
+
+    pointer-events:none;
 
 }
 
+/* ==========================================
+   WATERMARK
+========================================== */
+
+.certificate-watermark{
+
+    position:absolute;
+
+    width:420px;
+
+    left:50%;
+
+    top:50%;
+
+    transform:translate(-50%,-50%);
+
+    opacity:.05;
+
+    z-index:1;
+
+}
 
 /* ==========================================
    HEADER
 ========================================== */
 
-.header{
+.certificate-header{
+
+    position:relative;
+
+    z-index:2;
 
     text-align:center;
 
-    margin-top:40px;
+    padding-top:45px;
 
 }
 
-.logo{
+.certificate-logo{
 
-    width:140px;
+    width:130px;
 
-    margin-bottom:10px;
+    margin-bottom:15px;
 
 }
 
-.title{
+.certificate-header h1{
+
+    font-size:40px;
+
+    color:#123a73;
+
+    font-weight:800;
+
+    letter-spacing:3px;
+
+}
+
+.certificate-header h4{
+
+    margin-top:10px;
+
+    font-size:20px;
+
+    color:#555;
+
+    font-weight:600;
+
+}
+
+.certificate-header p{
+
+    margin-top:8px;
+
+    font-size:14px;
+
+    color:#d4af37;
+
+    letter-spacing:2px;
+
+    font-weight:600;
+
+}
+/* ==========================================
+   KSATRIA AKADEMI
+   CERTIFICATE CSS V2
+   PART 2 OF 4
+========================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    font-family:"Poppins",sans-serif;
+
+    background:#eef2f7;
+
+    color:#333;
+
+}
+
+.certificate-section{
+
+    width:100%;
+
+    padding:50px 20px;
+
+}
+
+.certificate-container{
+
+    position:relative;
+
+    width:1123px;
+
+    min-height:794px;
+
+    margin:auto;
+
+    background:#ffffff;
+
+    border:14px solid #123a73;
+
+    overflow:hidden;
+
+    box-shadow:
+    0 15px 45px rgba(0,0,0,.15);
+
+}
+
+/* ==========================================
+   BORDER DALAM
+========================================== */
+
+.certificate-container::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:18px;
+    left:18px;
+    right:18px;
+    bottom:18px;
+
+    border:2px solid #d4af37;
+
+    pointer-events:none;
+
+}
+
+/* ==========================================
+   WATERMARK
+========================================== */
+
+.certificate-watermark{
+
+    position:absolute;
+
+    width:420px;
+
+    left:50%;
+
+    top:50%;
+
+    transform:translate(-50%,-50%);
+
+    opacity:.05;
+
+    z-index:1;
+
+}
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.certificate-header{
+
+    position:relative;
+
+    z-index:2;
+
+    text-align:center;
+
+    padding-top:45px;
+
+}
+
+.certificate-logo{
+
+    width:130px;
+
+    margin-bottom:15px;
+
+}
+
+.certificate-header h1{
+
+    font-size:40px;
+
+    color:#123a73;
+
+    font-weight:800;
+
+    letter-spacing:3px;
+
+}
+
+.certificate-header h4{
+
+    margin-top:10px;
+
+    font-size:20px;
+
+    color:#555;
+
+    font-weight:600;
+
+}
+
+.certificate-header p{
+
+    margin-top:8px;
+
+    font-size:14px;
+
+    color:#d4af37;
+
+    letter-spacing:2px;
+
+    font-weight:600;
+
+}
+
+/* ==========================================
+   CONTENT
+========================================== */
+
+.certificate-content{
+
+    position:relative;
+
+    z-index:2;
+
+    width:86%;
+
+    margin:35px auto 0;
+
+    text-align:center;
+
+}
+
+/* ==========================================
+   LABEL
+========================================== */
+
+.certificate-label{
+
+    font-size:18px;
+
+    color:#666;
+
+}
+
+/* ==========================================
+   NAMA PESERTA
+========================================== */
+
+#participantName{
+
+    margin-top:15px;
 
     font-size:42px;
 
     font-weight:700;
 
-    color:#0d2f5b;
+    color:#123a73;
 
-    letter-spacing:4px;
-
-}
-
-.subtitle{
-
-    margin-top:5px;
-
-    font-size:15px;
-
-    color:#777;
+    letter-spacing:1px;
 
 }
-
 
 /* ==========================================
-   NAMA
+   GARIS
 ========================================== */
 
-.name{
+.certificate-line{
 
-    margin-top:45px;
+    width:320px;
 
-    text-align:center;
+    height:3px;
 
-}
+    background:#d4af37;
 
-.name h2{
-
-    font-size:42px;
-
-    color:#0d2f5b;
-
-    font-weight:700;
-
-    border-bottom:2px solid #d7b65d;
-
-    display:inline-block;
-
-    padding:8px 45px;
+    margin:20px auto 30px;
 
 }
-
 
 /* ==========================================
-   NARASI
+   DESKRIPSI
 ========================================== */
 
-.description{
+.certificate-description{
 
-    width:82%;
+    width:92%;
 
-    margin:35px auto;
-
-    text-align:center;
+    margin:auto;
 
     font-size:17px;
 
-    line-height:34px;
+    line-height:32px;
 
     color:#444;
 
 }
 
+.certificate-description strong{
+
+    color:#123a73;
+
+    font-weight:600;
+
+}
+
+/* ==========================================
+   INFORMASI PESERTA
+========================================== */
+
+.certificate-information{
+
+    margin-top:45px;
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:20px 40px;
+
+}
+
+.info-box{
+
+    background:#fafafa;
+
+    border:1px solid #e5e5e5;
+
+    border-radius:8px;
+
+    padding:18px;
+
+    text-align:left;
+
+}
+
+.info-box span{
+
+    display:block;
+
+    font-size:13px;
+
+    color:#888;
+
+    margin-bottom:6px;
+
+}
+
+.info-box strong{
+
+    font-size:18px;
+
+    color:#123a73;
+
+    font-weight:600;
+
+}
+/* ==========================================
+   KSATRIA AKADEMI
+   CERTIFICATE CSS V2
+   PART 3 OF 4
+========================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    font-family:"Poppins",sans-serif;
+
+    background:#eef2f7;
+
+    color:#333;
+
+}
+
+.certificate-section{
+
+    width:100%;
+
+    padding:50px 20px;
+
+}
+
+.certificate-container{
+
+    position:relative;
+
+    width:1123px;
+
+    min-height:794px;
+
+    margin:auto;
+
+    background:#ffffff;
+
+    border:14px solid #123a73;
+
+    overflow:hidden;
+
+    box-shadow:
+    0 15px 45px rgba(0,0,0,.15);
+
+}
+
+.certificate-container::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:18px;
+    left:18px;
+    right:18px;
+    bottom:18px;
+
+    border:2px solid #d4af37;
+
+    pointer-events:none;
+
+}
+
+.certificate-watermark{
+
+    position:absolute;
+
+    width:420px;
+
+    left:50%;
+
+    top:50%;
+
+    transform:translate(-50%,-50%);
+
+    opacity:.05;
+
+    z-index:1;
+
+}
+
+.certificate-header{
+
+    position:relative;
+
+    z-index:2;
+
+    text-align:center;
+
+    padding-top:45px;
+
+}
+
+.certificate-logo{
+
+    width:130px;
+
+    margin-bottom:15px;
+
+}
+
+.certificate-header h1{
+
+    font-size:40px;
+
+    color:#123a73;
+
+    font-weight:800;
+
+    letter-spacing:3px;
+
+}
+
+.certificate-header h4{
+
+    margin-top:10px;
+
+    font-size:20px;
+
+    color:#555;
+
+    font-weight:600;
+
+}
+
+.certificate-header p{
+
+    margin-top:8px;
+
+    font-size:14px;
+
+    color:#d4af37;
+
+    letter-spacing:2px;
+
+    font-weight:600;
+
+}
+
+/* ==========================================
+   CONTENT
+========================================== */
+
+.certificate-content{
+
+    position:relative;
+
+    z-index:2;
+
+    width:86%;
+
+    margin:35px auto 0;
+
+    text-align:center;
+
+}
+
+.certificate-label{
+
+    font-size:18px;
+
+    color:#666;
+
+}
+
+#participantName{
+
+    margin-top:15px;
+
+    font-size:42px;
+
+    font-weight:700;
+
+    color:#123a73;
+
+    letter-spacing:1px;
+
+}
+
+.certificate-line{
+
+    width:320px;
+
+    height:3px;
+
+    background:#d4af37;
+
+    margin:20px auto 30px;
+
+}
+
+.certificate-description{
+
+    width:92%;
+
+    margin:auto;
+
+    font-size:17px;
+
+    line-height:32px;
+
+    color:#444;
+
+}
+
+.certificate-description strong{
+
+    color:#123a73;
+
+}
+
+.certificate-information{
+
+    margin-top:45px;
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:20px 40px;
+
+}
+
+.info-box{
+
+    background:#fafafa;
+
+    border:1px solid #e5e5e5;
+
+    border-radius:8px;
+
+    padding:18px;
+
+    text-align:left;
+
+}
+
+.info-box span{
+
+    display:block;
+
+    font-size:13px;
+
+    color:#888;
+
+    margin-bottom:6px;
+
+}
+
+.info-box strong{
+
+    font-size:18px;
+
+    color:#123a73;
+
+    font-weight:600;
+
+}
 
 /* ==========================================
    FOOTER
 ========================================== */
 
-.footer{
+.certificate-footer{
 
-    position:absolute;
+    position:relative;
 
-    left:70px;
+    z-index:2;
 
-    right:70px;
+    width:86%;
 
-    bottom:55px;
+    margin:45px auto 0;
 
     display:flex;
 
@@ -181,95 +736,81 @@ body{
 
 }
 
-
 /* ==========================================
-   TANGGAL
+   SIGNATURE
 ========================================== */
 
-.date{
+.signature-box{
 
-    font-size:16px;
-
-    color:#444;
-
-}
-
-.date strong{
-
-    display:block;
-
-    margin-top:10px;
-
-}
-
-
-/* ==========================================
-   TANDA TANGAN
-========================================== */
-
-.signature{
+    width:300px;
 
     text-align:center;
 
-    position:relative;
+}
+
+.signature-image{
+
+    width:170px;
+
+    margin-bottom:8px;
 
 }
 
-.signature img.signature-image{
+.signature-line{
 
-    width:180px;
+    width:220px;
 
-    margin-bottom:-10px;
+    height:1px;
 
-}
+    background:#333;
 
-.signature h4{
-
-    font-size:18px;
-
-    color:#0d2f5b;
-
-    margin-top:10px;
+    margin:0 auto 10px;
 
 }
 
-.signature p{
+.signature-box h3{
 
-    font-size:14px;
+    color:#123a73;
+
+    font-size:20px;
+
+    font-weight:700;
+
+}
+
+.signature-box p{
+
+    margin-top:4px;
 
     color:#666;
 
-}
-
-
-/* ==========================================
-   STEMPEL
-========================================== */
-
-.stamp{
-
-    position:absolute;
-
-    left:-80px;
-
-    top:25px;
-
-    width:120px;
-
-    opacity:.9;
+    font-size:15px;
 
 }
 
-
 /* ==========================================
-   WATERMARK
+   STAMP
 ========================================== */
 
-.watermark{
+.stamp-box{
 
-    position:absolute;
+    width:220px;
 
-    inset:0;
+    text-align:center;
+
+}
+
+.stamp-image{
+
+    width:170px;
+
+}
+
+/* ==========================================
+   ACTION
+========================================== */
+
+.certificate-action{
 
     display:flex;
 
@@ -277,18 +818,590 @@ body{
 
     align-items:center;
 
+    gap:20px;
+
+    margin-top:35px;
+
+    padding-bottom:20px;
+
+}
+
+.btn-download,
+.btn-print,
+.btn-back{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:8px;
+
+    text-decoration:none;
+
+    border:none;
+
+    border-radius:8px;
+
+    padding:14px 26px;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.btn-download{
+
+    background:#123a73;
+
+    color:#fff;
+
+}
+
+.btn-download:hover{
+
+    background:#0f2f5c;
+
+}
+
+.btn-print{
+
+    background:#d4af37;
+
+    color:#fff;
+
+}
+
+.btn-print:hover{
+
+    background:#bc9824;
+
+}
+
+.btn-back{
+
+    background:#f1f1f1;
+
+    color:#333;
+
+}
+
+.btn-back:hover{
+
+    background:#dddddd;
+
+}
+/* ==========================================
+   KSATRIA AKADEMI
+   CERTIFICATE CSS V2
+   PART 4 OF 4
+========================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    font-family:"Poppins",sans-serif;
+
+    background:#eef2f7;
+
+    color:#333;
+
+}
+
+.certificate-section{
+
+    width:100%;
+
+    padding:50px 20px;
+
+}
+
+.certificate-container{
+
+    position:relative;
+
+    width:1123px;
+
+    min-height:794px;
+
+    margin:auto;
+
+    background:#ffffff;
+
+    border:14px solid #123a73;
+
+    overflow:hidden;
+
+    box-shadow:
+    0 15px 45px rgba(0,0,0,.15);
+
+}
+
+.certificate-container::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:18px;
+    left:18px;
+    right:18px;
+    bottom:18px;
+
+    border:2px solid #d4af37;
+
     pointer-events:none;
 
 }
 
-.watermark img{
+.certificate-watermark{
+
+    position:absolute;
 
     width:420px;
 
-    opacity:.04;
+    left:50%;
+
+    top:50%;
+
+    transform:translate(-50%,-50%);
+
+    opacity:.05;
+
+    z-index:1;
 
 }
 
+.certificate-header{
+
+    position:relative;
+
+    z-index:2;
+
+    text-align:center;
+
+    padding-top:45px;
+
+}
+
+.certificate-logo{
+
+    width:130px;
+
+    margin-bottom:15px;
+
+}
+
+.certificate-header h1{
+
+    font-size:40px;
+
+    color:#123a73;
+
+    font-weight:800;
+
+    letter-spacing:3px;
+
+}
+
+.certificate-header h4{
+
+    margin-top:10px;
+
+    font-size:20px;
+
+    color:#555;
+
+    font-weight:600;
+
+}
+
+.certificate-header p{
+
+    margin-top:8px;
+
+    font-size:14px;
+
+    color:#d4af37;
+
+    letter-spacing:2px;
+
+    font-weight:600;
+
+}
+
+/* ==========================================
+   CONTENT
+========================================== */
+
+.certificate-content{
+
+    position:relative;
+
+    z-index:2;
+
+    width:86%;
+
+    margin:35px auto 0;
+
+    text-align:center;
+
+}
+
+.certificate-label{
+
+    font-size:18px;
+
+    color:#666;
+
+}
+
+#participantName{
+
+    margin-top:15px;
+
+    font-size:42px;
+
+    font-weight:700;
+
+    color:#123a73;
+
+    letter-spacing:1px;
+
+}
+
+.certificate-line{
+
+    width:320px;
+
+    height:3px;
+
+    background:#d4af37;
+
+    margin:20px auto 30px;
+
+}
+
+.certificate-description{
+
+    width:92%;
+
+    margin:auto;
+
+    font-size:17px;
+
+    line-height:32px;
+
+    color:#444;
+
+}
+
+.certificate-description strong{
+
+    color:#123a73;
+
+}
+
+.certificate-information{
+
+    margin-top:45px;
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:20px 40px;
+
+}
+
+.info-box{
+
+    background:#fafafa;
+
+    border:1px solid #e5e5e5;
+
+    border-radius:8px;
+
+    padding:18px;
+
+    text-align:left;
+
+}
+
+.info-box span{
+
+    display:block;
+
+    font-size:13px;
+
+    color:#888;
+
+    margin-bottom:6px;
+
+}
+
+.info-box strong{
+
+    font-size:18px;
+
+    color:#123a73;
+
+    font-weight:600;
+
+}
+
+/* ==========================================
+   FOOTER
+========================================== */
+
+.certificate-footer{
+
+    position:relative;
+
+    z-index:2;
+
+    width:86%;
+
+    margin:45px auto 0;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-end;
+
+}
+
+.signature-box{
+
+    width:300px;
+
+    text-align:center;
+
+}
+
+.signature-image{
+
+    width:170px;
+
+    margin-bottom:8px;
+
+}
+
+.signature-line{
+
+    width:220px;
+
+    height:1px;
+
+    background:#333;
+
+    margin:0 auto 10px;
+
+}
+
+.signature-box h3{
+
+    color:#123a73;
+
+    font-size:20px;
+
+    font-weight:700;
+
+}
+
+.signature-box p{
+
+    margin-top:4px;
+
+    color:#666;
+
+    font-size:15px;
+
+}
+
+.stamp-box{
+
+    width:220px;
+
+    text-align:center;
+
+}
+
+.stamp-image{
+
+    width:170px;
+
+}
+
+/* ==========================================
+   ACTION
+========================================== */
+
+.certificate-action{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:20px;
+
+    margin-top:35px;
+
+    padding-bottom:25px;
+
+}
+
+.btn-download,
+.btn-print,
+.btn-back{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:8px;
+
+    padding:14px 28px;
+
+    border:none;
+
+    border-radius:8px;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    text-decoration:none;
+
+    transition:.3s;
+
+}
+
+.btn-download{
+
+    background:#123a73;
+
+    color:#fff;
+
+}
+
+.btn-download:hover{
+
+    background:#0f2f5c;
+
+}
+
+.btn-print{
+
+    background:#d4af37;
+
+    color:#fff;
+
+}
+
+.btn-print:hover{
+
+    background:#b68a15;
+
+}
+
+.btn-back{
+
+    background:#ececec;
+
+    color:#333;
+
+}
+
+.btn-back:hover{
+
+    background:#d9d9d9;
+
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media(max-width:1200px){
+
+.certificate-container{
+
+    width:100%;
+
+}
+
+}
+
+@media(max-width:768px){
+
+.certificate-section{
+
+    padding:20px;
+
+}
+
+.certificate-header h1{
+
+    font-size:28px;
+
+}
+
+#participantName{
+
+    font-size:30px;
+
+}
+
+.certificate-description{
+
+    width:100%;
+
+    font-size:15px;
+
+    line-height:28px;
+
+}
+
+.certificate-information{
+
+    grid-template-columns:1fr;
+
+}
+
+.certificate-footer{
+
+    flex-direction:column;
+
+    gap:30px;
+
+    align-items:center;
+
+}
+
+.certificate-action{
+
+    flex-direction:column;
+
+}
+
+}
 
 /* ==========================================
    PRINT
@@ -296,20 +1409,38 @@ body{
 
 @media print{
 
-    body{
+body{
 
-        background:#fff;
+    background:#ffffff;
 
-        padding:0;
+}
 
-    }
+.certificate-section{
 
-    .certificate{
+    padding:0;
 
-        box-shadow:none;
+}
 
-        border:none;
+.certificate-container{
 
-    }
+    width:100%;
+
+    border:none;
+
+    box-shadow:none;
+
+}
+
+.certificate-container::before{
+
+    display:none;
+
+}
+
+.certificate-action{
+
+    display:none;
+
+}
 
 }
