@@ -1,7 +1,7 @@
 /* ==========================================
    KSATRIA AKADEMI
-   CBT DEMO ENGINE
-   DATABASE VERSION TEST
+   CBT DEMO ENGINE FINAL
+   DATABASE VERSION
 ========================================== */
 
 
@@ -11,24 +11,64 @@ function(){
 
 
 // ==========================================
+// AMBIL DATA PESERTA
+// ==========================================
+
+const participantData =
+
+JSON.parse(
+
+sessionStorage.getItem(
+"ksatriaParticipant"
+)
+
+);
+
+
+
+if(!participantData){
+
+
+alert(
+"Data peserta tidak ditemukan."
+);
+
+
+window.location.href =
+"tryout.html";
+
+
+return;
+
+
+}
+
+
+
+
+// ==========================================
 // LOAD DATABASE SOAL
 // ==========================================
 
-fetch("database/skd_demo.json")
 
-.then(response => response.json())
-
-.then(data => {
-
+fetch(
+"database/skd_demo.json"
+)
 
 
-const questions = data.questions;
+.then(
+response => response.json()
+)
+
+
+.then(
+data => {
 
 
 
-// ==========================================
-// VARIABEL UJIAN
-// ==========================================
+const questions =
+data.questions;
+
 
 
 let currentQuestion = 0;
@@ -37,11 +77,15 @@ let currentQuestion = 0;
 let answers = [];
 
 
-let timeLeft = data.duration * 60;
+
+let timeLeft =
+data.duration * 60;
+
 
 
 const totalQuestion =
 questions.length;
+
 
 
 
@@ -84,31 +128,44 @@ totalQuestion;
 
 
 
+
+
 // ==========================================
-// LOAD SOAL
+// TAMPIL SOAL
 // ==========================================
 
 
 function loadQuestion(){
 
 
+
 const item =
 questions[currentQuestion];
+
 
 
 currentNumber.innerText =
 currentQuestion + 1;
 
 
+
 questionText.innerText =
 item.question;
 
 
-answerArea.innerHTML="";
+
+answerArea.innerHTML =
+"";
+
 
 
 const letters =
-["A","B","C","D"];
+[
+"A",
+"B",
+"C",
+"D"
+];
 
 
 
@@ -116,15 +173,37 @@ item.options.forEach(
 function(option,index){
 
 
+
+let checked = "";
+
+
+
+if(
+answers[currentQuestion]
+===
+letters[index]
+){
+
+checked =
+"checked";
+
+}
+
+
+
 answerArea.innerHTML += `
 
+
 <label class="answer-item">
+
 
 <input type="radio"
 
 name="answer"
 
-value="${letters[index]}">
+value="${letters[index]}"
+
+${checked}>
 
 
 <span class="option-letter">
@@ -143,12 +222,87 @@ ${option}
 
 </label>
 
+
 `;
+
+
+
+});
+
+
+updateNumber();
+
+
+
+}
+
+
+
+
+
+// ==========================================
+// NOMOR SOAL
+// ==========================================
+
+
+function updateNumber(){
+
+
+const numberItems =
+
+document.querySelectorAll(
+".number-item"
+);
+
+
+
+numberItems.forEach(
+function(item,index){
+
+
+
+item.classList.remove(
+"active"
+);
+
+
+
+item.classList.remove(
+"answered"
+);
+
+
+
+if(
+index === currentQuestion
+){
+
+item.classList.add(
+"active"
+);
+
+}
+
+
+
+if(
+answers[index]
+){
+
+item.classList.add(
+"answered"
+);
+
+}
+
+
 
 });
 
 
 }
+
+
 
 
 
@@ -170,67 +324,113 @@ document.querySelector(
 
 if(selected){
 
+
 answers[currentQuestion]
 =
 selected.value;
 
-}
-
 
 }
 
 
 
+}
+
+
+
+
+
 // ==========================================
-// NEXT
+// BUTTON NEXT
 // ==========================================
 
 
+const nextBtn =
 document.getElementById(
 "nextBtn"
-).onclick = function(){
+);
+
+
+
+if(nextBtn){
+
+
+nextBtn.onclick =
+function(){
 
 
 saveAnswer();
 
 
-if(currentQuestion < totalQuestion-1){
+
+if(
+currentQuestion <
+totalQuestion - 1
+){
+
 
 currentQuestion++;
 
+
 loadQuestion();
 
+
 }
+
 
 
 };
 
 
+}
+
+
+
 
 
 // ==========================================
-// PREVIOUS
+// BUTTON PREVIOUS
 // ==========================================
 
 
+const previousBtn =
 document.getElementById(
 "previousBtn"
-).onclick = function(){
+);
+
+
+
+if(previousBtn){
+
+
+previousBtn.onclick =
+function(){
 
 
 saveAnswer();
 
 
-if(currentQuestion > 0){
+
+if(
+currentQuestion > 0
+){
+
 
 currentQuestion--;
 
+
 loadQuestion();
+
 
 }
 
 
+
 };
+
+
+}
+
 
 
 
@@ -247,12 +447,18 @@ document.getElementById(
 
 
 
+const timer =
+
 setInterval(
 function(){
 
 
+
 let minute =
-Math.floor(timeLeft / 60);
+Math.floor(
+timeLeft / 60
+);
+
 
 
 let second =
@@ -260,7 +466,9 @@ timeLeft % 60;
 
 
 
-if(second < 10){
+if(
+second < 10
+){
 
 second =
 "0" + second;
@@ -277,9 +485,247 @@ minute + ":" + second;
 timeLeft--;
 
 
+
+if(
+timeLeft < 0
+){
+
+
+clearInterval(timer);
+
+
+finishExam();
+
+
+}
+
+
+
 },
 1000
 );
+
+
+
+
+
+// ==========================================
+// HITUNG NILAI
+// ==========================================
+
+
+function calculateScore(){
+
+
+let correct = 0;
+
+
+
+questions.forEach(
+function(item,index){
+
+
+
+if(
+answers[index]
+===
+item.answer
+){
+
+
+correct++;
+
+
+}
+
+
+
+});
+
+
+
+return {
+
+
+correct:
+
+correct,
+
+
+wrong:
+
+totalQuestion - correct,
+
+
+score:
+
+Math.round(
+
+(correct / totalQuestion)
+
+* 100
+
+)
+
+
+};
+
+
+
+}
+
+
+
+
+
+// ==========================================
+// SELESAI UJIAN
+// ==========================================
+
+
+const finishBtn =
+document.getElementById(
+"finishBtn"
+);
+
+
+
+if(finishBtn){
+
+
+finishBtn.onclick =
+function(){
+
+
+
+const confirmFinish =
+
+confirm(
+"Yakin ingin menyelesaikan tryout?"
+);
+
+
+
+if(confirmFinish){
+
+
+finishExam();
+
+
+}
+
+
+
+};
+
+
+}
+
+
+
+
+
+function finishExam(){
+
+
+
+clearInterval(timer);
+
+
+
+const result =
+calculateScore();
+
+
+
+
+const year =
+new Date()
+.getFullYear();
+
+
+
+const runningNumber =
+
+String(Date.now())
+.slice(-6);
+
+
+
+const certificateNumber =
+
+"KSA-SKD-" +
+year +
+"-" +
+runningNumber;
+
+
+
+
+const finalResult = {
+
+
+
+participant:
+
+participantData,
+
+
+
+result:
+
+result,
+
+
+
+answers:
+
+answers,
+
+
+
+date:
+
+new Date()
+.toLocaleDateString(
+"id-ID"
+),
+
+
+
+certificateNumber:
+
+certificateNumber
+
+
+
+};
+
+
+
+
+
+sessionStorage.setItem(
+
+"ksatriaResult",
+
+JSON.stringify(
+finalResult
+)
+
+);
+
+
+
+
+
+window.location.href =
+"result.html";
+
+
+
+}
+
 
 
 
@@ -293,20 +739,23 @@ loadQuestion();
 
 
 
-})
+}
 
 
-.catch(error => {
+)
+
+
+.catch(
+error => {
 
 
 console.error(
-"Database soal gagal dimuat:",
 error
 );
 
 
 alert(
-"Database soal tidak ditemukan"
+"Database soal gagal dimuat."
 );
 
 
