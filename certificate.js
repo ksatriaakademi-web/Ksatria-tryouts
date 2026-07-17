@@ -87,35 +87,10 @@ resultData.date;
 // NOMOR SERTIFIKAT
 // ==========================================
 
-const today =
-new Date();
-
-
-
-const year =
-today.getFullYear();
-
-
-
-const randomNumber =
-Math.floor(
-100000 + Math.random()*900000
-);
-
-
-
-const certificateNumber =
-"KSA-" +
-year +
-"-" +
-randomNumber;
-
-
-
 document.getElementById(
-"certificateNumber"
+    "certificateNumber"
 ).innerText =
-certificateNumber;
+resultData.certificateNumber;
 
 
 
