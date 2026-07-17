@@ -1,103 +1,519 @@
-/* ===================================================
+/* =====================================================
    KSATRIA AKADEMI
    REGISTER PAGE
-=================================================== */
+===================================================== */
 
-document.addEventListener("DOMContentLoaded", () => {
+:root{
+    --primary:#081F4D;
+    --secondary:#102B63;
+    --accent:#FFC83D;
+    --white:#ffffff;
+    --text:#d7dce6;
+    --border:rgba(255,255,255,.12);
+    --glass:rgba(255,255,255,.08);
+    --shadow:0 20px 45px rgba(0,0,0,.28);
+    --radius:24px;
+    --transition:.35s ease;
+}
 
-    /* ==========================================
-       SHOW / HIDE PASSWORD
-    ========================================== */
+/* ================= RESET ================= */
 
-    function togglePassword(buttonId, inputId){
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-        const button = document.getElementById(buttonId);
-        const input = document.getElementById(inputId);
+body{
 
-        if(!button || !input) return;
+    font-family:'Poppins',sans-serif;
+    background:linear-gradient(135deg,#081F4D 0%,#102B63 50%,#163B85 100%);
+    color:#fff;
+    min-height:100vh;
+    overflow-x:hidden;
 
-        button.addEventListener("click", () => {
+}
 
-            const isPassword = input.type === "password";
+a{
 
-            input.type = isPassword ? "text" : "password";
+    text-decoration:none;
 
-            button.innerHTML = isPassword
-                ? '<i class="bi bi-eye-slash-fill"></i>'
-                : '<i class="bi bi-eye-fill"></i>';
+}
 
-        });
+.register-page{
+
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    padding:40px 0;
+    position:relative;
+    overflow:hidden;
+
+}
+
+/* Background Effect */
+
+.register-page::before{
+
+    content:"";
+    position:absolute;
+
+    width:500px;
+    height:500px;
+
+    background:radial-gradient(var(--accent),transparent 70%);
+    opacity:.08;
+
+    top:-180px;
+    right:-120px;
+
+}
+
+.register-page::after{
+
+    content:"";
+    position:absolute;
+
+    width:420px;
+    height:420px;
+
+    background:radial-gradient(#ffffff,transparent 75%);
+    opacity:.04;
+
+    left:-120px;
+    bottom:-140px;
+
+}
+
+/* ================= CARD ================= */
+
+.register-card{
+
+    position:relative;
+    z-index:2;
+
+    background:var(--glass);
+
+    backdrop-filter:blur(20px);
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius);
+
+    padding:45px;
+
+    box-shadow:var(--shadow);
+
+}
+
+.register-logo{
+
+    width:90px;
+    margin:0 auto 20px;
+
+}
+
+.register-card h2{
+
+    font-weight:800;
+    margin-bottom:8px;
+
+}
+
+.register-card p{
+
+    color:var(--text);
+
+}
+/* =====================================================
+   FORM
+===================================================== */
+
+.form-label{
+
+    font-weight:600;
+    margin-bottom:8px;
+    color:#fff;
+
+}
+
+.input-group{
+
+    margin-bottom:5px;
+
+}
+
+.input-group-text{
+
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.12);
+    color:var(--accent);
+    min-width:55px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+}
+
+.form-control,
+.form-select{
+
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.12);
+    color:#fff;
+    padding:14px 16px;
+    box-shadow:none;
+
+}
+
+.form-control::placeholder{
+
+    color:#c9cfdb;
+
+}
+
+.form-select{
+
+    cursor:pointer;
+
+}
+
+.form-select option{
+
+    background:#102B63;
+    color:#fff;
+
+}
+
+.form-control:focus,
+.form-select:focus{
+
+    background:rgba(255,255,255,.10);
+    border-color:var(--accent);
+    color:#fff;
+    box-shadow:0 0 0 .2rem rgba(255,200,61,.15);
+
+}
+
+.password-toggle{
+
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.12);
+    color:var(--accent);
+    transition:var(--transition);
+
+}
+
+.password-toggle:hover{
+
+    background:rgba(255,255,255,.15);
+    color:var(--accent);
+
+}
+
+/* =====================================================
+   CHECKBOX
+===================================================== */
+
+.form-check-input{
+
+    background:transparent;
+    border:1px solid rgba(255,255,255,.4);
+
+}
+
+.form-check-input:checked{
+
+    background:var(--accent);
+    border-color:var(--accent);
+
+}
+
+.form-check-label{
+
+    color:var(--text);
+    line-height:1.7;
+
+}
+
+.form-check-label a{
+
+    color:var(--accent);
+    font-weight:600;
+
+}
+
+.form-check-label a:hover{
+
+    color:#FFD86C;
+
+}
+/* =====================================================
+   BUTTON
+===================================================== */
+
+.btn-register-custom{
+
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:14px;
+
+    background:var(--accent);
+
+    color:var(--primary);
+
+    font-weight:700;
+    font-size:16px;
+
+    transition:var(--transition);
+
+}
+
+.btn-register-custom:hover{
+
+    background:#FFD86C;
+
+    color:var(--primary);
+
+    transform:translateY(-3px);
+
+    box-shadow:0 10px 25px rgba(255,200,61,.25);
+
+}
+
+.btn-google{
+
+    width:100%;
+    padding:14px;
+
+    border-radius:14px;
+
+    border:1px solid rgba(255,255,255,.12);
+
+    background:rgba(255,255,255,.08);
+
+    color:#fff;
+
+    font-weight:600;
+
+    transition:var(--transition);
+
+}
+
+.btn-google:hover{
+
+    background:rgba(255,255,255,.15);
+
+    color:#fff;
+
+    transform:translateY(-3px);
+
+}
+
+/* =====================================================
+   DIVIDER
+===================================================== */
+
+.register-divider{
+
+    display:flex;
+    align-items:center;
+    text-align:center;
+
+    margin:25px 0;
+
+}
+
+.register-divider::before,
+.register-divider::after{
+
+    content:"";
+
+    flex:1;
+
+    height:1px;
+
+    background:rgba(255,255,255,.15);
+
+}
+
+.register-divider span{
+
+    padding:0 15px;
+
+    color:var(--text);
+
+    font-size:14px;
+
+}
+
+/* =====================================================
+   LOGIN LINK
+===================================================== */
+
+.login-text{
+
+    color:var(--text);
+
+    margin-bottom:0;
+
+}
+
+.login-text a{
+
+    color:var(--accent);
+
+    font-weight:700;
+
+    transition:var(--transition);
+
+}
+
+.login-text a:hover{
+
+    color:#FFD86C;
+
+}
+
+/* =====================================================
+   CARD HOVER
+===================================================== */
+
+.register-card{
+
+    transition:
+        transform .35s ease,
+        box-shadow .35s ease,
+        border-color .35s ease;
+
+}
+
+.register-card:hover{
+
+    transform:translateY(-8px);
+
+    border-color:rgba(255,200,61,.35);
+
+    box-shadow:0 30px 60px rgba(0,0,0,.35);
+
+}
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width:992px){
+
+    .register-card{
+
+        padding:40px 35px;
 
     }
 
-    togglePassword("togglePassword", "password");
-    togglePassword("toggleConfirmPassword", "confirmPassword");
+}
 
-    /* ==========================================
-       REGISTER FORM
-    ========================================== */
+@media (max-width:768px){
 
-    const form = document.getElementById("registerForm");
+    .register-page{
 
-    if(form){
-
-        form.addEventListener("submit", function(e){
-
-            e.preventDefault();
-
-            const fullname = document.getElementById("fullname").value.trim();
-            const email = document.getElementById("email").value.trim();
-            const phone = document.getElementById("phone").value.trim();
-            const program = document.getElementById("program").value;
-            const password = document.getElementById("password").value;
-            const confirmPassword = document.getElementById("confirmPassword").value;
-            const agree = document.getElementById("agree").checked;
-
-            if(!fullname || !email || !phone || !program){
-
-                alert("Mohon lengkapi seluruh data.");
-                return;
-
-            }
-
-            if(password.length < 8){
-
-                alert("Password minimal 8 karakter.");
-                return;
-
-            }
-
-            if(password !== confirmPassword){
-
-                alert("Konfirmasi password tidak sama.");
-                return;
-
-            }
-
-            if(!agree){
-
-                alert("Anda harus menyetujui syarat dan ketentuan.");
-                return;
-
-            }
-
-            const button = document.querySelector(".btn-register-custom");
-
-            button.disabled = true;
-
-            button.innerHTML =
-            '<span class="spinner-border spinner-border-sm me-2"></span>Mendaftarkan...';
-
-            setTimeout(() => {
-
-                alert("Pendaftaran berhasil! Silakan login.");
-
-                window.location.href = "login.html";
-
-            },1500);
-
-        });
+        padding:30px 15px;
 
     }
 
-});
+    .register-card{
+
+        padding:35px 25px;
+
+    }
+
+    .register-logo{
+
+        width:75px;
+
+    }
+
+    .register-card h2{
+
+        font-size:28px;
+
+    }
+
+    .register-card p{
+
+        font-size:15px;
+
+    }
+
+    .btn-register-custom,
+    .btn-google{
+
+        padding:13px;
+
+    }
+
+}
+
+@media (max-width:576px){
+
+    .register-card{
+
+        padding:28px 20px;
+        border-radius:20px;
+
+    }
+
+    .register-logo{
+
+        width:65px;
+
+    }
+
+    .register-card h2{
+
+        font-size:24px;
+
+    }
+
+    .register-card p{
+
+        font-size:14px;
+
+    }
+
+    .form-control,
+    .form-select{
+
+        padding:12px 14px;
+        font-size:15px;
+
+    }
+
+    .input-group-text{
+
+        min-width:48px;
+
+    }
+
+    .form-check-label{
+
+        font-size:14px;
+
+    }
+
+    .register-divider{
+
+        margin:20px 0;
+
+    }
+
+    .login-text{
+
+        font-size:14px;
+
+    }
+
+}
+
+/* =====================================================
+   END REGISTER CSS
+===================================================== */
