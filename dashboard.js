@@ -147,4 +147,37 @@ document.addEventListener("DOMContentLoaded", () => {
 
     console.log("✅ Dashboard KSATRIA AKADEMI berhasil dimuat.");
 
+   /* ==========================================
+   LOAD USER DATA
+========================================== */
+
+auth.onAuthStateChanged(async (user) => {
+
+    if (!user) {
+        window.location.href = "login.html";
+        return;
+    }
+
+    try {
+
+        const doc = await db.collection("users").doc(user.uid).get();
+
+        if (doc.exists) {
+
+            const data = doc.data();
+
+            document.getElementById("userName").textContent =
+                data.fullname;
+
+            document.getElementById("userProgram").textContent =
+                data.program;
+
+        }
+
+    } catch (error) {
+
+        console.error(error);
+
+    }
+
 });
