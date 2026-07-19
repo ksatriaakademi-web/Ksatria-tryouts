@@ -1,6 +1,6 @@
 /* ===================================================
    KSATRIA AKADEMI
-   DASHBOARD V2
+   DASHBOARD V3
 =================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!/^\d+$/.test(text)) return;
 
-        const target = parseInt(text);
+        const target = parseInt(text, 10);
 
         let current = 0;
 
@@ -41,12 +41,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     /* ==========================================
-       PROGRESS BAR
+       ANIMASI PROGRESS BAR
     ========================================== */
 
-    const progressBars = document.querySelectorAll(".progress-bar");
-
-    progressBars.forEach(bar => {
+    document.querySelectorAll(".progress-bar").forEach(bar => {
 
         const width = bar.style.width;
 
@@ -61,16 +59,15 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     /* ==========================================
-       SIDEBAR ACTIVE
+       MENU ACTIVE
     ========================================== */
 
-    const menuItems = document.querySelectorAll(".menu li");
-
-    menuItems.forEach(item => {
+    document.querySelectorAll(".menu li").forEach(item => {
 
         item.addEventListener("click", () => {
 
-            menuItems.forEach(i => i.classList.remove("active"));
+            document.querySelectorAll(".menu li")
+                .forEach(i => i.classList.remove("active"));
 
             item.classList.add("active");
 
@@ -79,42 +76,16 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     /* ==========================================
-       NOTIFICATION
+       NOTIFIKASI
     ========================================== */
 
-    const notification = document.querySelector(".notification-btn");
+    const notificationBtn = document.querySelector(".notification-btn");
 
-    if (notification) {
+    if (notificationBtn) {
 
-        notification.addEventListener("click", () => {
+        notificationBtn.addEventListener("click", () => {
 
             alert("🔔 Tidak ada notifikasi baru.");
-
-        });
-
-    }
-
-    /* ==========================================
-       LOGOUT
-    ========================================== */
-
-    const logoutLink = document.querySelector('a[href="index.html"]');
-
-    if (logoutLink) {
-
-        logoutLink.addEventListener("click", function (e) {
-
-            const confirmLogout = confirm("Apakah Anda yakin ingin keluar?");
-
-            if (!confirmLogout) {
-
-                e.preventDefault();
-
-            } else {
-
-                auth.signOut();
-
-            }
 
         });
 
@@ -124,23 +95,58 @@ document.addEventListener("DOMContentLoaded", () => {
        HOVER CARD
     ========================================== */
 
-    const cards = document.querySelectorAll(".dashboard-card, .stats-card");
+    document.querySelectorAll(".dashboard-card, .stats-card")
+        .forEach(card => {
 
-    cards.forEach(card => {
+            card.addEventListener("mouseenter", () => {
 
-        card.addEventListener("mouseenter", () => {
+                card.style.transform = "translateY(-6px)";
 
-            card.style.transform = "translateY(-6px)";
+            });
+
+            card.addEventListener("mouseleave", () => {
+
+                card.style.transform = "";
+
+            });
 
         });
 
-        card.addEventListener("mouseleave", () => {
+    /* ==========================================
+       LOGOUT
+    ========================================== */
 
-            card.style.transform = "";
+    const logoutLink = document.querySelector('a[href="index.html"]');
+
+    if (logoutLink) {
+
+        logoutLink.addEventListener("click", async function (e) {
+
+            e.preventDefault();
+
+            const confirmLogout = confirm(
+                "Apakah Anda yakin ingin keluar?"
+            );
+
+            if (!confirmLogout) return;
+
+            try {
+
+                await auth.signOut();
+
+                window.location.href = "login.html";
+
+            } catch (error) {
+
+                console.error(error);
+
+                alert("Logout gagal.");
+
+            }
 
         });
 
-    });
+    }
 
     console.log("✅ Dashboard KSATRIA AKADEMI berhasil dimuat.");
 
@@ -159,163 +165,154 @@ document.addEventListener("DOMContentLoaded", () => {
 
         try {
 
-            const doc = await db.collection("users").doc(user.uid).get();
-
-            if (doc.exists) {
-
-                const data = doc.data();
-
-                const userName = document.getElementById("userName");
-                const userProgram = document.getElementById("userProgram");
-
-                if (userName) {
-
-                    userName.textContent = data.fullname;
-
-                }
-
-                if (userProgram) {
-
-                    userProgram.textContent = data.program;
-
-                }
-
-            }
-
-        } catch (error) {
-
-            console.error(error);
-
-        }
-
-    });
-
-    /* ==========================================
-       START TRYOUT
-    ========================================== */
-
-    const startButton = document.getElementById("startTryout");
-
-    if (startButton) {
-
-        startButton.addEventListener("click", async () => {
-
-            const user = auth.currentUser;
-
-            if (!user) {
-
-                window.location.href = "login.html";
-                return;
-
-            }
-/* ==========================================
-   HISTORY TRYOUT
-========================================== */
-
-const historyTable = document.getElementById("historyBody");
-
-if (historyTable) {
-
-    auth.onAuthStateChanged(async (user) => {
-
-        if (!user) return;
-
-        try {
-
-            const snapshot = await db.collection("results")
-                .where("uid", "==", user.uid)
-                .orderBy("createdAt", "desc")
+            const doc = await db.collection("users")
+                .doc(user.uid)
                 .get();
 
-            historyTable.innerHTML = "";
+            if (!doc.exists) {
 
-            if (snapshot.empty) {
-
-                historyTable.innerHTML = `
-                    <tr>
-                        <td colspan="4" class="text-center">
-                            Belum ada riwayat tryout.
-                        </td>
-                    </tr>
-                `;
-
+                alert("Data peserta tidak ditemukan.");
                 return;
 
             }
 
-            snapshot.forEach(doc => {
+            const data = doc.data();
 
-                const data = doc.data();
+            const userName = document.getElementById("userName");
+            const userProgram = document.getElementById("userProgram");
 
-                let status = "Proses";
+            if (userName) {
 
-                if (data.score >= 80) {
+                userName.textContent = data.fullname;
 
-                    status = "Lulus";
+            }
+
+            if (userProgram) {
+
+                userProgram.textContent = data.program;
+
+            }
+
+            // lanjut ke Part 2
+                   /* ==========================================
+               HISTORY TRYOUT
+            ========================================== */
+
+            const historyTable = document.getElementById("historyBody");
+
+            if (historyTable) {
+
+                historyTable.innerHTML = "";
+
+                try {
+
+                    const snapshot = await db.collection("results")
+                        .where("uid", "==", user.uid)
+                        .orderBy("createdAt", "desc")
+                        .get();
+
+                    if (snapshot.empty) {
+
+                        historyTable.innerHTML = `
+                            <tr>
+                                <td colspan="4" class="text-center">
+                                    Belum ada riwayat tryout.
+                                </td>
+                            </tr>
+                        `;
+
+                    } else {
+
+                        snapshot.forEach(resultDoc => {
+
+                            const result = resultDoc.data();
+
+                            const status =
+                                result.score >= 80
+                                    ? "Lulus"
+                                    : "Proses";
+
+                            const badge =
+                                result.score >= 80
+                                    ? "bg-success"
+                                    : "bg-warning text-dark";
+
+                            const tanggal =
+                                result.createdAt
+                                    ? result.createdAt.toDate().toLocaleDateString("id-ID")
+                                    : "-";
+
+                            historyTable.innerHTML += `
+                                <tr>
+                                    <td>${result.program}</td>
+                                    <td>${tanggal}</td>
+                                    <td>${result.score}</td>
+                                    <td>
+                                        <span class="badge ${badge}">
+                                            ${status}
+                                        </span>
+                                    </td>
+                                </tr>
+                            `;
+
+                        });
+
+                    }
+
+                } catch (error) {
+
+                    console.error("History Error :", error);
 
                 }
 
-                historyTable.innerHTML += `
-                    <tr>
-                        <td>${data.program}</td>
-                        <td>${data.createdAt.toDate().toLocaleDateString("id-ID")}</td>
-                        <td>${data.score}</td>
-                        <td>
-                            <span class="badge ${status === "Lulus" ? "bg-success" : "bg-warning text-dark"}">
-                                ${status}
-                            </span>
-                        </td>
-                    </tr>
-                `;
+            }
 
-            });
+            /* ==========================================
+               START TRYOUT
+            ========================================== */
 
-        } catch (error) {
+            const startButton =
+                document.getElementById("startTryout");
 
-            console.error(error);
+            if (startButton) {
 
-        }
+                startButton.onclick = () => {
 
-    });
+                    const participantData = {
 
-}
-            try {
+                        uid: user.uid,
 
-                const doc = await db.collection("users").doc(user.uid).get();
+                        name: data.fullname,
 
-                if (!doc.exists) {
+                        school: data.school || "-",
 
-                    alert("Data peserta tidak ditemukan.");
-                    return;
+                        program: data.program
 
-                }
+                    };
 
-                const data = doc.data();
+                    sessionStorage.setItem(
 
-                const participantData = {
+                        "ksatriaParticipant",
 
-                    name: data.fullname,
-                    school: data.school || "-",
-                    program: data.program
+                        JSON.stringify(participantData)
+
+                    );
+
+                    window.location.href = "cbt.html";
 
                 };
 
-                sessionStorage.setItem(
-                    "ksatriaParticipant",
-                    JSON.stringify(participantData)
-                );
-
-                window.location.href = "cbt.html";
-
-            } catch (error) {
-
-                console.error(error);
-                alert("Terjadi kesalahan.");
-
             }
 
-        });
+            // lanjut ke Part 3
+               } catch (error) {
 
-    }
+            console.error("Dashboard Error :", error);
+
+            alert("Terjadi kesalahan saat memuat dashboard.");
+
+        }
+
+    });
 
 });
