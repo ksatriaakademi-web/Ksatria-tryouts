@@ -129,6 +129,46 @@ totalQuestion;
 
 
 
+// ==========================================
+// BUAT PANEL NOMOR SOAL (DINAMIS)
+// ==========================================
+
+function renderNumberPanel(){
+
+const panel =
+document.getElementById(
+"questionNumbers"
+);
+
+if(!panel) return;
+
+panel.innerHTML =
+questions.map(function(_, i){
+return `<button class="number-item" data-index="${i}">${i + 1}</button>`;
+}).join("");
+
+Array.from(
+panel.querySelectorAll(".number-item")
+).forEach(function(btn){
+
+btn.addEventListener("click", function(){
+
+saveAnswer();
+
+currentQuestion = parseInt(btn.dataset.index, 10);
+
+loadQuestion();
+
+});
+
+});
+
+}
+
+renderNumberPanel();
+
+
+
 
 // ==========================================
 // TAMPIL SOAL
@@ -607,6 +647,9 @@ confirm(
 
 
 if(confirmFinish){
+
+
+saveAnswer();
 
 
 finishExam();

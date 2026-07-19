@@ -2,6 +2,8 @@
    KSATRIA AKADEMI
    REGISTER PAGE
 =================================================== */
+const auth = firebase.auth();
+const db = firebase.firestore();
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -88,13 +90,45 @@ document.addEventListener("DOMContentLoaded", () => {
             button.innerHTML =
             '<span class="spinner-border spinner-border-sm me-2"></span>Mendaftarkan...';
 
-            setTimeout(() => {
+            auth.createUserWithEmailAndPassword(email, password)
 
-                alert("Pendaftaran berhasil! Silakan login.");
+.then(async (userCredential) => {
 
-                window.location.href = "login.html";
+    const user = userCredential.user;
 
-            },1500);
+    await db.collection("users").doc(user.uid).set({
+
+        fullname: fullname,
+        email: email,
+        phone: phone,
+        program: program,
+        role: "siswa",
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+
+    });
+
+    alert("Pendaftaran berhasil!");
+
+    window.location.href = "login.html";
+
+})
+
+.catch((error) => {
+
+    alert(error.message);
+
+})
+
+.finally(() => {
+
+    button.disabled = false;
+
+    button.innerHTML = `
+        <i class="bi bi-person-plus-fill me-2"></i>
+        Daftar Sekarang
+    `;
+
+});
 
         });
 
