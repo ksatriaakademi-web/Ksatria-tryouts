@@ -4,7 +4,8 @@
 ========================================== */
 
 document.addEventListener("DOMContentLoaded", function () {
-
+const auth = firebase.auth();
+const db = firebase.firestore();
     /* ==========================================
        DATA PESERTA
     ========================================== */
