@@ -173,39 +173,50 @@ auth.onAuthStateChanged(async (user) => {
                 data.program;
 const startButton = document.getElementById("startTryout");
 
-startButton.addEventListener("click", () => {
+const startButton = document.getElementById("startTryout");
 
-    if (data.program === "TNI") {
+if (startButton) {
 
-        window.location.href = "cbt.html";
+    startButton.addEventListener("click", async () => {
 
-    } else if (data.program === "POLRI") {
+        const user = auth.currentUser;
 
-        window.location.href = "cbt.html";
-
-    } else if (data.program === "SKD") {
-
-        window.location.href = "cbt.html";
-
-    } else if (data.program === "SNBT") {
-
-        window.location.href = "cbt.html";
-
-    } else {
-
-        alert("Program belum tersedia.");
-
-    }
-
-});
+        if (!user) {
+            window.location.href = "login.html";
+            return;
         }
 
-    } catch (error) {
+        try {
 
-        console.error(error);
+            const doc = await db.collection("users").doc(user.uid).get();
 
-    }
+            if (!doc.exists) {
+                alert("Data peserta tidak ditemukan.");
+                return;
+            }
 
-});
+            const data = doc.data();
 
-});
+            const participantData = {
+                name: data.fullname,
+                school: data.school || "-",
+                program: data.program
+            };
+
+            sessionStorage.setItem(
+                "ksatriaParticipant",
+                JSON.stringify(participantData)
+            );
+
+            window.location.href = "cbt.html";
+
+        } catch (error) {
+
+            console.error(error);
+            alert("Terjadi kesalahan.");
+
+        }
+
+    });
+
+}
