@@ -171,7 +171,33 @@ auth.onAuthStateChanged(async (user) => {
 
             document.getElementById("userProgram").textContent =
                 data.program;
+const startButton = document.getElementById("startTryout");
 
+startButton.addEventListener("click", () => {
+
+    if (data.program === "TNI") {
+
+        window.location.href = "cbt.html";
+
+    } else if (data.program === "POLRI") {
+
+        window.location.href = "cbt.html";
+
+    } else if (data.program === "SKD") {
+
+        window.location.href = "cbt.html";
+
+    } else if (data.program === "SNBT") {
+
+        window.location.href = "cbt.html";
+
+    } else {
+
+        alert("Program belum tersedia.");
+
+    }
+
+});
         }
 
     } catch (error) {
