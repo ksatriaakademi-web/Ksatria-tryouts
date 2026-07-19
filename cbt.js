@@ -1,11 +1,13 @@
 /* ==========================================
    KSATRIA AKADEMI
-   CBT V3
+   CBT V4 FINAL
 ========================================== */
 
-document.addEventListener("DOMContentLoaded", function () {
-const auth = firebase.auth();
-const db = firebase.firestore();
+document.addEventListener("DOMContentLoaded", async () => {
+
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
     /* ==========================================
        DATA PESERTA
     ========================================== */
@@ -92,8 +94,12 @@ const db = firebase.firestore();
     ========================================== */
 
     let currentQuestion = 0;
+
     let answers = [];
+
     let timeLeft = 50 * 60;
+
+    let examFinished = false;
 
     const totalQuestion = questions.length;
 
@@ -101,11 +107,32 @@ const db = firebase.firestore();
        ELEMENT HTML
     ========================================== */
 
-    const questionText = document.getElementById("questionText");
-    const answerArea = document.querySelector(".answer-list");
-    const currentNumber = document.getElementById("currentNumber");
-    const totalNumber = document.getElementById("totalQuestion");
-    const questionNumbers = document.getElementById("questionNumbers");
+    const questionText =
+        document.getElementById("questionText");
+
+    const answerArea =
+        document.querySelector(".answer-list");
+
+    const currentNumber =
+        document.getElementById("currentNumber");
+
+    const totalNumber =
+        document.getElementById("totalQuestion");
+
+    const questionNumbers =
+        document.getElementById("questionNumbers");
+
+    const timerElement =
+        document.getElementById("timer");
+
+    const nextBtn =
+        document.getElementById("nextBtn");
+
+    const previousBtn =
+        document.getElementById("previousBtn");
+
+    const finishBtn =
+        document.getElementById("finishBtn");
 
     totalNumber.textContent = totalQuestion;
 
@@ -121,7 +148,7 @@ const db = firebase.firestore();
 
         button.textContent = i + 1;
 
-        button.addEventListener("click", function () {
+        button.addEventListener("click", () => {
 
             saveAnswer();
 
@@ -134,8 +161,7 @@ const db = firebase.firestore();
         questionNumbers.appendChild(button);
 
     }
-
-    /* ==========================================
+       /* ==========================================
        TAMPILKAN SOAL
     ========================================== */
 
@@ -145,13 +171,13 @@ const db = firebase.firestore();
 
         currentNumber.textContent = currentQuestion + 1;
 
-        questionText.textContent = data.question;
-
         answerArea.innerHTML = "";
+
+        questionText.textContent = data.question;
 
         const letters = ["A", "B", "C", "D"];
 
-        data.options.forEach(function (option, index) {
+        data.options.forEach((option, index) => {
 
             const checked =
                 answers[currentQuestion] === letters[index]
@@ -180,29 +206,46 @@ const db = firebase.firestore();
 
         });
 
+        document
+            .querySelectorAll('input[name="answer"]')
+            .forEach(radio => {
+
+                radio.addEventListener("change", () => {
+
+                    saveAnswer();
+
+                    updateNumber();
+
+                });
+
+            });
+
         updateNumber();
 
     }
-       /* ==========================================
+
+    /* ==========================================
        SIMPAN JAWABAN
     ========================================== */
 
     function saveAnswer() {
 
-        const selected = document.querySelector(
-            'input[name="answer"]:checked'
-        );
+        const selected =
+            document.querySelector(
+                'input[name="answer"]:checked'
+            );
 
         if (selected) {
 
-            answers[currentQuestion] = selected.value;
+            answers[currentQuestion] =
+                selected.value;
 
         }
 
     }
 
     /* ==========================================
-       UPDATE NOMOR SOAL
+       UPDATE STATUS NOMOR SOAL
     ========================================== */
 
     function updateNumber() {
@@ -210,7 +253,7 @@ const db = firebase.firestore();
         const numbers =
             document.querySelectorAll(".number-item");
 
-        numbers.forEach(function (item, index) {
+        numbers.forEach((item, index) => {
 
             item.classList.remove("active");
             item.classList.remove("answered");
@@ -232,42 +275,23 @@ const db = firebase.firestore();
         const status =
             document.querySelector(".question-status");
 
-        if (status) {
+        if (!status) return;
 
-            if (answers[currentQuestion]) {
+        if (answers[currentQuestion]) {
 
-                status.innerHTML = `
-                    <i class="bi bi-check-circle-fill"></i>
-                    Sudah Dijawab
-                `;
+            status.innerHTML = `
+                <i class="bi bi-check-circle-fill"></i>
+                Sudah Dijawab
+            `;
 
-            } else {
+        } else {
 
-                status.innerHTML = `
-                    <i class="bi bi-pencil-square"></i>
-                    Belum Dijawab
-                `;
-
-            }
+            status.innerHTML = `
+                <i class="bi bi-pencil-square"></i>
+                Belum Dijawab
+            `;
 
         }
-
-        /* Setelah memilih jawaban,
-           status langsung berubah */
-
-        document.querySelectorAll(
-            'input[name="answer"]'
-        ).forEach(function (radio) {
-
-            radio.addEventListener("change", function () {
-
-                saveAnswer();
-
-                updateNumber();
-
-            });
-
-        });
 
     }
 
@@ -275,10 +299,7 @@ const db = firebase.firestore();
        BUTTON NEXT
     ========================================== */
 
-    const nextBtn =
-        document.getElementById("nextBtn");
-
-    nextBtn.onclick = function () {
+    nextBtn.addEventListener("click", () => {
 
         saveAnswer();
 
@@ -290,16 +311,13 @@ const db = firebase.firestore();
 
         }
 
-    };
+    });
 
     /* ==========================================
        BUTTON PREVIOUS
     ========================================== */
 
-    const previousBtn =
-        document.getElementById("previousBtn");
-
-    previousBtn.onclick = function () {
+    previousBtn.addEventListener("click", () => {
 
         saveAnswer();
 
@@ -311,29 +329,26 @@ const db = firebase.firestore();
 
         }
 
-    };
-
-    /* ==========================================
+    });
+       /* ==========================================
        TIMER
     ========================================== */
 
-    const timerElement =
-        document.getElementById("timer");
+    const timer = setInterval(() => {
 
-    const timer = setInterval(function () {
+        if (examFinished) {
 
-        let minute = Math.floor(timeLeft / 60);
+            clearInterval(timer);
 
-        let second = timeLeft % 60;
-
-        if (second < 10) {
-
-            second = "0" + second;
+            return;
 
         }
 
-        timerElement.textContent =
-            minute + ":" + second;
+        const minute = Math.floor(timeLeft / 60);
+
+        const second = String(timeLeft % 60).padStart(2, "0");
+
+        timerElement.textContent = `${minute}:${second}`;
 
         timeLeft--;
 
@@ -346,7 +361,8 @@ const db = firebase.firestore();
         }
 
     }, 1000);
-       /* ==========================================
+
+    /* ==========================================
        HITUNG NILAI
     ========================================== */
 
@@ -354,7 +370,7 @@ const db = firebase.firestore();
 
         let correct = 0;
 
-        questions.forEach(function (item, index) {
+        questions.forEach((item, index) => {
 
             if (answers[index] === item.answer) {
 
@@ -366,7 +382,7 @@ const db = firebase.firestore();
 
         return {
 
-            correct: correct,
+            correct,
 
             wrong: totalQuestion - correct,
 
@@ -382,30 +398,37 @@ const db = firebase.firestore();
        BUTTON SELESAI
     ========================================== */
 
-    const finishBtn =
-        document.getElementById("finishBtn");
-
-    finishBtn.onclick = function () {
+    finishBtn.addEventListener("click", () => {
 
         saveAnswer();
 
-        const confirmTest = confirm(
+        const confirmFinish = confirm(
             "Yakin ingin menyelesaikan ujian?"
         );
 
-        if (confirmTest) {
+        if (confirmFinish) {
 
             finishExam();
 
         }
 
-    };
+    });
 
     /* ==========================================
        SELESAI UJIAN
     ========================================== */
 
-    function finishExam() {
+    async function finishExam() {
+
+        if (examFinished) return;
+
+        examFinished = true;
+
+        clearInterval(timer);
+
+        finishBtn.disabled = true;
+        nextBtn.disabled = true;
+        previousBtn.disabled = true;
 
         const result = calculateScore();
 
@@ -425,73 +448,43 @@ const db = firebase.firestore();
 
             answers: answers,
 
-            date: new Date()
-                .toLocaleDateString("id-ID"),
+            date: new Date().toLocaleDateString("id-ID"),
 
             certificateNumber: certificateNumber
 
         };
-// ==========================================
-// SIMPAN HASIL KE FIRESTORE
-// ==========================================
 
-const user = auth.currentUser;
+        const user = auth.currentUser;
 
-if (user) {
+        try {
 
-    db.collection("results").add({
+            if (user) {
 
-        uid: user.uid,
+                await db.collection("results").add({
 
-        fullname: participantData.name,
+                    uid: user.uid,
 
-        school: participantData.school,
+                    fullname: participantData.name,
 
-        program: participantData.program,
+                    school: participantData.school,
 
-        score: result.score,
+                    program: participantData.program,
 
-        correct: result.correct,
+                    score: result.score,
 
-        wrong: result.wrong,
+                    correct: result.correct,
 
-        certificateNumber: certificateNumber,
+                    wrong: result.wrong,
 
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                    certificateNumber: certificateNumber,
 
-    })
+                    createdAt:
+                        firebase.firestore.FieldValue.serverTimestamp()
 
-    .then(() => {
+                });
 
-        console.log("✅ Hasil berhasil disimpan ke Firestore");
+                console.log(
+                    "✅ Hasil berhasil disimpan ke Firestore"
+                );
 
-    })
-
-    .catch((error) => {
-
-        console.error("Firestore Error:", error);
-
-    });
-
-}
-        sessionStorage.setItem(
-    "ksatriaResult",
-    JSON.stringify(finalResult)
-);
-
-// Tunggu sebentar agar Firestore sempat menyimpan data
-setTimeout(() => {
-
-    window.location.href = "result.html";
-
-}, 500);
-
-    }
-
-    /* ==========================================
-       MULAI CBT
-    ========================================== */
-
-    loadQuestion();
-
-});
+            }
