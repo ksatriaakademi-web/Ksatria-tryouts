@@ -208,7 +208,77 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
 
             }
+/* ==========================================
+   HISTORY TRYOUT
+========================================== */
 
+const historyTable = document.getElementById("historyBody");
+
+if (historyTable) {
+
+    auth.onAuthStateChanged(async (user) => {
+
+        if (!user) return;
+
+        try {
+
+            const snapshot = await db.collection("results")
+                .where("uid", "==", user.uid)
+                .orderBy("createdAt", "desc")
+                .get();
+
+            historyTable.innerHTML = "";
+
+            if (snapshot.empty) {
+
+                historyTable.innerHTML = `
+                    <tr>
+                        <td colspan="4" class="text-center">
+                            Belum ada riwayat tryout.
+                        </td>
+                    </tr>
+                `;
+
+                return;
+
+            }
+
+            snapshot.forEach(doc => {
+
+                const data = doc.data();
+
+                let status = "Proses";
+
+                if (data.score >= 80) {
+
+                    status = "Lulus";
+
+                }
+
+                historyTable.innerHTML += `
+                    <tr>
+                        <td>${data.program}</td>
+                        <td>${data.createdAt.toDate().toLocaleDateString("id-ID")}</td>
+                        <td>${data.score}</td>
+                        <td>
+                            <span class="badge ${status === "Lulus" ? "bg-success" : "bg-warning text-dark"}">
+                                ${status}
+                            </span>
+                        </td>
+                    </tr>
+                `;
+
+            });
+
+        } catch (error) {
+
+            console.error(error);
+
+        }
+
+    });
+
+}
             try {
 
                 const doc = await db.collection("users").doc(user.uid).get();
