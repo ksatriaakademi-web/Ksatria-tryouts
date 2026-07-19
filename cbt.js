@@ -475,15 +475,16 @@ if (user) {
 
 }
         sessionStorage.setItem(
+    "ksatriaResult",
+    JSON.stringify(finalResult)
+);
 
-            "ksatriaResult",
+// Tunggu sebentar agar Firestore sempat menyimpan data
+setTimeout(() => {
 
-            JSON.stringify(finalResult)
+    window.location.href = "result.html";
 
-        );
-
-        window.location.href =
-            "result.html";
+}, 500);
 
     }
 
