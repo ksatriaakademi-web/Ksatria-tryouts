@@ -110,3 +110,61 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
     }, 20);
+       /* ==========================================
+       TOMBOL LIHAT SERTIFIKAT
+    ========================================== */
+
+    const certificateBtn =
+        document.getElementById("certificateBtn");
+
+    if (certificateBtn) {
+
+        certificateBtn.addEventListener("click", () => {
+
+            window.location.href = "certificate.html";
+
+        });
+
+    }
+
+    /* ==========================================
+       TOMBOL ULANGI TRYOUT
+    ========================================== */
+
+    const retryBtn =
+        document.getElementById("retryBtn");
+
+    if (retryBtn) {
+
+        retryBtn.addEventListener("click", () => {
+
+            window.location.href = "dashboard.html";
+
+        });
+
+    }
+
+    /* ==========================================
+       TOMBOL PEMBAHASAN
+    ========================================== */
+
+    const discussionBtn =
+        document.getElementById("discussionBtn");
+
+    if (discussionBtn) {
+
+        discussionBtn.addEventListener("click", () => {
+
+            alert(
+                "Pembahasan akan tersedia setelah seluruh bank soal selesai dikembangkan."
+            );
+
+        });
+
+    }
+
+    console.log(
+        "✅ Result berhasil dimuat."
+    );
+
+});
