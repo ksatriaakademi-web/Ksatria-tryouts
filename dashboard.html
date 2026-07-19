@@ -3,24 +3,28 @@
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-<title>Dashboard | KSATRIA AKADEMI</title>
+    <title>Dashboard | KSATRIA AKADEMI</title>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-rel="stylesheet">
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
 
-<link rel="stylesheet"
-href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-rel="stylesheet">
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
 
-<link rel="stylesheet"
-href="dashboard.css">
+    <!-- Dashboard CSS -->
+    <link rel="stylesheet"
+          href="dashboard.css">
 
 </head>
 
@@ -28,552 +32,513 @@ href="dashboard.css">
 
 <div class="dashboard">
 
-<!-- ================= SIDEBAR ================= -->
+    <!-- ================= SIDEBAR ================= -->
 
-<div class="sidebar">
+    <aside class="sidebar">
 
-<div class="logo-area">
+        <div class="logo-area">
 
-<img src="logo.png"
-class="sidebar-logo">
+            <img src="logo.png"
+                 class="sidebar-logo"
+                 alt="KSATRIA AKADEMI">
 
-<h4>KSATRIA</h4>
+            <h4>KSATRIA</h4>
 
-</div>
+        </div>
 
-<ul class="menu">
+        <ul class="menu">
 
-<li class="active">
+            <li class="active">
+                <a href="#">
+                    <i class="bi bi-grid-fill"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
 
-<a href="#">
+            <li>
+                <a href="#">
+                    <i class="bi bi-journal-bookmark-fill"></i>
+                    <span>Tryout Saya</span>
+                </a>
+            </li>
 
-<i class="bi bi-grid-fill"></i>
+            <li>
+                <a href="#">
+                    <i class="bi bi-bar-chart-fill"></i>
+                    <span>Hasil</span>
+                </a>
+            </li>
 
-<span>Dashboard</span>
+            <li>
+                <a href="#">
+                    <i class="bi bi-award-fill"></i>
+                    <span>Peringkat</span>
+                </a>
+            </li>
 
-</a>
+            <li>
+                <a href="#">
+                    <i class="bi bi-person-fill"></i>
+                    <span>Profil</span>
+                </a>
+            </li>
 
-</li>
+            <li>
+                <a href="index.html">
+                    <i class="bi bi-box-arrow-left"></i>
+                    <span>Keluar</span>
+                </a>
+            </li>
 
-<li>
+        </ul>
 
-<a href="#">
+    </aside>
 
-<i class="bi bi-journal-bookmark-fill"></i>
+    <!-- ================= MAIN CONTENT ================= -->
 
-<span>Tryout Saya</span>
+    <main class="main-content">
 
-</a>
+        <!-- ================= TOPBAR ================= -->
 
-</li>
+        <header class="topbar">
 
-<li>
+            <div class="topbar-left">
 
-<a href="#">
+                <h2>Dashboard</h2>
 
-<i class="bi bi-bar-chart-fill"></i>
+                <p>
+                    Selamat datang kembali di KSATRIA AKADEMI
+                </p>
 
-<span>Hasil</span>
+            </div>
 
-</a>
+            <div class="topbar-right">
 
-</li>
+                <button type="button"
+                        class="notification-btn">
 
-<li>
+                    <i class="bi bi-bell-fill"></i>
 
-<a href="#">
+                </button>
 
-<i class="bi bi-award-fill"></i>
+                <div class="user-box">
 
-<span>Peringkat</span>
+                    <img src="logo.png"
+                         alt="User">
 
-</a>
+                    <div>
 
-</li>
+                        <h6 id="userName">
+                            Memuat...
+                        </h6>
 
-<li>
+                        <small id="userProgram">
+                            Memuat...
+                        </small>
 
-<a href="#">
+                    </div>
 
-<i class="bi bi-person-fill"></i>
+                </div>
 
-<span>Profil</span>
+            </div>
 
-</a>
+        </header>
 
-</li>
+        <!-- ================= WELCOME ================= -->
 
-<li>
+        <section class="welcome-section">
 
-<a href="index.html">
+            <div class="welcome-card">
 
-<i class="bi bi-box-arrow-left"></i>
+                <div class="row align-items-center">
 
-<span>Keluar</span>
+                    <div class="col-lg-8">
 
-</a>
+                        <span class="welcome-badge">
 
-</li>
+                            Selamat Datang 👋
 
-</ul>
+                        </span>
 
-</div>
+                        <h1>
 
-<!-- ================= CONTENT ================= -->
+                            Tetap Semangat Mengejar Impianmu
 
-<div class="main-content">
-  <!-- ================= TOPBAR ================= -->
+                        </h1>
 
-<header class="topbar">
+                        <p>
 
-    <div class="topbar-left">
+                            Lanjutkan latihan hari ini untuk meningkatkan peluang lolos seleksi TNI, POLRI, Sekolah Kedinasan, maupun SNBT.
 
-        <h2>
+                        </p>
 
-            Dashboard
+                        <button id="startTryout"
+                                type="button"
+                                class="btn btn-warning">
 
-        </h2>
+                            Mulai Tryout
 
-        <p>
+                        </button>
 
-            Selamat datang kembali di KSATRIA AKADEMI
+                    </div>
 
-        </p>
+                    <div class="col-lg-4 text-center">
 
-    </div>
+                        <img src="hero-knight.png"
+                             alt="Dashboard Hero"
+                             class="welcome-image">
 
-    <div class="topbar-right">
+                    </div>
 
-        <button class="notification-btn">
+                </div>
 
-            <i class="bi bi-bell-fill"></i>
+            </div>
 
-        </button>
+        </section>
 
-        <div class="user-box">
+        <!-- ================= STATISTICS ================= -->
 
-           <img
-    src="logo.png"
-    alt="User">
+        <section class="dashboard-stats">
 
-            <div>
+            <div class="row g-4">
 
-                <h6 id="userName">
-    Memuat...
-</h6>
+                <!-- Statistik 1 -->
 
-<small id="userProgram">
-    Memuat...
-</small>
+                <div class="col-md-6 col-xl-3">
+
+                    <div class="stats-card">
+
+                        <div class="stats-icon">
+
+                            <i class="bi bi-journal-check"></i>
+
+                        </div>
+
+                        <div class="stats-content">
+
+                            <h3 id="totalTryout">
+                                0
+                            </h3>
+
+                            <p>Tryout Selesai</p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Statistik 2 -->
+
+                <div class="col-md-6 col-xl-3">
+
+                    <div class="stats-card">
+
+                        <div class="stats-icon">
+
+                            <i class="bi bi-trophy-fill"></i>
+
+                        </div>
+
+                        <div class="stats-content">
+
+                            <h3 id="averageScore">
+                                0
+                            </h3>
+
+                            <p>Rata-rata Nilai</p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Statistik 3 -->
+
+                <div class="col-md-6 col-xl-3">
+
+                    <div class="stats-card">
+
+                        <div class="stats-icon">
+
+                            <i class="bi bi-bar-chart-fill"></i>
+
+                        </div>
+
+                        <div class="stats-content">
+
+                            <h3 id="nationalRank">
+                                -
+                            </h3>
+
+                            <p>Ranking Nasional</p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                                </div>
+
+            </div>
+
+            <!-- Statistik 4 -->
+
+            <div class="col-md-6 col-xl-3">
+
+                <div class="stats-card">
+
+                    <div class="stats-icon">
+
+                        <i class="bi bi-award-fill"></i>
+
+                    </div>
+
+                    <div class="stats-content">
+
+                        <h3 id="badgeCount">
+                            0
+                        </h3>
+
+                        <p>Badge Diperoleh</p>
+
+                    </div>
+
+                </div>
 
             </div>
 
         </div>
 
-    </div>
+    </section>
 
-</header>
+    <!-- ================= CONTENT GRID ================= -->
 
-<!-- ================= WELCOME ================= -->
+    <section class="dashboard-content">
 
-<section class="welcome-section">
+        <div class="row g-4">
 
-    <div class="welcome-card">
-
-        <div class="row align-items-center">
+            <!-- Progress -->
 
             <div class="col-lg-8">
 
-                <span class="welcome-badge">
+                <div class="dashboard-card">
 
-                    Selamat Datang 👋
+                    <div class="card-header-custom">
 
-                </span>
+                        <h4>Progress Belajar</h4>
 
-                <h1>
+                    </div>
 
-                    Tetap Semangat Mengejar Impianmu
+                    <div class="progress-item">
 
-                </h1>
+                        <div class="d-flex justify-content-between mb-2">
 
-                <p>
+                            <span>TNI</span>
 
-                    Lanjutkan latihan hari ini untuk meningkatkan peluang lolos
-                    seleksi TNI, POLRI, Kedinasan, maupun SNBT.
+                            <strong id="progressTNIText">85%</strong>
 
-                </p>
+                        </div>
 
-              <a
-    id="startTryout"
-    class="btn btn-warning">
-    Mulai Tryout
-</a>
+                        <div class="progress">
 
-            </div>
+                            <div id="progressTNI"
+                                 class="progress-bar bg-success"
+                                 style="width:85%"></div>
 
-            <div class="col-lg-4 text-center">
+                        </div>
 
-                <img
-    src="hero-knight.png"
-    alt="Dashboard"
-    class="welcome-image">
+                    </div>
 
-            </div>
+                    <div class="progress-item mt-4">
 
-        </div>
+                        <div class="d-flex justify-content-between mb-2">
 
-    </div>
+                            <span>POLRI</span>
 
-</section>
+                            <strong id="progressPOLRIText">70%</strong>
 
-<!-- ================= STATISTICS ================= -->
+                        </div>
 
-<section class="dashboard-stats">
+                        <div class="progress">
 
-    <div class="row g-4">
-      <!-- Statistik 1 -->
+                            <div id="progressPOLRI"
+                                 class="progress-bar bg-warning"
+                                 style="width:70%"></div>
 
-<div class="col-md-6 col-xl-3">
+                        </div>
 
-    <div class="stats-card">
+                    </div>
 
-        <div class="stats-icon">
+                    <div class="progress-item mt-4">
 
-            <i class="bi bi-journal-check"></i>
+                        <div class="d-flex justify-content-between mb-2">
 
-        </div>
+                            <span>Kedinasan</span>
 
-        <div class="stats-content">
+                            <strong id="progressKedinasanText">60%</strong>
 
-            <h3>128</h3>
+                        </div>
 
-            <p>Tryout Selesai</p>
+                        <div class="progress">
 
-        </div>
+                            <div id="progressKedinasan"
+                                 class="progress-bar bg-info"
+                                 style="width:60%"></div>
 
-    </div>
+                        </div>
 
-</div>
-
-<!-- Statistik 2 -->
-
-<div class="col-md-6 col-xl-3">
-
-    <div class="stats-card">
-
-        <div class="stats-icon">
-
-            <i class="bi bi-trophy-fill"></i>
-
-        </div>
-
-        <div class="stats-content">
-
-            <h3>92%</h3>
-
-            <p>Rata-rata Nilai</p>
-
-        </div>
-
-    </div>
-
-</div>
-
-<!-- Statistik 3 -->
-
-<div class="col-md-6 col-xl-3">
-
-    <div class="stats-card">
-
-        <div class="stats-icon">
-
-            <i class="bi bi-bar-chart-fill"></i>
-
-        </div>
-
-        <div class="stats-content">
-
-            <h3>#34</h3>
-
-            <p>Ranking Nasional</p>
-
-        </div>
-
-    </div>
-
-</div>
-
-<!-- Statistik 4 -->
-
-<div class="col-md-6 col-xl-3">
-
-    <div class="stats-card">
-
-        <div class="stats-icon">
-
-            <i class="bi bi-award-fill"></i>
-
-        </div>
-
-        <div class="stats-content">
-
-            <h3>18</h3>
-
-            <p>Badge Diperoleh</p>
-
-        </div>
-
-    </div>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- ================= CONTENT GRID ================= -->
-
-<section class="dashboard-content">
-
-<div class="row g-4">
-
-<!-- Progress -->
-
-<div class="col-lg-8">
-
-<div class="dashboard-card">
-
-<div class="card-header-custom">
-
-<h4>
-
-Progress Belajar
-
-</h4>
-
-</div>
-
-<div class="progress-item">
-
-<div class="d-flex justify-content-between mb-2">
-
-<span>TNI</span>
-
-<strong>85%</strong>
-
-</div>
-
-<div class="progress">
-
-<div class="progress-bar bg-success"
-style="width:85%"></div>
-
-</div>
-
-</div>
-
-<div class="progress-item mt-4">
-
-<div class="d-flex justify-content-between mb-2">
-
-<span>POLRI</span>
-
-<strong>70%</strong>
-
-</div>
-
-<div class="progress">
-
-<div class="progress-bar bg-warning"
-style="width:70%"></div>
-
-</div>
-
-</div>
-
-<div class="progress-item mt-4">
-
-<div class="d-flex justify-content-between mb-2">
-
-<span>Kedinasan</span>
-
-<strong>60%</strong>
-
-</div>
-
-<div class="progress">
-
-<div class="progress-bar bg-info"
-style="width:60%"></div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- Aktivitas -->
-
-<div class="col-lg-4">
-
-<div class="dashboard-card">
-
-<div class="card-header-custom">
-
-<h4>
-
-Aktivitas Terbaru
-
-</h4>
-
-</div>
-
-<ul class="activity-list">
-
-<li>
-
-<i class="bi bi-check-circle-fill text-success"></i>
-
-Menyelesaikan Tryout TNI
-
-</li>
-
-<li>
-
-<i class="bi bi-check-circle-fill text-success"></i>
-
-Nilai meningkat menjadi 92
-
-</li>
-
-<li>
-
-<i class="bi bi-star-fill text-warning"></i>
-
-Mendapat Badge Baru
-
-</li>
-
-<li>
-
-<i class="bi bi-calendar-event-fill text-info"></i>
-
-Tryout berikutnya besok
-
-</li>
-
-</ul>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-  <!-- ================= PROGRAM & SCHEDULE ================= -->
-
-<section class="dashboard-program">
-
-    <div class="row g-4">
-
-        <!-- Program Saya -->
-
-        <div class="col-lg-8">
-
-            <div class="dashboard-card">
-
-                <div class="card-header-custom">
-
-                    <h4>Program Saya</h4>
+                    </div>
 
                 </div>
 
-                <div class="row g-3">
+            </div>
 
-                    <div class="col-md-6">
+            <!-- Aktivitas -->
 
-                        <div class="program-item">
+            <div class="col-lg-4">
 
-                            <div class="program-icon">
+                <div class="dashboard-card">
 
-                                <i class="bi bi-shield-fill-check"></i>
+                    <div class="card-header-custom">
 
-                            </div>
+                        <h4>Aktivitas Terbaru</h4>
 
-                            <div>
+                    </div>
 
-                                <h5>TNI</h5>
+                    <ul class="activity-list"
+                        id="activityList">
 
-                                <p>125 Soal • 85% Progress</p>
+                        <li>
+
+                            <i class="bi bi-arrow-repeat"></i>
+
+                            Memuat aktivitas...
+
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ================= PROGRAM & SCHEDULE ================= -->
+
+    <section class="dashboard-program">
+
+        <div class="row g-4">
+
+            <!-- Program Saya -->
+
+            <div class="col-lg-8">
+
+                <div class="dashboard-card">
+
+                    <div class="card-header-custom">
+
+                        <h4>Program Saya</h4>
+
+                    </div>
+
+                    <div class="row g-3">
+
+                        <div class="col-md-6">
+
+                            <div class="program-item">
+
+                                <div class="program-icon">
+
+                                    <i class="bi bi-shield-fill-check"></i>
+
+                                </div>
+
+                                <div>
+
+                                    <h5>TNI</h5>
+
+                                    <p id="programTNI">
+                                        125 Soal • 85% Progress
+                                    </p>
+
+                                </div>
 
                             </div>
 
                         </div>
 
-                    </div>
+                        <div class="col-md-6">
 
-                    <div class="col-md-6">
+                            <div class="program-item">
 
-                        <div class="program-item">
+                                <div class="program-icon">
 
-                            <div class="program-icon">
+                                    <i class="bi bi-person-badge-fill"></i>
 
-                                <i class="bi bi-person-badge-fill"></i>
+                                </div>
 
-                            </div>
+                                <div>
 
-                            <div>
+                                    <h5>POLRI</h5>
 
-                                <h5>POLRI</h5>
+                                    <p id="programPOLRI">
+                                        98 Soal • 70% Progress
+                                    </p>
 
-                                <p>98 Soal • 70% Progress</p>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="col-md-6">
-
-                        <div class="program-item">
-
-                            <div class="program-icon">
-
-                                <i class="bi bi-bank2"></i>
-
-                            </div>
-
-                            <div>
-
-                                <h5>Kedinasan</h5>
-
-                                <p>110 Soal • 60% Progress</p>
+                                </div>
 
                             </div>
 
                         </div>
 
-                    </div>
+                        <div class="col-md-6">
 
-                    <div class="col-md-6">
+                            <div class="program-item">
 
-                        <div class="program-item">
+                                <div class="program-icon">
 
-                            <div class="program-icon">
+                                    <i class="bi bi-bank2"></i>
 
-                                <i class="bi bi-mortarboard-fill"></i>
+                                </div>
+
+                                <div>
+
+                                    <h5>Kedinasan</h5>
+
+                                    <p id="programKedinasan">
+                                        110 Soal • 60% Progress
+                                    </p>
+
+                                </div>
 
                             </div>
 
-                            <div>
+                        </div>
 
-                                <h5>SNBT</h5>
+                        <div class="col-md-6">
 
-                                <p>140 Soal • 90% Progress</p>
+                            <div class="program-item">
+
+                                <div class="program-icon">
+
+                                    <i class="bi bi-mortarboard-fill"></i>
+
+                                </div>
+
+                                <div>
+
+                                    <h5>SNBT</h5>
+
+                                    <p id="programSNBT">
+                                        140 Soal • 90% Progress
+                                    </p>
+
+                                </div>
 
                             </div>
 
@@ -585,51 +550,48 @@ Tryout berikutnya besok
 
             </div>
 
-        </div>
+            <!-- Jadwal -->
 
-        <!-- Jadwal -->
+            <div class="col-lg-4">
 
-        <div class="col-lg-4">
+                <div class="dashboard-card">
 
-            <div class="dashboard-card">
+                    <div class="card-header-custom">
 
-                <div class="card-header-custom">
+                        <h4>Jadwal Tryout</h4>
 
-                    <h4>Jadwal Tryout</h4>
+                    </div>
+  <div class="schedule-item">
 
-                </div>
+    <strong>Senin</strong>
 
-                <div class="schedule-item">
+    <span>Tryout TNI - 19.00 WIB</span>
 
-                    <strong>Senin</strong>
+</div>
 
-                    <span>Tryout TNI - 19.00 WIB</span>
+<div class="schedule-item">
 
-                </div>
+    <strong>Rabu</strong>
 
-                <div class="schedule-item">
+    <span>Tryout POLRI - 19.30 WIB</span>
 
-                    <strong>Rabu</strong>
+</div>
 
-                    <span>Tryout POLRI - 19.30 WIB</span>
+<div class="schedule-item">
 
-                </div>
+    <strong>Jumat</strong>
 
-                <div class="schedule-item">
+    <span>Tryout Kedinasan - 20.00 WIB</span>
 
-                    <strong>Jumat</strong>
+</div>
 
-                    <span>Tryout Kedinasan - 20.00 WIB</span>
+<div class="schedule-item">
 
-                </div>
+    <strong>Minggu</strong>
 
-                <div class="schedule-item">
+    <span>Tryout Nasional - 09.00 WIB</span>
 
-                    <strong>Minggu</strong>
-
-                    <span>Tryout Nasional - 09.00 WIB</span>
-
-                </div>
+</div>
 
             </div>
 
@@ -671,19 +633,19 @@ Tryout berikutnya besok
 
                 </thead>
 
-               <tbody id="historyTable">
+                <tbody id="historyTable">
 
-    <tr>
+                    <tr>
 
-        <td colspan="4" class="text-center">
+                        <td colspan="4" class="text-center">
 
-            Memuat data...
+                            Memuat data...
 
-        </td>
+                        </td>
 
-    </tr>
+                    </tr>
 
-</tbody>
+                </tbody>
 
             </table>
 
@@ -692,7 +654,8 @@ Tryout berikutnya besok
     </div>
 
 </section>
-  <!-- ================= TARGET & ANNOUNCEMENT ================= -->
+
+<!-- ================= TARGET & ANNOUNCEMENT ================= -->
 
 <section class="dashboard-bottom">
 
@@ -706,11 +669,7 @@ Tryout berikutnya besok
 
                 <div class="card-header-custom">
 
-                    <h4>
-
-                        Target Belajar Mingguan
-
-                    </h4>
+                    <h4>Target Belajar Mingguan</h4>
 
                 </div>
 
@@ -726,8 +685,7 @@ Tryout berikutnya besok
 
                     <div class="progress">
 
-                        <div class="progress-bar bg-primary"
-                             style="width:80%"></div>
+                        <div class="progress-bar bg-primary" style="width:80%"></div>
 
                     </div>
 
@@ -745,8 +703,7 @@ Tryout berikutnya besok
 
                     <div class="progress">
 
-                        <div class="progress-bar bg-warning"
-                             style="width:60%"></div>
+                        <div class="progress-bar bg-warning" style="width:60%"></div>
 
                     </div>
 
@@ -764,8 +721,7 @@ Tryout berikutnya besok
 
                     <div class="progress">
 
-                        <div class="progress-bar bg-success"
-                             style="width:90%"></div>
+                        <div class="progress-bar bg-success" style="width:90%"></div>
 
                     </div>
 
@@ -783,11 +739,7 @@ Tryout berikutnya besok
 
                 <div class="card-header-custom">
 
-                    <h4>
-
-                        Pengumuman
-
-                    </h4>
+                    <h4>Pengumuman</h4>
 
                 </div>
 
@@ -799,11 +751,7 @@ Tryout berikutnya besok
 
                         <h6>Tryout Nasional Dibuka</h6>
 
-                        <p>
-
-                            Pendaftaran Tryout Nasional Batch Juli telah dibuka.
-
-                        </p>
+                        <p>Pendaftaran Tryout Nasional Batch Juli telah dibuka.</p>
 
                     </div>
 
@@ -817,11 +765,7 @@ Tryout berikutnya besok
 
                         <h6>Bonus Materi Baru</h6>
 
-                        <p>
-
-                            Materi Psikotes Premium telah tersedia untuk seluruh member.
-
-                        </p>
+                        <p>Materi Psikotes Premium telah tersedia untuk seluruh member.</p>
 
                     </div>
 
@@ -835,11 +779,7 @@ Tryout berikutnya besok
 
                         <h6>Live Class</h6>
 
-                        <p>
-
-                            Live Zoom bersama mentor hari Sabtu pukul 19.30 WIB.
-
-                        </p>
+                        <p>Live Zoom bersama mentor hari Sabtu pukul 19.30 WIB.</p>
 
                     </div>
 
@@ -874,24 +814,31 @@ Tryout berikutnya besok
     </div>
 
 </footer>
-  </div>
+
+</div>
 <!-- End Main Content -->
 
 </div>
 <!-- End Dashboard -->
 
 <!-- Bootstrap JS -->
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- Firebase -->
+
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
 <!-- Firebase Config -->
+
 <script src="firebase.js"></script>
-  
+
 <!-- Dashboard JS -->
+
 <script src="dashboard.js"></script>
 
 </body>
