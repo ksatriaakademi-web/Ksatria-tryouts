@@ -1,1 +1,241 @@
-
+{
+  "title": "Tryout Gratis SKD (TWK, TIU, TKP)",
+  "duration": 30,
+  "questions": [
+    {
+      "type": "TWK",
+      "question": "Pancasila sebagai dasar negara Indonesia disahkan secara resmi oleh PPKI pada tanggal?",
+      "options": ["17 Agustus 1945", "18 Agustus 1945", "1 Juni 1945", "28 Oktober 1945"],
+      "answer": "B"
+    },
+    {
+      "type": "TWK",
+      "question": "Sila Pancasila yang berbunyi 'Kemanusiaan yang adil dan beradab' merupakan sila ke-?",
+      "options": ["Satu", "Dua", "Tiga", "Empat"],
+      "answer": "B"
+    },
+    {
+      "type": "TWK",
+      "question": "Sejak reformasi, UUD 1945 telah mengalami amandemen sebanyak?",
+      "options": ["2 kali", "3 kali", "4 kali", "5 kali"],
+      "answer": "C"
+    },
+    {
+      "type": "TWK",
+      "question": "Teks Proklamasi Kemerdekaan Indonesia dibacakan oleh Ir. Soekarno didampingi oleh?",
+      "options": ["Drs. Mohammad Hatta", "Sutan Syahrir", "Jenderal Sudirman", "Mohammad Yamin"],
+      "answer": "A"
+    },
+    {
+      "type": "TWK",
+      "question": "Semboyan 'Bhinneka Tunggal Ika' diambil dari kitab?",
+      "options": ["Negarakertagama", "Sutasoma", "Pararaton", "Arjunawiwaha"],
+      "answer": "B"
+    },
+    {
+      "type": "TWK",
+      "question": "Sistem pemerintahan Indonesia berdasarkan UUD 1945 adalah sistem?",
+      "options": ["Parlementer", "Presidensial", "Monarki konstitusional", "Federal"],
+      "answer": "B"
+    },
+    {
+      "type": "TWK",
+      "question": "Lagu kebangsaan Indonesia Raya diciptakan oleh?",
+      "options": ["Ismail Marzuki", "W.R. Supratman", "C. Simanjuntak", "Kusbini"],
+      "answer": "B"
+    },
+    {
+      "type": "TWK",
+      "question": "Sumpah Pemuda yang menegaskan tekad persatuan bangsa Indonesia dikumandangkan pada tanggal?",
+      "options": ["17 Agustus 1928", "20 Mei 1928", "28 Oktober 1928", "10 November 1928"],
+      "answer": "C"
+    },
+    {
+      "type": "TWK",
+      "question": "Konferensi Meja Bundar yang menghasilkan pengakuan kedaulatan Indonesia oleh Belanda diselenggarakan di?",
+      "options": ["Jakarta", "Yogyakarta", "Den Haag", "Linggarjati"],
+      "answer": "C"
+    },
+    {
+      "type": "TWK",
+      "question": "Lambang negara Indonesia berupa burung Garuda dengan perisai di dadanya disebut?",
+      "options": ["Garuda Pancasila", "Garuda Wisnu Kencana", "Elang Jawa", "Garuda Nusantara"],
+      "answer": "A"
+    },
+    {
+      "type": "TIU",
+      "question": "Dokter berhubungan dengan Pasien, sebagaimana Guru berhubungan dengan?",
+      "options": ["Sekolah", "Murid", "Papan tulis", "Buku"],
+      "answer": "B"
+    },
+    {
+      "type": "TIU",
+      "question": "Sinonim dari kata 'asumsi' adalah?",
+      "options": ["Kesimpulan", "Anggapan", "Kenyataan", "Pertanyaan"],
+      "answer": "B"
+    },
+    {
+      "type": "TIU",
+      "question": "Antonim dari kata 'kontraksi' adalah?",
+      "options": ["Penyempitan", "Ekspansi", "Penyusutan", "Pengurangan"],
+      "answer": "B"
+    },
+    {
+      "type": "TIU",
+      "question": "Lanjutan dari deret angka berikut: 2, 5, 10, 17, 26, ... adalah?",
+      "options": ["33", "35", "37", "39"],
+      "answer": "C"
+    },
+    {
+      "type": "TIU",
+      "question": "Jika 5 orang pekerja dapat menyelesaikan sebuah proyek dalam 12 hari, maka 10 orang pekerja dengan kecepatan kerja sama akan menyelesaikan proyek tersebut dalam?",
+      "options": ["4 hari", "6 hari", "8 hari", "10 hari"],
+      "answer": "B"
+    },
+    {
+      "type": "TIU",
+      "question": "Harga sebuah barang setelah naik 20% menjadi Rp120.000. Berapakah harga awal barang tersebut?",
+      "options": ["Rp90.000", "Rp96.000", "Rp100.000", "Rp110.000"],
+      "answer": "C"
+    },
+    {
+      "type": "TIU",
+      "question": "Lanjutan dari deret huruf berikut: A, C, F, J, O, ... adalah?",
+      "options": ["S", "T", "U", "V"],
+      "answer": "C"
+    },
+    {
+      "type": "TIU",
+      "question": "Buku berhubungan dengan Perpustakaan, sebagaimana Obat berhubungan dengan?",
+      "options": ["Rumah sakit", "Apotek", "Dokter", "Pasien"],
+      "answer": "B"
+    },
+    {
+      "type": "TIU",
+      "question": "Semua kucing adalah hewan. Sebagian hewan adalah herbivora. Kesimpulan yang paling tepat adalah?",
+      "options": [
+        "Semua kucing adalah herbivora",
+        "Semua herbivora adalah kucing",
+        "Tidak dapat ditarik kesimpulan pasti mengenai kucing dan herbivora",
+        "Sebagian kucing bukan hewan"
+      ],
+      "answer": "C"
+    },
+    {
+      "type": "TIU",
+      "question": "Jika hari ini adalah hari Rabu, maka 100 hari lagi jatuh pada hari?",
+      "options": ["Kamis", "Jumat", "Sabtu", "Minggu"],
+      "answer": "B"
+    },
+    {
+      "type": "TKP",
+      "question": "Seorang rekan kerja meminta Anda untuk menutupi kesalahannya di depan atasan. Sikap yang paling tepat adalah?",
+      "options": [
+        "Menolak dengan sopan dan menyarankan rekan tersebut mengakui kesalahannya sendiri kepada atasan",
+        "Menutupinya karena kasihan kepada rekan tersebut",
+        "Berpura-pura tidak tahu apa-apa saat ditanya atasan",
+        "Melaporkan rekan tersebut ke atasan tanpa memberinya kesempatan menjelaskan"
+      ],
+      "answer": "A"
+    },
+    {
+      "type": "TKP",
+      "question": "Anda mendapat tugas mendadak dari kantor saat sedang menghadiri acara keluarga penting. Sikap paling tepat adalah?",
+      "options": [
+        "Mengabaikan tugas karena sedang tidak bekerja",
+        "Menyelesaikan tugas tersebut sesegera mungkin, lalu kembali melanjutkan acara keluarga",
+        "Mengerjakan tugas seadanya asal selesai",
+        "Menyuruh rekan lain mengerjakan tanpa sepengetahuan atasan"
+      ],
+      "answer": "B"
+    },
+    {
+      "type": "TKP",
+      "question": "Anda menemukan uang yang tertinggal milik rekan kerja di ruang kerja. Sikap Anda?",
+      "options": [
+        "Mengambil uang tersebut untuk keperluan pribadi",
+        "Membiarkannya begitu saja tanpa melapor ke siapa pun",
+        "Mengembalikan uang tersebut kepada pemiliknya",
+        "Menyimpannya untuk melihat siapa yang akan mengaku duluan"
+      ],
+      "answer": "C"
+    },
+    {
+      "type": "TKP",
+      "question": "Atasan memberikan instruksi yang menurut Anda kurang tepat. Sikap yang paling baik adalah?",
+      "options": [
+        "Melaksanakan instruksi tanpa berkomentar apa pun",
+        "Menyampaikan pendapat secara sopan disertai alternatif solusi",
+        "Menolak secara terang-terangan di depan rekan kerja lain",
+        "Mengabaikan instruksi tersebut begitu saja"
+      ],
+      "answer": "B"
+    },
+    {
+      "type": "TKP",
+      "question": "Anda melihat masyarakat kebingungan mengurus dokumen karena prosedur yang rumit. Sebagai calon aparatur, sikap Anda?",
+      "options": [
+        "Membantu menjelaskan prosedur dengan sabar dan jelas",
+        "Menyuruh masyarakat mencari tahu sendiri",
+        "Mempersulit agar terlihat berwibawa",
+        "Mengabaikan karena bukan bagian dari tugas Anda"
+      ],
+      "answer": "A"
+    },
+    {
+      "type": "TKP",
+      "question": "Saat bekerja dalam tim dan terjadi perbedaan pendapat, sikap yang paling tepat adalah?",
+      "options": [
+        "Memaksakan pendapat pribadi agar diikuti",
+        "Berdiskusi bersama untuk mencari solusi terbaik bagi tim",
+        "Diam saja dan mengikuti mayoritas tanpa berpendapat",
+        "Memilih keluar dari tim agar tidak berkonflik"
+      ],
+      "answer": "B"
+    },
+    {
+      "type": "TKP",
+      "question": "Anda diberi tanggung jawab besar namun merasa belum memiliki pengalaman yang cukup. Sikap Anda?",
+      "options": [
+        "Menolak tugas tersebut",
+        "Menerima tugas sambil terus belajar dan berkonsultasi dengan yang lebih berpengalaman",
+        "Menerima tugas namun mengerjakannya asal-asalan",
+        "Melimpahkan seluruh tugas tersebut kepada rekan lain"
+      ],
+      "answer": "B"
+    },
+    {
+      "type": "TKP",
+      "question": "Saat menghadapi keluhan masyarakat yang disampaikan dengan emosi tinggi, sikap yang paling tepat adalah?",
+      "options": [
+        "Ikut terpancing emosi dan membalas dengan nada tinggi",
+        "Mendengarkan dengan tenang lalu mencari solusi terbaik",
+        "Mengabaikan keluhan tersebut",
+        "Menyuruh mereka datang kembali di lain hari tanpa penjelasan"
+      ],
+      "answer": "B"
+    },
+    {
+      "type": "TKP",
+      "question": "Anda mengetahui seorang rekan kerja melakukan pelanggaran yang merugikan instansi. Sikap yang paling tepat adalah?",
+      "options": [
+        "Diam saja karena tidak ingin terlibat masalah",
+        "Melaporkannya sesuai prosedur yang berlaku di instansi",
+        "Ikut serta karena diajak oleh rekan tersebut",
+        "Membicarakannya ke banyak orang tanpa melapor secara resmi"
+      ],
+      "answer": "B"
+    },
+    {
+      "type": "TKP",
+      "question": "Anda diminta mempelajari sistem kerja baru yang belum pernah digunakan sebelumnya. Sikap Anda?",
+      "options": [
+        "Menolak karena sudah nyaman dengan sistem lama",
+        "Mempelajarinya dengan sungguh-sungguh agar dapat beradaptasi",
+        "Mempelajarinya sekadarnya saja",
+        "Meminta rekan lain mengerjakan tugas yang menggunakan sistem tersebut"
+      ],
+      "answer": "B"
+    }
+  ]
+}
