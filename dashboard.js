@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!/^\d+$/.test(text)) return;
 
-        const target = parseInt(text, 10);
+        const target = parseInt(text);
 
         let current = 0;
 
@@ -30,7 +30,6 @@ document.addEventListener("DOMContentLoaded", () => {
             if (current >= target) {
 
                 current = target;
-
                 clearInterval(counter);
 
             }
@@ -42,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     /* ==========================================
-       PROGRESS BAR ANIMATION
+       PROGRESS BAR
     ========================================== */
 
     const progressBars = document.querySelectorAll(".progress-bar");
@@ -62,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     /* ==========================================
-       SIDEBAR ACTIVE MENU
+       SIDEBAR ACTIVE
     ========================================== */
 
     const menuItems = document.querySelectorAll(".menu li");
@@ -80,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     /* ==========================================
-       NOTIFICATION BUTTON
+       NOTIFICATION
     ========================================== */
 
     const notification = document.querySelector(".notification-btn");
@@ -89,9 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         notification.addEventListener("click", () => {
 
-            alert(
-                "🔔 Tidak ada notifikasi baru."
-            );
+            alert("🔔 Tidak ada notifikasi baru.");
 
         });
 
@@ -107,13 +104,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
         logoutLink.addEventListener("click", function (e) {
 
-            const confirmLogout = confirm(
-                "Apakah Anda yakin ingin keluar?"
-            );
+            const confirmLogout = confirm("Apakah Anda yakin ingin keluar?");
 
             if (!confirmLogout) {
 
                 e.preventDefault();
+
+            } else {
+
+                auth.signOut();
 
             }
 
@@ -125,9 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
        HOVER CARD
     ========================================== */
 
-    const cards = document.querySelectorAll(
-        ".dashboard-card, .stats-card"
-    );
+    const cards = document.querySelectorAll(".dashboard-card, .stats-card");
 
     cards.forEach(card => {
 
@@ -147,76 +144,108 @@ document.addEventListener("DOMContentLoaded", () => {
 
     console.log("✅ Dashboard KSATRIA AKADEMI berhasil dimuat.");
 
-   /* ==========================================
-   LOAD USER DATA
-========================================== */
+    /* ==========================================
+       LOAD USER
+    ========================================== */
 
-auth.onAuthStateChanged(async (user) => {
-
-    if (!user) {
-        window.location.href = "login.html";
-        return;
-    }
-
-    try {
-
-        const doc = await db.collection("users").doc(user.uid).get();
-
-        if (doc.exists) {
-
-            const data = doc.data();
-
-            document.getElementById("userName").textContent =
-                data.fullname;
-
-            document.getElementById("userProgram").textContent =
-                data.program;
-const startButton = document.getElementById("startTryout");
-
-const startButton = document.getElementById("startTryout");
-
-if (startButton) {
-
-    startButton.addEventListener("click", async () => {
-
-        const user = auth.currentUser;
+    auth.onAuthStateChanged(async (user) => {
 
         if (!user) {
+
             window.location.href = "login.html";
             return;
+
         }
 
         try {
 
             const doc = await db.collection("users").doc(user.uid).get();
 
-            if (!doc.exists) {
-                alert("Data peserta tidak ditemukan.");
-                return;
+            if (doc.exists) {
+
+                const data = doc.data();
+
+                const userName = document.getElementById("userName");
+                const userProgram = document.getElementById("userProgram");
+
+                if (userName) {
+
+                    userName.textContent = data.fullname;
+
+                }
+
+                if (userProgram) {
+
+                    userProgram.textContent = data.program;
+
+                }
+
             }
-
-            const data = doc.data();
-
-            const participantData = {
-                name: data.fullname,
-                school: data.school || "-",
-                program: data.program
-            };
-
-            sessionStorage.setItem(
-                "ksatriaParticipant",
-                JSON.stringify(participantData)
-            );
-
-            window.location.href = "cbt.html";
 
         } catch (error) {
 
             console.error(error);
-            alert("Terjadi kesalahan.");
 
         }
 
     });
 
-}
+    /* ==========================================
+       START TRYOUT
+    ========================================== */
+
+    const startButton = document.getElementById("startTryout");
+
+    if (startButton) {
+
+        startButton.addEventListener("click", async () => {
+
+            const user = auth.currentUser;
+
+            if (!user) {
+
+                window.location.href = "login.html";
+                return;
+
+            }
+
+            try {
+
+                const doc = await db.collection("users").doc(user.uid).get();
+
+                if (!doc.exists) {
+
+                    alert("Data peserta tidak ditemukan.");
+                    return;
+
+                }
+
+                const data = doc.data();
+
+                const participantData = {
+
+                    name: data.fullname,
+                    school: data.school || "-",
+                    program: data.program
+
+                };
+
+                sessionStorage.setItem(
+                    "ksatriaParticipant",
+                    JSON.stringify(participantData)
+                );
+
+                window.location.href = "cbt.html";
+
+            } catch (error) {
+
+                console.error(error);
+                alert("Terjadi kesalahan.");
+
+            }
+
+        });
+
+    }
+
+});
