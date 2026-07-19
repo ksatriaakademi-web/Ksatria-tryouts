@@ -21,6 +21,6 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-const auth = firebase.auth();
-
-const db = firebase.firestore();
+// Jadikan global
+window.auth = firebase.auth();
+window.db = firebase.firestore();
