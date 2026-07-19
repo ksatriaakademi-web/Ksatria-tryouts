@@ -488,3 +488,38 @@ document.addEventListener("DOMContentLoaded", async () => {
                 );
 
             }
+            sessionStorage.setItem(
+                "ksatriaResult",
+                JSON.stringify(finalResult)
+            );
+
+            window.location.href = "result.html";
+
+        } catch (error) {
+
+            console.error(
+                "Firestore Error:",
+                error
+            );
+
+            alert(
+                "Terjadi kesalahan saat menyimpan hasil tryout.\nSilakan coba lagi."
+            );
+
+            finishBtn.disabled = false;
+            nextBtn.disabled = false;
+            previousBtn.disabled = false;
+
+            examFinished = false;
+
+        }
+
+    }
+
+    /* ==========================================
+       MULAI CBT
+    ========================================== */
+
+    loadQuestion();
+
+});
