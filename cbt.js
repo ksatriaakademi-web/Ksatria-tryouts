@@ -488,7 +488,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 );
 
             }
-            sessionStorage.setItem(
+                       sessionStorage.setItem(
                 "ksatriaResult",
                 JSON.stringify(finalResult)
             );
