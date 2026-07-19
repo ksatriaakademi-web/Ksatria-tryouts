@@ -1,184 +1,144 @@
-/* ==========================================
+/* ===================================================
    KSATRIA AKADEMI
-   CERTIFICATE JS FINAL
-========================================== */
+   CERTIFICATE.JS
+   FINAL VERSION
+=================================================== */
 
-document.addEventListener(
-"DOMContentLoaded",
-function(){
+document.addEventListener("DOMContentLoaded", () => {
 
+    /* ==========================================
+       AMBIL DATA HASIL
+    ========================================== */
 
-
-// ==========================================
-// AMBIL HASIL TRYOUT
-// ==========================================
-
-const resultData =
-JSON.parse(
-sessionStorage.getItem(
-"ksatriaResult"
-)
-);
-
-
-
-// ==========================================
-// VALIDASI
-// ==========================================
-
-if(!resultData){
-
-    alert(
-        "Data sertifikat tidak ditemukan."
+    const resultData = JSON.parse(
+        sessionStorage.getItem("ksatriaResult")
     );
 
-    window.location.href =
-    "index.html";
+    if (!resultData) {
 
-    return;
+        alert("Data sertifikat tidak ditemukan.");
 
-}
+        window.location.href = "index.html";
 
+        return;
 
+    }
 
-// ==========================================
-// DATA PESERTA
-// ==========================================
+    const participant = resultData.participant || {};
 
-const participant =
-resultData.participant;
+    /* ==========================================
+       TAMPILKAN DATA
+    ========================================== */
 
+    const participantName = document.getElementById("participantName");
+    const participantSchool = document.getElementById("participantSchool");
+    const participantProgram = document.getElementById("participantProgram");
+    const certificateDate = document.getElementById("certificateDate");
+    const certificateNumber = document.getElementById("certificateNumber");
 
+    if (participantName)
+        participantName.textContent = participant.name || "-";
 
-// ==========================================
-// TAMPILKAN DATA
-// ==========================================
+    if (participantSchool)
+        participantSchool.textContent = participant.school || "-";
 
-document.getElementById(
-"participantName"
-).innerText =
-participant.name;
+    if (participantProgram)
+        participantProgram.textContent = participant.program || "-";
 
+    if (certificateDate)
+        certificateDate.textContent = resultData.date || "-";
 
+    if (certificateNumber)
+        certificateNumber.textContent =
+            resultData.certificateNumber || "-";
 
-document.getElementById(
-"participantSchool"
-).innerText =
-participant.school;
+    /* ==========================================
+       DOWNLOAD PDF
+    ========================================== */
 
+    const downloadButton =
+        document.getElementById("downloadCertificate");
 
+    if (downloadButton) {
 
-document.getElementById(
-"participantProgram"
-).innerText =
-participant.program;
+        downloadButton.addEventListener("click", () => {
 
+            const certificate =
+                document.getElementById("certificateArea");
 
+            if (!certificate) {
 
-document.getElementById(
-"certificateDate"
-).innerText =
-resultData.date;
+                alert("Area sertifikat tidak ditemukan.");
 
+                return;
 
+            }
 
-// ==========================================
-// NOMOR SERTIFIKAT
-// ==========================================
+            const safeName = (participant.name || "Peserta")
+                .replace(/[^\w\s-]/g, "")
+                .trim();
 
-document.getElementById(
-"certificateNumber"
-).innerText =
-resultData.certificateNumber;
+            html2pdf()
+                .set({
 
+                    margin: 0,
 
+                    filename:
+                        `Sertifikat-${safeName}.pdf`,
 
-// ==========================================
-// DOWNLOAD PDF
-// ==========================================
+                    image: {
 
-const downloadButton =
-document.getElementById(
-"downloadCertificate"
-);
+                        type: "jpeg",
 
+                        quality: 1
 
+                    },
 
-downloadButton.addEventListener(
-"click",
-function(){
+                    html2canvas: {
 
+                        scale: 2,
 
+                        useCORS: true
 
-const element =
-document.getElementById(
-"certificateArea"
-);
+                    },
 
+                    jsPDF: {
 
+                        unit: "mm",
 
-const option = {
+                        format: "a4",
 
-margin:0,
+                        orientation: "landscape"
 
-filename:
-"Sertifikat-" +
-participant.name +
-".pdf",
+                    }
 
-image:{
-type:"jpeg",
-quality:1
-},
+                })
 
-html2canvas:{
-scale:2,
-useCORS:true
-},
+                .from(certificate)
 
-jsPDF:{
-unit:"mm",
-format:"a4",
-orientation:"landscape"
-}
+                .save();
 
-};
+        });
 
+    }
 
+    /* ==========================================
+       PRINT
+    ========================================== */
 
-html2pdf()
+    const printButton =
+        document.getElementById("printCertificate");
 
-.set(option)
+    if (printButton) {
 
-.from(element)
+        printButton.addEventListener("click", () => {
 
-.save();
+            window.print();
 
+        });
 
+    }
 
-});
-
-
-
-// ==========================================
-// PRINT
-// ==========================================
-
-const printButton =
-document.getElementById(
-"printCertificate"
-);
-
-
-
-printButton.addEventListener(
-"click",
-function(){
-
-window.print();
-
-});
-
-
+    console.log("✅ Certificate berhasil dimuat.");
 
 });
