@@ -1,297 +1,112 @@
 /* ==========================================
    KSATRIA AKADEMI
-   RESULT V2 FINAL JAVASCRIPT
+   RESULT V3 FINAL
 ========================================== */
 
+document.addEventListener("DOMContentLoaded", () => {
 
-document.addEventListener(
-"DOMContentLoaded",
-function(){
+    /* ==========================================
+       AMBIL DATA HASIL
+    ========================================== */
 
+    const resultData = JSON.parse(
+        sessionStorage.getItem("ksatriaResult")
+    );
 
+    if (!resultData) {
 
-// ===============================
-// AMBIL DATA HASIL
-// ===============================
+        alert("Data hasil tidak ditemukan.");
 
+        window.location.href = "dashboard.html";
 
-const resultData =
+        return;
 
-JSON.parse(
+    }
 
-sessionStorage.getItem(
-"ksatriaResult"
-)
+    /* ==========================================
+       DATA PESERTA
+    ========================================== */
 
-);
+    const participant = resultData.participant || {};
 
+    document.getElementById("participantName").textContent =
+        participant.name || "-";
 
+    document.getElementById("participantSchool").textContent =
+        participant.school || "-";
 
-if(!resultData){
+    document.getElementById("participantProgram").textContent =
+        participant.program || "-";
 
+    document.getElementById("examDate").textContent =
+        resultData.date || "-";
+       /* ==========================================
+       DATA NILAI
+    ========================================== */
 
-alert(
-"Data hasil tidak ditemukan"
-);
+    const result = resultData.result || {};
 
+    const score = result.score || 0;
 
-window.location.href =
-"index.html";
+    const correct = result.correct || 0;
 
+    const wrong = result.wrong || 0;
 
-return;
+    document.getElementById("correctAnswer").textContent =
+        correct;
 
+    document.getElementById("wrongAnswer").textContent =
+        wrong;
 
-}
+    document.getElementById("totalAnswer").textContent =
+        correct + wrong;
 
+    /* ==========================================
+       STATUS NILAI
+    ========================================== */
 
+    const statusElement =
+        document.getElementById("statusText");
 
-// ===============================
-// DATA PESERTA
-// ===============================
+    if (score >= 90) {
 
+        statusElement.textContent = "Sangat Baik";
 
-const participant =
-resultData.participant;
+    } else if (score >= 75) {
 
+        statusElement.textContent = "Baik";
 
+    } else if (score >= 60) {
 
-document.getElementById(
-"participantName"
-).innerText =
+        statusElement.textContent = "Cukup";
 
-participant.name || "-";
+    } else {
 
+        statusElement.textContent = "Perlu Latihan";
 
+    }
 
-document.getElementById(
-"participantSchool"
-).innerText =
+    /* ==========================================
+       ANIMASI NILAI
+    ========================================== */
 
-participant.school || "-";
+    const scoreElement =
+        document.getElementById("score");
 
+    let currentScore = 0;
 
+    const animation = setInterval(() => {
 
-document.getElementById(
-"participantProgram"
-).innerText =
+        scoreElement.textContent = currentScore;
 
-participant.program || "-";
+        currentScore++;
 
+        if (currentScore > score) {
 
+            clearInterval(animation);
 
-document.getElementById(
-"examDate"
-).innerText =
+            scoreElement.textContent = score;
 
-resultData.date || "-";
+        }
 
-
-
-
-
-
-// ===============================
-// NILAI
-// ===============================
-
-
-const result =
-resultData.result;
-
-
-
-const score =
-result.score;
-
-
-
-const correct =
-result.correct;
-
-
-
-const wrong =
-result.wrong;
-
-
-
-
-document.getElementById(
-"score"
-).innerText =
-score;
-
-
-
-document.getElementById(
-"correctAnswer"
-).innerText =
-correct;
-
-
-
-document.getElementById(
-"wrongAnswer"
-).innerText =
-wrong;
-
-
-
-document.getElementById(
-"totalAnswer"
-).innerText =
-
-correct + wrong;
-
-
-
-
-
-
-// ===============================
-// STATUS NILAI
-// ===============================
-
-
-const statusElement =
-
-document.getElementById(
-"statusText"
-);
-
-
-
-if(score >= 90){
-
-
-statusElement.innerText =
-"Sangat Baik";
-
-
-}
-
-else if(score >=75){
-
-
-statusElement.innerText =
-"Baik";
-
-
-}
-
-else if(score >=60){
-
-
-statusElement.innerText =
-"Cukup";
-
-
-}
-
-else{
-
-
-statusElement.innerText =
-"Perlu Latihan";
-
-
-}
-
-
-
-
-
-
-// ===============================
-// ANIMASI NILAI
-// ===============================
-
-
-let count = 0;
-
-
-
-const animation =
-
-setInterval(
-function(){
-
-
-document.getElementById(
-"score"
-).innerText =
-count;
-
-
-
-count++;
-
-
-
-if(count > score){
-
-
-clearInterval(animation);
-
-
-
-document.getElementById(
-"score"
-).innerText =
-score;
-
-
-
-}
-
-
-
-},
-20);
-
-
-
-
-
-
-// ===============================
-// TOMBOL KEMBALI
-// ===============================
-
-
-
-// ===============================
-// TOMBOL PEMBAHASAN
-// ===============================
-
-
-const discussionBtn =
-
-document.getElementById(
-"discussionBtn"
-);
-
-
-
-if(discussionBtn){
-
-
-discussionBtn.onclick =
-function(){
-
-
-alert(
-"Pembahasan akan tersedia setelah bank soal selesai."
-);
-
-
-};
-
-
-}
-
-
-
-
-});
+    }, 20);
