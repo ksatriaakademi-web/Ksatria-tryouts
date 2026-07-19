@@ -1,60 +1,38 @@
-/* ===================================================
+/* ==========================================
    KSATRIA AKADEMI
-   LOGIN PAGE
-=================================================== */
+   LOGIN FIREBASE
+========================================== */
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function () {
 
-    /* ==========================
-       SHOW / HIDE PASSWORD
-    ========================== */
+    const loginForm = document.getElementById("loginForm");
 
-    const password = document.getElementById("password");
-    const toggle = document.getElementById("togglePassword");
+    loginForm.addEventListener("submit", function (e) {
 
-    if (password && toggle) {
+        e.preventDefault();
 
-        toggle.addEventListener("click", () => {
+        const email = document.getElementById("email").value.trim();
 
-            const type = password.getAttribute("type") === "password"
-                ? "text"
-                : "password";
+        const password = document.getElementById("password").value;
 
-            password.setAttribute("type", type);
+        firebase.auth().signInWithEmailAndPassword(email, password)
 
-            toggle.innerHTML = type === "password"
-                ? '<i class="bi bi-eye-fill"></i>'
-                : '<i class="bi bi-eye-slash-fill"></i>';
+        .then((userCredential) => {
 
-        });
+            const user = userCredential.user;
 
-    }
+            alert("Login berhasil!");
 
-    /* ==========================
-       LOGIN DEMO
-    ========================== */
+            window.location.href = "dashboard.html";
 
-    const form = document.querySelector("form");
+        })
 
-    if (form) {
+        .catch((error) => {
 
-        form.addEventListener("submit", function (e) {
-
-            e.preventDefault();
-
-            const button = document.querySelector(".btn-login-custom");
-
-            button.disabled = true;
-            button.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Memproses...';
-
-            setTimeout(() => {
-
-                window.location.href = "dashboard.html";
-
-            }, 1500);
+            alert(error.message);
 
         });
 
-    }
+    });
 
 });
