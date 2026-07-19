@@ -431,7 +431,49 @@ const db = firebase.firestore();
             certificateNumber: certificateNumber
 
         };
+// ==========================================
+// SIMPAN HASIL KE FIRESTORE
+// ==========================================
 
+const user = auth.currentUser;
+
+if (user) {
+
+    db.collection("results").add({
+
+        uid: user.uid,
+
+        fullname: participantData.name,
+
+        school: participantData.school,
+
+        program: participantData.program,
+
+        score: result.score,
+
+        correct: result.correct,
+
+        wrong: result.wrong,
+
+        certificateNumber: certificateNumber,
+
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+
+    })
+
+    .then(() => {
+
+        console.log("✅ Hasil berhasil disimpan ke Firestore");
+
+    })
+
+    .catch((error) => {
+
+        console.error("Firestore Error:", error);
+
+    });
+
+}
         sessionStorage.setItem(
 
             "ksatriaResult",
