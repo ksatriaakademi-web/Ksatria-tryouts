@@ -1,23 +1,28 @@
 /* ===================================================
    KSATRIA AKADEMI
-   DASHBOARD V3
+   DASHBOARD V4 FINAL
 =================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
 
+    console.log("✅ Dashboard KSATRIA AKADEMI dimuat.");
+
     /* ==========================================
-       ANIMASI ANGKA STATISTIK
+       ANIMASI STATISTIK
     ========================================== */
 
     const statNumbers = document.querySelectorAll(".stats-content h3");
 
     statNumbers.forEach(item => {
 
-        const text = item.textContent.trim();
+        const originalText = item.textContent.trim();
 
-        if (!/^\d+$/.test(text)) return;
+        const target = parseInt(originalText.replace(/\D/g, ""), 10);
 
-        const target = parseInt(text, 10);
+        if (isNaN(target)) return;
+
+        const prefix = originalText.startsWith("#") ? "#" : "";
+        const suffix = originalText.endsWith("%") ? "%" : "";
 
         let current = 0;
 
@@ -30,11 +35,12 @@ document.addEventListener("DOMContentLoaded", () => {
             if (current >= target) {
 
                 current = target;
+
                 clearInterval(counter);
 
             }
 
-            item.textContent = current;
+            item.textContent = prefix + current + suffix;
 
         }, 30);
 
@@ -44,7 +50,9 @@ document.addEventListener("DOMContentLoaded", () => {
        ANIMASI PROGRESS BAR
     ========================================== */
 
-    document.querySelectorAll(".progress-bar").forEach(bar => {
+    const progressBars = document.querySelectorAll(".progress-bar");
+
+    progressBars.forEach(bar => {
 
         const width = bar.style.width;
 
@@ -62,12 +70,17 @@ document.addEventListener("DOMContentLoaded", () => {
        MENU ACTIVE
     ========================================== */
 
-    document.querySelectorAll(".menu li").forEach(item => {
+    const menuItems = document.querySelectorAll(".menu li");
+
+    menuItems.forEach(item => {
 
         item.addEventListener("click", () => {
 
-            document.querySelectorAll(".menu li")
-                .forEach(i => i.classList.remove("active"));
+            menuItems.forEach(menu => {
+
+                menu.classList.remove("active");
+
+            });
 
             item.classList.add("active");
 
@@ -95,22 +108,23 @@ document.addEventListener("DOMContentLoaded", () => {
        HOVER CARD
     ========================================== */
 
-    document.querySelectorAll(".dashboard-card, .stats-card")
-        .forEach(card => {
+    const cards = document.querySelectorAll(".dashboard-card, .stats-card");
 
-            card.addEventListener("mouseenter", () => {
+    cards.forEach(card => {
 
-                card.style.transform = "translateY(-6px)";
+        card.addEventListener("mouseenter", () => {
 
-            });
-
-            card.addEventListener("mouseleave", () => {
-
-                card.style.transform = "";
-
-            });
+            card.style.transform = "translateY(-6px)";
 
         });
+
+        card.addEventListener("mouseleave", () => {
+
+            card.style.transform = "";
+
+        });
+
+    });
 
     /* ==========================================
        LOGOUT
@@ -148,10 +162,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
-    console.log("✅ Dashboard KSATRIA AKADEMI berhasil dimuat.");
-
     /* ==========================================
-       LOAD USER
+       AUTH
     ========================================== */
 
     auth.onAuthStateChanged(async (user) => {
@@ -159,24 +171,30 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!user) {
 
             window.location.href = "login.html";
+
             return;
 
         }
 
         try {
 
-            const doc = await db.collection("users")
+            const userDoc = await db
+                .collection("users")
                 .doc(user.uid)
                 .get();
 
-            if (!doc.exists) {
+            if (!userDoc.exists) {
 
                 alert("Data peserta tidak ditemukan.");
+
                 return;
 
             }
 
-            const data = doc.data();
+            const data = userDoc.data();
+                       /* ==========================================
+               TAMPILKAN DATA USER
+            ========================================== */
 
             const userName = document.getElementById("userName");
             const userProgram = document.getElementById("userProgram");
@@ -193,12 +211,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
             }
 
-            // lanjut ke Part 2
-                   /* ==========================================
+            /* ==========================================
                HISTORY TRYOUT
             ========================================== */
 
-            const historyTable = document.getElementById("historyBody");
+            const historyTable =
+                document.getElementById("historyTable");
 
             if (historyTable) {
 
@@ -206,7 +224,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 try {
 
-                    const snapshot = await db.collection("results")
+                    const snapshot = await db
+                        .collection("results")
                         .where("uid", "==", user.uid)
                         .orderBy("createdAt", "desc")
                         .get();
@@ -223,9 +242,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     } else {
 
-                        snapshot.forEach(resultDoc => {
+                        snapshot.forEach(doc => {
 
-                            const result = resultDoc.data();
+                            const result = doc.data();
+
+                            const tanggal =
+                                result.createdAt
+                                    ? result.createdAt
+                                        .toDate()
+                                        .toLocaleDateString("id-ID")
+                                    : "-";
 
                             const status =
                                 result.score >= 80
@@ -236,11 +262,6 @@ document.addEventListener("DOMContentLoaded", () => {
                                 result.score >= 80
                                     ? "bg-success"
                                     : "bg-warning text-dark";
-
-                            const tanggal =
-                                result.createdAt
-                                    ? result.createdAt.toDate().toLocaleDateString("id-ID")
-                                    : "-";
 
                             historyTable.innerHTML += `
                                 <tr>
@@ -261,7 +282,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 } catch (error) {
 
-                    console.error("History Error :", error);
+                    console.error(
+                        "History Error:",
+                        error
+                    );
 
                 }
 
@@ -276,7 +300,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (startButton) {
 
-                startButton.onclick = () => {
+                startButton.addEventListener("click", () => {
 
                     const participantData = {
 
@@ -291,25 +315,25 @@ document.addEventListener("DOMContentLoaded", () => {
                     };
 
                     sessionStorage.setItem(
-
                         "ksatriaParticipant",
-
                         JSON.stringify(participantData)
-
                     );
 
                     window.location.href = "cbt.html";
 
-                };
+                });
 
             }
+                   } catch (error) {
 
-            // lanjut ke Part 3
-               } catch (error) {
+            console.error(
+                "Dashboard Error:",
+                error
+            );
 
-            console.error("Dashboard Error :", error);
-
-            alert("Terjadi kesalahan saat memuat dashboard.");
+            alert(
+                "Terjadi kesalahan saat memuat dashboard."
+            );
 
         }
 
