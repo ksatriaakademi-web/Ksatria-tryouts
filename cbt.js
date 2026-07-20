@@ -1,6 +1,7 @@
 /* ==========================================
    KSATRIA AKADEMI
-   CBT V5 FINAL
+   CBT V6 FINAL
+   PART 1
 ========================================== */
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -74,16 +75,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // ==========================================
     // LOAD SOAL FIRESTORE
+    // TANPA MEMBUTUHKAN COMPOSITE INDEX
     // ==========================================
 
     async function loadQuestions() {
 
         try {
-
-            /*
-             * Query dibuat sederhana agar
-             * TIDAK membutuhkan Composite Index.
-             */
 
             const snapshot = await db
                 .collection("questions")
@@ -96,7 +93,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                 const data = doc.data();
 
-                // Filter manual
+                // Filter sesuai peserta
                 if (
                     data.program === participantData.program &&
                     data.isActive === true
@@ -134,7 +131,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             if (questions.length === 0) {
 
-                alert("Belum ada soal untuk program ini.");
+                alert(
+                    "Belum ada soal untuk program " +
+                    participantData.program
+                );
 
                 return;
 
@@ -152,11 +152,421 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         catch (error) {
 
-            console.error("Load Question Error :", error);
+            console.error(
+                "Load Question Error :",
+                error
+            );
 
-            alert("Gagal memuat soal dari Firestore.");
+            alert(
+                "Gagal memuat soal dari Firestore."
+            );
 
         }
 
     }
-   
+       // ==========================================
+    // MEMBUAT NOMOR SOAL
+    // ==========================================
+
+    function createQuestionNumbers() {
+
+        questionNumbers.innerHTML = "";
+
+        for (let i = 0; i < totalQuestion; i++) {
+
+            const button = document.createElement("button");
+
+            button.className = "number-item";
+
+            button.textContent = i + 1;
+
+            button.addEventListener("click", () => {
+
+                saveAnswer();
+
+                currentQuestion = i;
+
+                loadQuestion();
+
+            });
+
+            questionNumbers.appendChild(button);
+
+        }
+
+    }
+
+    // ==========================================
+    // TAMPILKAN SOAL
+    // ==========================================
+
+    function loadQuestion() {
+
+        if (questions.length === 0) return;
+
+        const data = questions[currentQuestion];
+
+        currentNumber.textContent = currentQuestion + 1;
+
+        questionText.textContent = data.question;
+
+        answerArea.innerHTML = "";
+
+        const letters = ["A", "B", "C", "D", "E"];
+
+        data.options.forEach((option, index) => {
+
+            if (!option) return;
+
+            const checked =
+                answers[currentQuestion] === letters[index]
+                    ? "checked"
+                    : "";
+
+            answerArea.innerHTML += `
+                <label class="answer-item">
+
+                    <input
+                        type="radio"
+                        name="answer"
+                        value="${letters[index]}"
+                        ${checked}>
+
+                    <span class="option-letter">
+                        ${letters[index]}
+                    </span>
+
+                    <span class="option-text">
+                        ${option}
+                    </span>
+
+                </label>
+            `;
+
+        });
+
+        document
+            .querySelectorAll('input[name="answer"]')
+            .forEach(radio => {
+
+                radio.addEventListener("change", () => {
+
+                    saveAnswer();
+
+                    updateNumber();
+
+                });
+
+            });
+
+        updateNumber();
+
+    }
+
+    // ==========================================
+    // SIMPAN JAWABAN
+    // ==========================================
+
+    function saveAnswer() {
+
+        const selected = document.querySelector(
+            'input[name="answer"]:checked'
+        );
+
+        if (selected) {
+
+            answers[currentQuestion] = selected.value;
+
+        }
+
+    }
+
+    // ==========================================
+    // UPDATE STATUS NOMOR SOAL
+    // ==========================================
+
+    function updateNumber() {
+
+        const numbers =
+            document.querySelectorAll(".number-item");
+
+        numbers.forEach((item, index) => {
+
+            item.classList.remove("active");
+            item.classList.remove("answered");
+
+            if (index === currentQuestion) {
+
+                item.classList.add("active");
+
+            }
+
+            if (answers[index]) {
+
+                item.classList.add("answered");
+
+            }
+
+        });
+
+        const status =
+            document.querySelector(".question-status");
+
+        if (!status) return;
+
+        if (answers[currentQuestion]) {
+
+            status.innerHTML = `
+                <i class="bi bi-check-circle-fill"></i>
+                Sudah Dijawab
+            `;
+
+        } else {
+
+            status.innerHTML = `
+                <i class="bi bi-pencil-square"></i>
+                Belum Dijawab
+            `;
+
+        }
+
+    }
+       // ==========================================
+    // BUTTON NEXT
+    // ==========================================
+
+    nextBtn.addEventListener("click", () => {
+
+        saveAnswer();
+
+        if (currentQuestion < totalQuestion - 1) {
+
+            currentQuestion++;
+
+            loadQuestion();
+
+        }
+
+    });
+
+    // ==========================================
+    // BUTTON PREVIOUS
+    // ==========================================
+
+    previousBtn.addEventListener("click", () => {
+
+        saveAnswer();
+
+        if (currentQuestion > 0) {
+
+            currentQuestion--;
+
+            loadQuestion();
+
+        }
+
+    });
+
+    // ==========================================
+    // TIMER
+    // ==========================================
+
+    const timer = setInterval(() => {
+
+        if (examFinished) {
+
+            clearInterval(timer);
+            return;
+
+        }
+
+        const minute = Math.floor(timeLeft / 60);
+
+        const second = String(timeLeft % 60).padStart(2, "0");
+
+        timerElement.textContent = `${minute}:${second}`;
+
+        timeLeft--;
+
+        if (timeLeft < 0) {
+
+            clearInterval(timer);
+
+            finishExam();
+
+        }
+
+    }, 1000);
+
+    // ==========================================
+    // HITUNG NILAI
+    // ==========================================
+
+    function calculateScore() {
+
+        let correct = 0;
+
+        questions.forEach((question, index) => {
+
+            if (answers[index] === question.answer) {
+
+                correct++;
+
+            }
+
+        });
+
+        const wrong = totalQuestion - correct;
+
+        const score = Math.round(
+
+            (correct / totalQuestion) * 100
+
+        );
+
+        return {
+
+            correct,
+            wrong,
+            score
+
+        };
+
+    }
+
+    // ==========================================
+    // BUTTON SELESAI
+    // ==========================================
+
+    finishBtn.addEventListener("click", () => {
+
+        saveAnswer();
+
+        const confirmFinish = confirm(
+            "Yakin ingin menyelesaikan tryout?"
+        );
+
+        if (confirmFinish) {
+
+            finishExam();
+
+        }
+
+    });
+       // ==========================================
+    // SELESAI UJIAN
+    // ==========================================
+
+    async function finishExam() {
+
+        if (examFinished) return;
+
+        examFinished = true;
+
+        saveAnswer();
+
+        nextBtn.disabled = true;
+        previousBtn.disabled = true;
+        finishBtn.disabled = true;
+
+        const result = calculateScore();
+
+        const year = new Date().getFullYear();
+
+        const runningNumber =
+            String(Date.now()).slice(-6);
+
+        const certificateNumber =
+            `KSA-TRYOUT-${year}-${runningNumber}`;
+
+        const finalResult = {
+
+            participant: participantData,
+
+            result: result,
+
+            answers: answers,
+
+            totalQuestion: totalQuestion,
+
+            date: new Date().toLocaleDateString("id-ID"),
+
+            certificateNumber: certificateNumber
+
+        };
+
+        try {
+
+            const user = auth.currentUser;
+
+            if (user) {
+
+                await db.collection("results").add({
+
+                    uid: user.uid,
+
+                    fullname: participantData.name,
+
+                    school: participantData.school,
+
+                    program: participantData.program,
+
+                    score: result.score,
+
+                    correct: result.correct,
+
+                    wrong: result.wrong,
+
+                    totalQuestion: totalQuestion,
+
+                    certificateNumber: certificateNumber,
+
+                    createdAt:
+                        firebase.firestore.FieldValue.serverTimestamp()
+
+                });
+
+                console.log("✅ Hasil berhasil disimpan.");
+
+            }
+
+            sessionStorage.setItem(
+
+                "ksatriaResult",
+
+                JSON.stringify(finalResult)
+
+            );
+
+            window.location.href = "result.html";
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Firestore Error :",
+                error
+            );
+
+            alert(
+                "Terjadi kesalahan saat menyimpan hasil tryout."
+            );
+
+            examFinished = false;
+
+            nextBtn.disabled = false;
+            previousBtn.disabled = false;
+            finishBtn.disabled = false;
+
+        }
+
+    }
+
+    // ==========================================
+    // MULAI CBT
+    // ==========================================
+
+    await loadQuestions();
+
+});
