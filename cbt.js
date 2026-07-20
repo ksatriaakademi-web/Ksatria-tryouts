@@ -73,25 +73,20 @@ document.addEventListener("DOMContentLoaded", async () => {
         document.getElementById("finishBtn");
 
     // ==========================================
-    // LOAD SOAL DARI FIRESTORE
+    // LOAD SOAL FIRESTORE
     // ==========================================
 
     async function loadQuestions() {
 
         try {
 
+            /*
+             * Query dibuat sederhana agar
+             * TIDAK membutuhkan Composite Index.
+             */
+
             const snapshot = await db
                 .collection("questions")
-                .where(
-                    "program",
-                    "==",
-                    participantData.program
-                )
-                .where(
-                    "isActive",
-                    "==",
-                    true
-                )
                 .orderBy("number")
                 .get();
 
@@ -101,39 +96,45 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                 const data = doc.data();
 
-                questions.push({
+                // Filter manual
+                if (
+                    data.program === participantData.program &&
+                    data.isActive === true
+                ) {
 
-                    id: doc.id,
+                    questions.push({
 
-                    number: data.number,
+                        id: doc.id,
 
-                    category: data.category,
+                        number: data.number,
 
-                    program: data.program,
+                        category: data.category,
 
-                    question: data.question,
+                        program: data.program,
 
-                    options: [
+                        question: data.question,
 
-                        data.optionA,
-                        data.optionB,
-                        data.optionC,
-                        data.optionD,
-                        data.optionE
+                        options: [
 
-                    ],
+                            data.optionA,
+                            data.optionB,
+                            data.optionC,
+                            data.optionD,
+                            data.optionE
 
-                    answer: data.answer
+                        ],
 
-                });
+                        answer: data.answer
+
+                    });
+
+                }
 
             });
 
             if (questions.length === 0) {
 
-                alert(
-                    "Belum ada soal untuk program ini."
-                );
+                alert("Belum ada soal untuk program ini.");
 
                 return;
 
@@ -147,438 +148,15 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             loadQuestion();
 
-        } catch (error) {
+        }
 
-            console.error(
-                "Load Question Error :",
-                error
-            );
+        catch (error) {
 
-            alert(
-                "Gagal memuat soal dari Firestore."
-            );
+            console.error("Load Question Error :", error);
+
+            alert("Gagal memuat soal dari Firestore.");
 
         }
 
     }
-       // ==========================================
-    // MEMBUAT NOMOR SOAL
-    // ==========================================
-
-    function createQuestionNumbers() {
-
-        questionNumbers.innerHTML = "";
-
-        for (let i = 0; i < totalQuestion; i++) {
-
-            const button = document.createElement("button");
-
-            button.className = "number-item";
-
-            button.textContent = i + 1;
-
-            button.addEventListener("click", () => {
-
-                saveAnswer();
-
-                currentQuestion = i;
-
-                loadQuestion();
-
-            });
-
-            questionNumbers.appendChild(button);
-
-        }
-
-    }
-
-    // ==========================================
-    // TAMPILKAN SOAL
-    // ==========================================
-
-    function loadQuestion() {
-
-        if (questions.length === 0) return;
-
-        const data = questions[currentQuestion];
-
-        currentNumber.textContent = currentQuestion + 1;
-
-        questionText.textContent = data.question;
-
-        answerArea.innerHTML = "";
-
-        const letters = ["A", "B", "C", "D", "E"];
-
-        data.options.forEach((option, index) => {
-
-            if (!option) return;
-
-            const checked =
-                answers[currentQuestion] === letters[index]
-                    ? "checked"
-                    : "";
-
-            answerArea.innerHTML += `
-
-                <label class="answer-item">
-
-                    <input
-                        type="radio"
-                        name="answer"
-                        value="${letters[index]}"
-                        ${checked}>
-
-                    <span class="option-letter">
-
-                        ${letters[index]}
-
-                    </span>
-
-                    <span class="option-text">
-
-                        ${option}
-
-                    </span>
-
-                </label>
-
-            `;
-
-        });
-
-        document
-            .querySelectorAll('input[name="answer"]')
-            .forEach(radio => {
-
-                radio.addEventListener("change", () => {
-
-                    saveAnswer();
-
-                    updateNumber();
-
-                });
-
-            });
-
-        updateNumber();
-
-    }
-
-    // ==========================================
-    // SIMPAN JAWABAN
-    // ==========================================
-
-    function saveAnswer() {
-
-        const selected = document.querySelector(
-            'input[name="answer"]:checked'
-        );
-
-        if (selected) {
-
-            answers[currentQuestion] = selected.value;
-
-        }
-
-    }
-
-    // ==========================================
-    // UPDATE STATUS NOMOR SOAL
-    // ==========================================
-
-    function updateNumber() {
-
-        const numbers =
-            document.querySelectorAll(".number-item");
-
-        numbers.forEach((item, index) => {
-
-            item.classList.remove("active");
-            item.classList.remove("answered");
-
-            if (index === currentQuestion) {
-
-                item.classList.add("active");
-
-            }
-
-            if (answers[index]) {
-
-                item.classList.add("answered");
-
-            }
-
-        });
-
-        const status =
-            document.querySelector(".question-status");
-
-        if (!status) return;
-
-        if (answers[currentQuestion]) {
-
-            status.innerHTML = `
-                <i class="bi bi-check-circle-fill"></i>
-                Sudah Dijawab
-            `;
-
-        } else {
-
-            status.innerHTML = `
-                <i class="bi bi-pencil-square"></i>
-                Belum Dijawab
-            `;
-
-        }
-
-    }
-       // ==========================================
-    // BUTTON NEXT
-    // ==========================================
-
-    nextBtn.addEventListener("click", () => {
-
-        saveAnswer();
-
-        if (currentQuestion < totalQuestion - 1) {
-
-            currentQuestion++;
-
-            loadQuestion();
-
-        }
-
-    });
-
-    // ==========================================
-    // BUTTON PREVIOUS
-    // ==========================================
-
-    previousBtn.addEventListener("click", () => {
-
-        saveAnswer();
-
-        if (currentQuestion > 0) {
-
-            currentQuestion--;
-
-            loadQuestion();
-
-        }
-
-    });
-
-    // ==========================================
-    // TIMER
-    // ==========================================
-
-    const timer = setInterval(() => {
-
-        if (examFinished) {
-
-            clearInterval(timer);
-
-            return;
-
-        }
-
-        const minute = Math.floor(timeLeft / 60);
-
-        const second = String(timeLeft % 60).padStart(2, "0");
-
-        timerElement.textContent = `${minute}:${second}`;
-
-        timeLeft--;
-
-        if (timeLeft < 0) {
-
-            finishExam();
-
-        }
-
-    }, 1000);
-
-    // ==========================================
-    // HITUNG NILAI
-    // ==========================================
-
-    function calculateScore() {
-
-        let correct = 0;
-
-        questions.forEach((question, index) => {
-
-            if (answers[index] === question.answer) {
-
-                correct++;
-
-            }
-
-        });
-
-        const wrong = totalQuestion - correct;
-
-        const score = Math.round(
-            (correct / totalQuestion) * 100
-        );
-
-        return {
-
-            correct: correct,
-
-            wrong: wrong,
-
-            score: score
-
-        };
-
-    }
-
-    // ==========================================
-    // BUTTON SELESAI
-    // ==========================================
-
-    finishBtn.addEventListener("click", () => {
-
-        saveAnswer();
-
-        const confirmFinish = confirm(
-            "Yakin ingin menyelesaikan tryout?"
-        );
-
-        if (confirmFinish) {
-
-            finishExam();
-
-        }
-
-    });
-       // ==========================================
-    // SELESAI UJIAN
-    // ==========================================
-
-    async function finishExam() {
-
-        if (examFinished) return;
-
-        examFinished = true;
-
-        clearInterval(timer);
-
-        saveAnswer();
-
-        nextBtn.disabled = true;
-        previousBtn.disabled = true;
-        finishBtn.disabled = true;
-
-        const result = calculateScore();
-
-        const year = new Date().getFullYear();
-
-        const runningNumber =
-            String(Date.now()).slice(-6);
-
-        const certificateNumber =
-            `KSA-TRYOUT-${year}-${runningNumber}`;
-
-        const finalResult = {
-
-            participant: participantData,
-
-            result: result,
-
-            answers: answers,
-
-            totalQuestion: totalQuestion,
-
-            date: new Date().toLocaleDateString("id-ID"),
-
-            certificateNumber: certificateNumber
-
-        };
-
-        try {
-
-            const user = auth.currentUser;
-
-            if (user) {
-
-                await db.collection("results").add({
-
-                    uid: user.uid,
-
-                    fullname: participantData.name,
-
-                    school: participantData.school,
-
-                    program: participantData.program,
-
-                    score: result.score,
-
-                    correct: result.correct,
-
-                    wrong: result.wrong,
-
-                    totalQuestion: totalQuestion,
-
-                    certificateNumber: certificateNumber,
-
-                    createdAt:
-                        firebase.firestore.FieldValue.serverTimestamp()
-
-                });
-
-                console.log(
-                    "✅ Hasil berhasil disimpan ke Firestore."
-                );
-
-            }
-
-            // ==========================================
-            // SIMPAN HASIL KE SESSION
-            // ==========================================
-
-            sessionStorage.setItem(
-
-                "ksatriaResult",
-
-                JSON.stringify(finalResult)
-
-            );
-
-            // ==========================================
-            // PINDAH KE HALAMAN HASIL
-            // ==========================================
-
-            window.location.href = "result.html";
-
-        } catch (error) {
-
-            console.error(
-                "Firestore Error :",
-                error
-            );
-
-            alert(
-                "Terjadi kesalahan saat menyimpan hasil tryout.\nSilakan coba lagi."
-            );
-
-            examFinished = false;
-
-            nextBtn.disabled = false;
-            previousBtn.disabled = false;
-            finishBtn.disabled = false;
-
-        }
-
-    }
-
-    // ==========================================
-    // MULAI CBT
-    // ==========================================
-
-    await loadQuestions();
-
-});
+   
