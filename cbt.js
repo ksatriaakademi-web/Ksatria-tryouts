@@ -27,68 +27,81 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     /* ==========================================
-       DATABASE SOAL (DEMO)
-    ========================================== */
+   DATABASE SOAL FIRESTORE
+========================================== */
 
-    const questions = [
+let questions = [];
+/* ==========================================
+   LOAD SOAL DARI FIRESTORE
+========================================== */
 
-        {
-            question: "Indonesia merdeka pada tanggal?",
-            options: [
-                "17 Agustus 1945",
-                "20 Mei 1908",
-                "28 Oktober 1928",
-                "1 Juni 1945"
-            ],
-            answer: "A"
-        },
+async function loadQuestions() {
 
-        {
-            question: "Lambang negara Indonesia adalah?",
-            options: [
-                "Garuda Pancasila",
-                "Burung Merpati",
-                "Rajawali",
-                "Bintang"
-            ],
-            answer: "A"
-        },
+    try {
 
-        {
-            question: "Jumlah sila dalam Pancasila adalah?",
-            options: [
-                "3",
-                "4",
-                "5",
-                "6"
-            ],
-            answer: "C"
-        },
+        const snapshot = await db
+            .collection("questions")
+            .get();
 
-        {
-            question: "Ibu kota Indonesia saat ini adalah?",
-            options: [
-                "Bandung",
-                "Jakarta",
-                "Surabaya",
-                "Medan"
-            ],
-            answer: "B"
-        },
+        questions = [];
 
-        {
-            question: "Proklamasi kemerdekaan dibacakan oleh?",
-            options: [
-                "Soekarno",
-                "Ahmad Dahlan",
-                "Ki Hajar Dewantara",
-                "Jenderal Sudirman"
-            ],
-            answer: "A"
+        snapshot.forEach(doc => {
+
+            const data = doc.data();
+
+            questions.push({
+
+                id: doc.id,
+
+                program: data.program,
+
+                category: data.category,
+
+                question: data.question,
+
+                options: [
+
+                    data.optionA,
+                    data.optionB,
+                    data.optionC,
+                    data.optionD,
+                    data.optionE
+
+                ],
+
+                answer: data.answer
+
+            });
+
+        });
+
+        if (questions.length === 0) {
+
+            alert("Belum ada soal di Firestore.");
+
+            return;
+
         }
 
-    ];
+        totalQuestion = questions.length;
 
+        totalNumber.textContent = totalQuestion;
+
+        createQuestionNumbers();
+
+        loadQuestion();
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        alert("Gagal memuat soal.");
+
+    }
+
+}
     /* ==========================================
        VARIABEL
     ========================================== */
