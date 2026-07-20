@@ -4,7 +4,7 @@
    PART 1
 ========================================== */
 
-document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener("DOMContentLoaded", () => {
 
     // ==========================================
     // FIREBASE
@@ -44,6 +44,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     const statisticsCanvas =
         document.getElementById("statisticsChart");
 
+    const addQuestionBtn =
+        document.getElementById("addQuestionBtn");
+
+    const logoutBtn =
+        document.getElementById("logoutBtn");
+
     // ==========================================
     // VARIABEL GLOBAL
     // ==========================================
@@ -53,179 +59,137 @@ document.addEventListener("DOMContentLoaded", async () => {
     let editingQuestionId = null;
 
     // ==========================================
-    // LOGIN ADMIN
-    // ==========================================
-
-    auth.onAuthStateChanged(async (user) => {
-
-        if (!user) {
-
-            alert("Silakan login terlebih dahulu.");
-
-            window.location.href = "login.html";
-
-            return;
-
-        }
-
-        try {
-
-            const doc = await db
-                .collection("users")
-                .doc(user.uid)
-                .get();
-
-            if (!doc.exists) {
-
-                alert("Data user tidak ditemukan.");
-
-                auth.signOut();
-
-                return;
-
-            }
-
-            const userData = doc.data();
-
-            if (userData.role !== "admin") {
-
-                alert("Akses ditolak.");
-
-                auth.signOut();
-
-                return;
-
-            }
-
-            console.log("Admin Login :", userData.fullname);
-
-            loadDashboard();
-
-        }
-
-        catch(error){
-
-            console.error(error);
-
-            alert("Gagal memverifikasi akun.");
-
-        }
-
-    });
-
-    // ==========================================
     // LOAD DASHBOARD
     // ==========================================
 
-    async function loadDashboard(){
+    async function loadDashboard() {
 
-        try{
+        try {
 
-            const questionSnap =
+            const questionSnapshot =
                 await db.collection("questions").get();
 
-            const participantSnap =
+            const participantSnapshot =
                 await db.collection("users").get();
 
-            const resultSnap =
+            const resultSnapshot =
                 await db.collection("results").get();
 
             totalQuestions.textContent =
-                questionSnap.size;
+                questionSnapshot.size;
 
             totalParticipants.textContent =
-                participantSnap.size;
+                participantSnapshot.size;
 
             totalResults.textContent =
-                resultSnap.size;
+                resultSnapshot.size;
 
             let totalScore = 0;
 
-            resultSnap.forEach(doc=>{
+            resultSnapshot.forEach(doc => {
 
                 totalScore += doc.data().score || 0;
 
             });
 
             const average =
-                resultSnap.size === 0
+                resultSnapshot.size === 0
                 ? 0
-                : Math.round(totalScore / resultSnap.size);
+                : Math.round(
+                    totalScore / resultSnapshot.size
+                );
 
-            averageScore.textContent =
-                average;
+            averageScore.textContent = average;
 
             loadStatistics(
-                questionSnap.size,
-                participantSnap.size,
-                resultSnap.size
+
+                questionSnapshot.size,
+
+                participantSnapshot.size,
+
+                resultSnapshot.size
+
             );
 
         }
 
-        catch(error){
+        catch (error) {
 
-            console.error(error);
+            console.error(
+                "Dashboard Error :",
+                error
+            );
 
         }
 
     }
 
     // ==========================================
-    // CHART
+    // CHART STATISTIK
     // ==========================================
 
     function loadStatistics(
-        questionCount,
-        participantCount,
-        resultCount
-    ){
 
-        if(chart){
+        questionCount,
+
+        participantCount,
+
+        resultCount
+
+    ) {
+
+        if (chart) {
 
             chart.destroy();
 
         }
 
-        chart = new Chart(statisticsCanvas,{
+        chart = new Chart(statisticsCanvas, {
 
-            type:"bar",
+            type: "bar",
 
-            data:{
+            data: {
 
-                labels:[
+                labels: [
+
                     "Soal",
+
                     "Peserta",
+
                     "Tryout"
+
                 ],
 
-                datasets:[{
+                datasets: [{
 
-                    label:"Statistik",
+                    label: "Statistik",
 
-                    data:[
+                    data: [
+
                         questionCount,
+
                         participantCount,
+
                         resultCount
+
                     ]
 
                 }]
 
             },
 
-            options:{
+            options: {
 
-                responsive:true,
+                responsive: true,
 
-                maintainAspectRatio:false
+                maintainAspectRatio: false
 
             }
 
         });
 
     }
-
-      // ==========================================
+       // ==========================================
     // LOAD SOAL
     // ==========================================
 
@@ -245,25 +209,25 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                 const data = doc.data();
 
-                const tr = document.createElement("tr");
+                const row = document.createElement("tr");
 
-                tr.innerHTML = `
+                row.innerHTML = `
 
-                    <td>${data.number}</td>
+                    <td>${data.number || "-"}</td>
 
-                    <td>${data.program}</td>
+                    <td>${data.program || "-"}</td>
 
-                    <td>${data.category}</td>
+                    <td>${data.category || "-"}</td>
 
-                    <td>${data.question}</td>
+                    <td>${data.question || "-"}</td>
 
-                    <td>${data.answer}</td>
+                    <td>${data.answer || "-"}</td>
 
                     <td>
 
-                        <span class="badge bg-${data.isActive ? 'success' : 'secondary'}">
+                        <span class="badge ${data.isActive ? "bg-success" : "bg-secondary"}">
 
-                            ${data.isActive ? 'Aktif' : 'Nonaktif'}
+                            ${data.isActive ? "Aktif" : "Nonaktif"}
 
                         </span>
 
@@ -291,33 +255,36 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                 `;
 
-                questionTable.appendChild(tr);
+                questionTable.appendChild(row);
 
             });
 
-            registerQuestionButton();
+            registerQuestionButtons();
 
         }
 
-        catch(error){
+        catch (error) {
 
-            console.error("Load Question :", error);
+            console.error(
+                "Load Question Error :",
+                error
+            );
 
         }
 
     }
 
     // ==========================================
-    // REGISTER BUTTON
+    // REGISTER BUTTON EDIT & DELETE
     // ==========================================
 
-    function registerQuestionButton(){
+    function registerQuestionButtons() {
 
         document
             .querySelectorAll(".edit-question")
-            .forEach(button=>{
+            .forEach(button => {
 
-                button.onclick=()=>{
+                button.onclick = () => {
 
                     editQuestion(button.dataset.id);
 
@@ -327,9 +294,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         document
             .querySelectorAll(".delete-question")
-            .forEach(button=>{
+            .forEach(button => {
 
-                button.onclick=()=>{
+                button.onclick = () => {
 
                     deleteQuestion(button.dataset.id);
 
@@ -343,63 +310,68 @@ document.addEventListener("DOMContentLoaded", async () => {
     // EDIT SOAL
     // ==========================================
 
-    async function editQuestion(id){
+    async function editQuestion(id) {
 
-        try{
+        try {
 
             const doc = await db
                 .collection("questions")
                 .doc(id)
                 .get();
 
-            if(!doc.exists) return;
+            if (!doc.exists) return;
 
             const data = doc.data();
 
             editingQuestionId = id;
 
             document.getElementById("number").value =
-                data.number;
+                data.number || "";
 
             document.getElementById("program").value =
-                data.program;
+                data.program || "";
 
             document.getElementById("category").value =
-                data.category;
+                data.category || "";
 
             document.getElementById("question").value =
-                data.question;
+                data.question || "";
 
             document.getElementById("optionA").value =
-                data.optionA;
+                data.optionA || "";
 
             document.getElementById("optionB").value =
-                data.optionB;
+                data.optionB || "";
 
             document.getElementById("optionC").value =
-                data.optionC;
+                data.optionC || "";
 
             document.getElementById("optionD").value =
-                data.optionD;
+                data.optionD || "";
 
             document.getElementById("optionE").value =
-                data.optionE;
+                data.optionE || "";
 
             document.getElementById("answer").value =
-                data.answer;
+                data.answer || "";
 
             document.getElementById("isActive").checked =
-                data.isActive;
+                data.isActive === true;
 
-            new bootstrap.Modal(
+            const modal = new bootstrap.Modal(
                 document.getElementById("questionModal")
-            ).show();
+            );
+
+            modal.show();
 
         }
 
-        catch(error){
+        catch (error) {
 
-            console.error(error);
+            console.error(
+                "Edit Question Error :",
+                error
+            );
 
         }
 
@@ -409,37 +381,42 @@ document.addEventListener("DOMContentLoaded", async () => {
     // HAPUS SOAL
     // ==========================================
 
-    async function deleteQuestion(id){
+    async function deleteQuestion(id) {
 
-        const yes = confirm(
-            "Hapus soal ini?"
+        const confirmDelete = confirm(
+            "Yakin ingin menghapus soal ini?"
         );
 
-        if(!yes) return;
+        if (!confirmDelete) return;
 
-        try{
+        try {
 
             await db
                 .collection("questions")
                 .doc(id)
                 .delete();
 
+            await loadQuestions();
+
+            await loadDashboard();
+
             alert("Soal berhasil dihapus.");
-
-            loadQuestions();
-
-            loadDashboard();
 
         }
 
-        catch(error){
+        catch (error) {
 
-            console.error(error);
+            console.error(
+                "Delete Question Error :",
+                error
+            );
+
+            alert("Gagal menghapus soal.");
 
         }
 
     }
-      // ==========================================
+       // ==========================================
     // SIMPAN / UPDATE SOAL
     // ==========================================
 
@@ -473,9 +450,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         };
 
-        try{
+        try {
 
-            if(editingQuestionId){
+            if (editingQuestionId) {
 
                 await db
                     .collection("questions")
@@ -484,7 +461,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                 alert("Soal berhasil diperbarui.");
 
-            }else{
+            } else {
 
                 await db
                     .collection("questions")
@@ -504,15 +481,18 @@ document.addEventListener("DOMContentLoaded", async () => {
                 )
                 .hide();
 
-            loadQuestions();
+            await loadQuestions();
 
-            loadDashboard();
+            await loadDashboard();
 
         }
 
-        catch(error){
+        catch (error) {
 
-            console.error(error);
+            console.error(
+                "Save Question Error :",
+                error
+            );
 
             alert("Gagal menyimpan soal.");
 
@@ -524,22 +504,24 @@ document.addEventListener("DOMContentLoaded", async () => {
     // LOAD PESERTA
     // ==========================================
 
-    async function loadParticipants(){
+    async function loadParticipants() {
 
         participantTable.innerHTML = "";
 
-        const snapshot = await db
-            .collection("users")
-            .orderBy("fullname")
-            .get();
+        try {
 
-        snapshot.forEach(doc=>{
+            const snapshot = await db
+                .collection("users")
+                .orderBy("fullname")
+                .get();
 
-            const data = doc.data();
+            snapshot.forEach(doc => {
 
-            participantTable.innerHTML += `
+                const data = doc.data();
 
-                <tr>
+                const row = document.createElement("tr");
+
+                row.innerHTML = `
 
                     <td>${data.fullname || "-"}</td>
 
@@ -549,11 +531,22 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                     <td>${data.email || "-"}</td>
 
-                </tr>
+                `;
 
-            `;
+                participantTable.appendChild(row);
 
-        });
+            });
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Load Participant Error :",
+                error
+            );
+
+        }
 
     }
 
@@ -561,59 +554,68 @@ document.addEventListener("DOMContentLoaded", async () => {
     // LOAD HASIL TRYOUT
     // ==========================================
 
-    async function loadResults(){
+    async function loadResults() {
 
         resultTable.innerHTML = "";
 
-        const snapshot = await db
-            .collection("results")
-            .orderBy("createdAt","desc")
-            .get();
+        try {
 
-        snapshot.forEach(doc=>{
+            const snapshot = await db
+                .collection("results")
+                .orderBy("createdAt", "desc")
+                .get();
 
-            const data = doc.data();
+            snapshot.forEach(doc => {
 
-            let tanggal = "-";
+                const data = doc.data();
 
-            if(data.createdAt){
+                let tanggal = "-";
 
-                tanggal =
-                    data.createdAt
-                    .toDate()
-                    .toLocaleDateString("id-ID");
+                if (data.createdAt) {
 
-            }
+                    tanggal = data.createdAt
+                        .toDate()
+                        .toLocaleDateString("id-ID");
 
-            resultTable.innerHTML += `
+                }
 
-                <tr>
+                const row = document.createElement("tr");
 
-                    <td>${data.fullname}</td>
+                row.innerHTML = `
 
-                    <td>${data.program}</td>
+                    <td>${data.fullname || "-"}</td>
 
-                    <td>${data.score}</td>
+                    <td>${data.program || "-"}</td>
 
-                    <td>${data.correct}</td>
+                    <td>${data.score || 0}</td>
 
-                    <td>${data.wrong}</td>
+                    <td>${data.correct || 0}</td>
+
+                    <td>${data.wrong || 0}</td>
 
                     <td>${tanggal}</td>
 
-                </tr>
+                `;
 
-            `;
+                resultTable.appendChild(row);
 
-        });
+            });
 
-    });
-    // ==========================================
+        }
+
+        catch (error) {
+
+            console.error(
+                "Load Result Error :",
+                error
+            );
+
+        }
+
+    }
+      // ==========================================
     // BUTTON TAMBAH SOAL
     // ==========================================
-
-    const addQuestionBtn =
-        document.getElementById("addQuestionBtn");
 
     if (addQuestionBtn) {
 
@@ -622,6 +624,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             editingQuestionId = null;
 
             questionForm.reset();
+
+            document.getElementById("isActive").checked = true;
 
             const modal = new bootstrap.Modal(
                 document.getElementById("questionModal")
@@ -634,11 +638,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     // ==========================================
-    // LOGOUT
+    // LOGOUT ADMIN
     // ==========================================
-
-    const logoutBtn =
-        document.getElementById("logoutBtn");
 
     if (logoutBtn) {
 
@@ -656,9 +657,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                 window.location.href = "login.html";
 
-            } catch (error) {
+            }
 
-                console.error(error);
+            catch (error) {
+
+                console.error(
+                    "Logout Error :",
+                    error
+                );
 
                 alert("Logout gagal.");
 
@@ -669,7 +675,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     // ==========================================
-    // INISIALISASI
+    // INISIALISASI ADMIN
     // ==========================================
 
     async function initializeAdmin() {
@@ -685,7 +691,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     // ==========================================
-    // JALANKAN ADMIN PANEL
+    // CEK LOGIN ADMIN
     // ==========================================
 
     auth.onAuthStateChanged(async (user) => {
@@ -707,7 +713,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             if (!userDoc.exists) {
 
-                alert("Data admin tidak ditemukan.");
+                alert("Data pengguna tidak ditemukan.");
 
                 await auth.signOut();
 
@@ -719,7 +725,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             if (userData.role !== "admin") {
 
-                alert("Akses ditolak.");
+                alert("Akses ditolak. Halaman ini hanya untuk Admin.");
 
                 await auth.signOut();
 
@@ -728,22 +734,27 @@ document.addEventListener("DOMContentLoaded", async () => {
             }
 
             console.log(
-                "Admin Login:",
+                "Admin Login :",
                 userData.fullname
             );
 
-            initializeAdmin();
+            await initializeAdmin();
 
         }
 
         catch (error) {
 
-            console.error(error);
+            console.error(
+                "Admin Init Error :",
+                error
+            );
 
-            alert("Gagal memuat dashboard admin.");
+            alert(
+                "Gagal memuat Dashboard Admin."
+            );
 
         }
 
     });
 
-});
+}); 
