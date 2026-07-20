@@ -27,13 +27,13 @@
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-    <!-- Google Font -->
+    <!-- Google Fonts -->
 
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
 
-    <!-- CSS -->
+    <!-- Admin CSS -->
 
     <link
         rel="stylesheet"
@@ -55,8 +55,8 @@
 
         <img
             src="images/logo.png"
-            class="logo"
-            alt="Logo">
+            alt="Logo"
+            class="logo">
 
         <h4>
 
@@ -66,7 +66,7 @@
 
         <small>
 
-            Admin Panel
+            ADMIN PANEL
 
         </small>
 
@@ -177,7 +177,7 @@
 </aside>
 
 <!-- ==========================================
-     CONTENT
+     MAIN CONTENT
 ========================================== -->
 
 <main class="content">
@@ -198,7 +198,8 @@
 
         <p>
 
-            Sistem Manajemen Ksatria Akademi
+            Sistem Manajemen Tryout Online
+            Ksatria Akademi
 
         </p>
 
@@ -218,7 +219,7 @@
 
             <br>
 
-            <small>
+            <small id="adminRole">
 
                 Super Admin
 
@@ -236,7 +237,7 @@
 
 <section
     id="dashboard"
-    class="dashboard-section">
+    class="content-section active">
 
     <div class="row g-4">
 
@@ -246,11 +247,7 @@
 
                 <i class="bi bi-journal-bookmark-fill"></i>
 
-                <h6>
-
-                    Total Soal
-
-                </h6>
+                <h6>Total Soal</h6>
 
                 <h2 id="totalQuestions">
 
@@ -268,11 +265,7 @@
 
                 <i class="bi bi-people-fill"></i>
 
-                <h6>
-
-                    Total Peserta
-
-                </h6>
+                <h6>Total Peserta</h6>
 
                 <h2 id="totalParticipants">
 
@@ -290,11 +283,7 @@
 
                 <i class="bi bi-clipboard2-check-fill"></i>
 
-                <h6>
-
-                    Total Tryout
-
-                </h6>
+                <h6>Total Tryout</h6>
 
                 <h2 id="totalResults">
 
@@ -312,11 +301,7 @@
 
                 <i class="bi bi-award-fill"></i>
 
-                <h6>
-
-                    Nilai Rata-rata
-
-                </h6>
+                <h6>Rata-rata Nilai</h6>
 
                 <h2 id="averageScore">
 
@@ -330,19 +315,13 @@
 
     </div>
 
-    <!-- Statistik Tambahan -->
-
     <div class="row g-4 mt-2">
 
         <div class="col-lg-3">
 
             <div class="dashboard-card secondary">
 
-                <h6>
-
-                    Soal Aktif
-
-                </h6>
+                <h6>Soal Aktif</h6>
 
                 <h3 id="activeQuestions">
 
@@ -358,11 +337,7 @@
 
             <div class="dashboard-card secondary">
 
-                <h6>
-
-                    Soal Nonaktif
-
-                </h6>
+                <h6>Soal Nonaktif</h6>
 
                 <h3 id="inactiveQuestions">
 
@@ -378,11 +353,7 @@
 
             <div class="dashboard-card secondary">
 
-                <h6>
-
-                    Program Favorit
-
-                </h6>
+                <h6>Program Favorit</h6>
 
                 <h3 id="favoriteProgram">
 
@@ -398,11 +369,7 @@
 
             <div class="dashboard-card secondary">
 
-                <h6>
-
-                    Tryout Hari Ini
-
-                </h6>
+                <h6>Tryout Hari Ini</h6>
 
                 <h3 id="todayTryout">
 
@@ -417,229 +384,394 @@
     </div>
 
 </section>
-<!DOCTYPE html>
-<html lang="id">
-
-<head>
-
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0">
-
-    <title>
-
-        Dashboard Admin | Ksatria Akademi
-
-    </title>
-
-    <!-- Bootstrap -->
-
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-        rel="stylesheet">
-
-    <!-- Bootstrap Icons -->
-
-    <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
-    <!-- Google Font -->
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
-
-    <!-- CSS -->
-
-    <link
-        rel="stylesheet"
-        href="admin.css">
-
-</head>
-
-<body>
-
-<div class="admin-wrapper">
-
 <!-- ==========================================
-     SIDEBAR
+     KELOLA SOAL
 ========================================== -->
 
-<aside class="sidebar">
-
-    <div class="sidebar-header">
-
-        <img
-            src="images/logo.png"
-            class="logo"
-            alt="Logo">
-
-        <h4>
-
-            KSATRIA
-
-        </h4>
-
-        <small>
-
-            Admin Panel
-
-        </small>
-
-    </div>
-
-    <ul class="sidebar-menu">
-
-        <li class="active">
-
-            <a href="#dashboard">
-
-                <i class="bi bi-grid-fill"></i>
-
-                Dashboard
-
-            </a>
-
-        </li>
-
-        <li>
-
-            <a href="#questions">
-
-                <i class="bi bi-journal-bookmark-fill"></i>
-
-                Kelola Soal
-
-            </a>
-
-        </li>
-
-        <li>
-
-            <a href="#upload">
-
-                <i class="bi bi-cloud-arrow-up-fill"></i>
-
-                Upload Bank Soal
-
-            </a>
-
-        </li>
-
-        <li>
-
-            <a href="#participants">
-
-                <i class="bi bi-people-fill"></i>
-
-                Peserta
-
-            </a>
-
-        </li>
-
-        <li>
-
-            <a href="#results">
-
-                <i class="bi bi-clipboard2-check-fill"></i>
-
-                Hasil Tryout
-
-            </a>
-
-        </li>
-
-        <li>
-
-            <a href="#statistics">
-
-                <i class="bi bi-bar-chart-fill"></i>
-
-                Statistik
-
-            </a>
-
-        </li>
-
-        <li>
-
-            <a href="#settings">
-
-                <i class="bi bi-gear-fill"></i>
-
-                Pengaturan
-
-            </a>
-
-        </li>
-
-        <li>
-
-            <a
-                href="#"
-                id="logoutBtn">
-
-                <i class="bi bi-box-arrow-right"></i>
-
-                Logout
-
-            </a>
-
-        </li>
-
-    </ul>
-
-</aside>
-
-<!-- ==========================================
-     CONTENT
-========================================== -->
-
-<main class="content">
-
-<!-- ==========================================
-     TOPBAR
-========================================== -->
-
-<header class="topbar">
-
-    <div>
-
-        <h2>
-
-            Dashboard Admin
-
-        </h2>
-
-        <p>
-
-            Sistem Manajemen Ksatria Akademi
-
-        </p>
-
-    </div>
-
-    <div class="admin-profile">
-
-        <i class="bi bi-person-circle"></i>
+<section
+    id="questions"
+    class="content-section mt-5">
+
+    <div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
 
         <div>
 
-            <strong id="adminName">
+            <h3>
 
-                Administrator
+                Kelola Bank Soal
 
-            </strong>
+            </h3>
 
-            <br>
+            <p class="text-muted mb-0">
 
-            <small>
+                Tambah, edit, hapus, import, dan export soal.
 
-                Super Admin
+            </p>
+
+        </div>
+
+        <div class="d-flex gap-2">
+
+            <button
+                id="addQuestionBtn"
+                class="btn btn-primary">
+
+                <i class="bi bi-plus-circle"></i>
+
+                Tambah Soal
+
+            </button>
+
+            <button
+                id="refreshQuestionBtn"
+                class="btn btn-outline-secondary">
+
+                <i class="bi bi-arrow-clockwise"></i>
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- FILTER -->
+
+    <div class="card shadow-sm mb-4">
+
+        <div class="card-body">
+
+            <div class="row g-3">
+
+                <div class="col-lg-4">
+
+                    <input
+                        id="searchQuestion"
+                        class="form-control"
+                        placeholder="Cari soal...">
+
+                </div>
+
+                <div class="col-lg-2">
+
+                    <select
+                        id="filterProgram"
+                        class="form-select">
+
+                        <option value="">
+
+                            Semua Program
+
+                        </option>
+
+                        <option value="SKD">SKD</option>
+
+                        <option value="SNBT">SNBT</option>
+
+                        <option value="Bahasa">Bahasa</option>
+
+                    </select>
+
+                </div>
+
+                <div class="col-lg-2">
+
+                    <select
+                        id="filterCategory"
+                        class="form-select">
+
+                        <option value="">
+
+                            Semua Kategori
+
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="col-lg-2">
+
+                    <select
+                        id="sortQuestion"
+                        class="form-select">
+
+                        <option value="number">
+
+                            Nomor
+
+                        </option>
+
+                        <option value="program">
+
+                            Program
+
+                        </option>
+
+                        <option value="category">
+
+                            Kategori
+
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="col-lg-2">
+
+                    <select
+                        id="pageSize"
+                        class="form-select">
+
+                        <option value="10">10</option>
+
+                        <option value="20">20</option>
+
+                        <option value="50">50</option>
+
+                        <option value="100">100</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- TOOLBAR -->
+
+    <div class="d-flex flex-wrap gap-2 mb-3">
+
+        <button
+            id="bulkDeleteBtn"
+            class="btn btn-danger">
+
+            <i class="bi bi-trash"></i>
+
+            Bulk Delete
+
+        </button>
+
+        <button
+            id="exportExcelBtn"
+            class="btn btn-success">
+
+            <i class="bi bi-file-earmark-excel"></i>
+
+            Excel
+
+        </button>
+
+        <button
+            id="exportPdfBtn"
+            class="btn btn-danger">
+
+            <i class="bi bi-file-earmark-pdf"></i>
+
+            PDF
+
+        </button>
+
+        <button
+            id="exportCsvBtn"
+            class="btn btn-info">
+
+            <i class="bi bi-filetype-csv"></i>
+
+            CSV
+
+        </button>
+
+    </div>
+
+    <!-- TABLE -->
+
+    <div class="table-responsive">
+
+        <table class="table table-hover align-middle">
+
+            <thead class="table-light">
+
+                <tr>
+
+                    <th width="40">
+
+                        <input
+                            type="checkbox"
+                            id="selectAllQuestion">
+
+                    </th>
+
+                    <th>No</th>
+
+                    <th>Program</th>
+
+                    <th>Kategori</th>
+
+                    <th>Soal</th>
+
+                    <th>Status</th>
+
+                    <th width="180">
+
+                        Aksi
+
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="questionTable">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <!-- EMPTY -->
+
+    <div
+        id="questionEmpty"
+        class="text-center py-5 d-none">
+
+        <i class="bi bi-inbox display-5"></i>
+
+        <h5 class="mt-3">
+
+            Belum ada soal.
+
+        </h5>
+
+    </div>
+
+    <!-- PAGINATION -->
+
+    <div
+        class="d-flex justify-content-between align-items-center mt-3">
+
+        <small
+            id="paginationInfo"
+            class="text-muted">
+
+            Menampilkan 0 dari 0 data
+
+        </small>
+
+        <ul
+            id="questionPagination"
+            class="pagination mb-0">
+
+        </ul>
+
+    </div>
+
+</section>
+
+<!-- ==========================================
+     IMPORT BANK SOAL
+========================================== -->
+
+<section
+    id="upload"
+    class="content-section mt-5">
+
+    <div class="card shadow-sm">
+
+        <div class="card-header">
+
+            <h4 class="mb-0">
+
+                Import Bank Soal
+
+            </h4>
+
+        </div>
+
+        <div class="card-body">
+
+            <div class="row g-4">
+
+                <div class="col-lg-6">
+
+                    <label class="form-label">
+
+                        Upload Excel
+
+                    </label>
+
+                    <input
+                        type="file"
+                        id="excelFile"
+                        class="form-control"
+                        accept=".xlsx,.xls">
+
+                    <button
+                        id="uploadExcelBtn"
+                        class="btn btn-success mt-3 w-100">
+
+                        Upload Excel
+
+                    </button>
+
+                </div>
+
+                <div class="col-lg-6">
+
+                    <label class="form-label">
+
+                        Upload PDF (AI Parser)
+
+                    </label>
+
+                    <input
+                        type="file"
+                        id="pdfFile"
+                        class="form-control"
+                        accept=".pdf">
+
+                    <button
+                        id="uploadPdfBtn"
+                        class="btn btn-primary mt-3 w-100">
+
+                        Parse PDF
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <hr>
+
+            <label class="form-label">
+
+                Progress Import
+
+            </label>
+
+            <div class="progress">
+
+                <div
+                    id="uploadProgress"
+                    class="progress-bar progress-bar-striped progress-bar-animated"
+                    style="width:0%;">
+
+                    0%
+
+                </div>
+
+            </div>
+
+            <small
+                id="uploadStatus"
+                class="text-muted d-block mt-2">
+
+                Menunggu file...
 
             </small>
 
@@ -647,189 +779,93 @@
 
     </div>
 
-</header>
+    <!-- PREVIEW -->
 
-<!-- ==========================================
-     DASHBOARD
-========================================== -->
+    <div class="card shadow-sm mt-4">
 
-<section
-    id="dashboard"
-    class="dashboard-section">
+        <div class="card-header">
 
-    <div class="row g-4">
-
-        <div class="col-lg-3 col-md-6">
-
-            <div class="dashboard-card">
-
-                <i class="bi bi-journal-bookmark-fill"></i>
-
-                <h6>
-
-                    Total Soal
-
-                </h6>
-
-                <h2 id="totalQuestions">
-
-                    0
-
-                </h2>
-
-            </div>
+            Preview Import
 
         </div>
 
-        <div class="col-lg-3 col-md-6">
+        <div class="card-body">
 
-            <div class="dashboard-card">
+            <div class="table-responsive">
 
-                <i class="bi bi-people-fill"></i>
+                <table class="table table-bordered">
 
-                <h6>
+                    <thead>
 
-                    Total Peserta
+                        <tr>
 
-                </h6>
+                            <th>No</th>
 
-                <h2 id="totalParticipants">
+                            <th>Program</th>
 
-                    0
+                            <th>Kategori</th>
 
-                </h2>
+                            <th>Status</th>
 
-            </div>
+                        </tr>
 
-        </div>
+                    </thead>
 
-        <div class="col-lg-3 col-md-6">
+                    <tbody id="previewTable">
 
-            <div class="dashboard-card">
+                    </tbody>
 
-                <i class="bi bi-clipboard2-check-fill"></i>
-
-                <h6>
-
-                    Total Tryout
-
-                </h6>
-
-                <h2 id="totalResults">
-
-                    0
-
-                </h2>
+                </table>
 
             </div>
 
-        </div>
+            <div class="row text-center mt-4">
 
-        <div class="col-lg-3 col-md-6">
+                <div class="col">
 
-            <div class="dashboard-card">
+                    <h4 id="summaryTotal">0</h4>
 
-                <i class="bi bi-award-fill"></i>
+                    <small>Total</small>
 
-                <h6>
+                </div>
 
-                    Nilai Rata-rata
+                <div class="col">
 
-                </h6>
+                    <h4
+                        id="summaryValid"
+                        class="text-success">
 
-                <h2 id="averageScore">
+                        0
 
-                    0
+                    </h4>
 
-                </h2>
+                    <small>Valid</small>
 
-            </div>
+                </div>
 
-        </div>
+                <div class="col">
 
-    </div>
+                    <h4
+                        id="summaryInvalid"
+                        class="text-danger">
 
-    <!-- Statistik Tambahan -->
+                        0
 
-    <div class="row g-4 mt-2">
+                    </h4>
 
-        <div class="col-lg-3">
+                    <small>Error</small>
 
-            <div class="dashboard-card secondary">
-
-                <h6>
-
-                    Soal Aktif
-
-                </h6>
-
-                <h3 id="activeQuestions">
-
-                    0
-
-                </h3>
+                </div>
 
             </div>
 
-        </div>
+            <button
+                id="importFirestoreBtn"
+                class="btn btn-success mt-4">
 
-        <div class="col-lg-3">
+                Import ke Firestore
 
-            <div class="dashboard-card secondary">
-
-                <h6>
-
-                    Soal Nonaktif
-
-                </h6>
-
-                <h3 id="inactiveQuestions">
-
-                    0
-
-                </h3>
-
-            </div>
-
-        </div>
-
-        <div class="col-lg-3">
-
-            <div class="dashboard-card secondary">
-
-                <h6>
-
-                    Program Favorit
-
-                </h6>
-
-                <h3 id="favoriteProgram">
-
-                    -
-
-                </h3>
-
-            </div>
-
-        </div>
-
-        <div class="col-lg-3">
-
-            <div class="dashboard-card secondary">
-
-                <h6>
-
-                    Tryout Hari Ini
-
-                </h6>
-
-                <h3 id="todayTryout">
-
-                    0
-
-                </h3>
-
-            </div>
+            </button>
 
         </div>
 
@@ -844,7 +880,7 @@
     id="participants"
     class="content-section mt-5">
 
-    <div class="section-header">
+    <div class="d-flex justify-content-between align-items-center mb-4">
 
         <div>
 
@@ -854,7 +890,7 @@
 
             </h3>
 
-            <p>
+            <p class="text-muted">
 
                 Manajemen seluruh akun peserta.
 
@@ -862,11 +898,21 @@
 
         </div>
 
+        <button
+            id="refreshParticipantBtn"
+            class="btn btn-outline-primary">
+
+            <i class="bi bi-arrow-clockwise"></i>
+
+            Refresh
+
+        </button>
+
     </div>
 
     <!-- FILTER -->
 
-    <div class="card shadow-sm mt-3">
+    <div class="card shadow-sm mb-4">
 
         <div class="card-body">
 
@@ -875,17 +921,21 @@
                 <div class="col-lg-5">
 
                     <input
-                        type="text"
+
                         id="searchParticipant"
+
                         class="form-control"
-                        placeholder="Cari nama peserta...">
+
+                        placeholder="Cari peserta...">
 
                 </div>
 
                 <div class="col-lg-3">
 
                     <select
+
                         id="participantProgram"
+
                         class="form-select">
 
                         <option value="">
@@ -918,11 +968,43 @@
 
                 <div class="col-lg-2">
 
+                    <select
+
+                        id="participantStatus"
+
+                        class="form-select">
+
+                        <option value="">
+
+                            Semua Status
+
+                        </option>
+
+                        <option value="guest">
+
+                            Guest
+
+                        </option>
+
+                        <option value="premium">
+
+                            Premium
+
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="col-lg-2">
+
                     <button
-                        id="refreshParticipantBtn"
+
+                        id="participantReset"
+
                         class="btn btn-secondary w-100">
 
-                        Refresh
+                        Reset
 
                     </button>
 
@@ -936,11 +1018,11 @@
 
     <!-- TABLE -->
 
-    <div class="table-responsive mt-4">
+    <div class="table-responsive">
 
         <table class="table table-hover align-middle">
 
-            <thead>
+            <thead class="table-light">
 
                 <tr>
 
@@ -952,7 +1034,9 @@
 
                     <th>Status</th>
 
-                    <th width="180">
+                    <th>Tanggal</th>
+
+                    <th width="220">
 
                         Aksi
 
@@ -970,6 +1054,20 @@
 
     </div>
 
+    <div
+        id="participantEmpty"
+        class="text-center py-5 d-none">
+
+        <i class="bi bi-people display-4"></i>
+
+        <h5 class="mt-3">
+
+            Belum ada peserta.
+
+        </h5>
+
+    </div>
+
 </section>
 
 <!-- ==========================================
@@ -980,7 +1078,7 @@
     id="results"
     class="content-section mt-5">
 
-    <div class="section-header">
+    <div class="d-flex justify-content-between align-items-center mb-4">
 
         <div>
 
@@ -990,11 +1088,68 @@
 
             </h3>
 
-            <p>
+            <p class="text-muted">
 
-                Seluruh hasil tryout peserta.
+                Riwayat seluruh hasil tryout.
 
             </p>
+
+        </div>
+
+        <div class="dropdown">
+
+            <button
+
+                class="btn btn-success dropdown-toggle"
+
+                data-bs-toggle="dropdown">
+
+                Export
+
+            </button>
+
+            <ul class="dropdown-menu">
+
+                <li>
+
+                    <a
+                        id="exportResultExcelBtn"
+                        class="dropdown-item"
+                        href="#">
+
+                        Excel
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a
+                        id="exportResultPdfBtn"
+                        class="dropdown-item"
+                        href="#">
+
+                        PDF
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a
+                        id="exportResultCsvBtn"
+                        class="dropdown-item"
+                        href="#">
+
+                        CSV
+
+                    </a>
+
+                </li>
+
+            </ul>
 
         </div>
 
@@ -1002,7 +1157,7 @@
 
     <!-- FILTER -->
 
-    <div class="card shadow-sm mt-3">
+    <div class="card shadow-sm mb-4">
 
         <div class="card-body">
 
@@ -1011,9 +1166,11 @@
                 <div class="col-lg-4">
 
                     <input
-                        type="text"
+
                         id="searchResult"
+
                         class="form-control"
+
                         placeholder="Cari peserta...">
 
                 </div>
@@ -1021,7 +1178,9 @@
                 <div class="col-lg-3">
 
                     <select
+
                         id="resultProgram"
+
                         class="form-select">
 
                         <option value="">
@@ -1052,27 +1211,27 @@
 
                 </div>
 
-                <div class="col-lg-2">
+                <div class="col-lg-3">
 
-                    <button
-                        id="refreshResultBtn"
-                        class="btn btn-secondary w-100">
+                    <input
 
-                        Refresh
+                        id="resultDate"
 
-                    </button>
+                        type="date"
+
+                        class="form-control">
 
                 </div>
 
-                <div class="col-lg-3 text-end">
+                <div class="col-lg-2">
 
                     <button
-                        id="exportResultExcelBtn"
-                        class="btn btn-success">
 
-                        <i class="bi bi-file-earmark-excel"></i>
+                        id="refreshResultBtn"
 
-                        Export Excel
+                        class="btn btn-secondary w-100">
+
+                        Refresh
 
                     </button>
 
@@ -1086,11 +1245,11 @@
 
     <!-- TABLE -->
 
-    <div class="table-responsive mt-4">
+    <div class="table-responsive">
 
         <table class="table table-hover align-middle">
 
-            <thead>
+            <thead class="table-light">
 
                 <tr>
 
@@ -1106,7 +1265,7 @@
 
                     <th>Tanggal</th>
 
-                    <th width="160">
+                    <th width="180">
 
                         Detail
 
@@ -1124,6 +1283,20 @@
 
     </div>
 
+    <div
+        id="resultEmpty"
+        class="text-center py-5 d-none">
+
+        <i class="bi bi-clipboard-x display-4"></i>
+
+        <h5 class="mt-3">
+
+            Belum ada hasil tryout.
+
+        </h5>
+
+    </div>
+
 </section>
 
 <!-- ==========================================
@@ -1134,19 +1307,19 @@
     id="statistics"
     class="content-section mt-5">
 
-    <div class="section-header">
+    <div class="d-flex justify-content-between align-items-center mb-4">
 
         <div>
 
             <h3>
 
-                Statistik
+                Statistik Sistem
 
             </h3>
 
-            <p>
+            <p class="text-muted">
 
-                Analisis keseluruhan sistem.
+                Statistik keseluruhan platform.
 
             </p>
 
@@ -1198,13 +1371,13 @@
 
                             Program Favorit
 
-                            <strong
+                            <span
                                 id="statFavoriteProgram"
                                 class="float-end">
 
                                 -
 
-                            </strong>
+                            </span>
 
                         </li>
 
@@ -1212,13 +1385,13 @@
 
                             Nilai Tertinggi
 
-                            <strong
+                            <span
                                 id="highestScore"
                                 class="float-end">
 
                                 0
 
-                            </strong>
+                            </span>
 
                         </li>
 
@@ -1226,27 +1399,55 @@
 
                             Nilai Terendah
 
-                            <strong
+                            <span
                                 id="lowestScore"
                                 class="float-end">
 
                                 0
 
-                            </strong>
+                            </span>
 
                         </li>
 
                         <li class="list-group-item">
 
-                            Rata-rata
+                            Nilai Rata-rata
 
-                            <strong
+                            <span
                                 id="avgScore"
                                 class="float-end">
 
                                 0
 
-                            </strong>
+                            </span>
+
+                        </li>
+
+                        <li class="list-group-item">
+
+                            Total Guest
+
+                            <span
+                                id="totalGuest"
+                                class="float-end">
+
+                                0
+
+                            </span>
+
+                        </li>
+
+                        <li class="list-group-item">
+
+                            Total Premium
+
+                            <span
+                                id="totalPremium"
+                                class="float-end">
+
+                                0
+
+                            </span>
 
                         </li>
 
@@ -1262,26 +1463,36 @@
 
 </section>
 <!-- ==========================================
-     PENGATURAN
+     PENGATURAN SISTEM
 ========================================== -->
 
 <section
     id="settings"
     class="content-section mt-5">
 
-    <div class="section-header">
+    <div class="d-flex justify-content-between align-items-center mb-4">
 
         <div>
 
-            <h3>Pengaturan</h3>
+            <h3>
 
-            <p>Konfigurasi sistem Ksatria Akademi.</p>
+                Pengaturan Sistem
+
+            </h3>
+
+            <p class="text-muted">
+
+                Konfigurasi platform Ksatria Akademi.
+
+            </p>
 
         </div>
 
     </div>
 
     <div class="row g-4">
+
+        <!-- WEBSITE -->
 
         <div class="col-lg-6">
 
@@ -1304,7 +1515,6 @@
                         </label>
 
                         <input
-                            type="text"
                             id="websiteName"
                             class="form-control"
                             value="Ksatria Akademi">
@@ -1320,7 +1530,6 @@
                         </label>
 
                         <input
-                            type="text"
                             id="websiteTagline"
                             class="form-control"
                             value="Belajar • Berjuang • Berprestasi">
@@ -1328,8 +1537,96 @@
                     </div>
 
                     <button
-                        id="saveSettingBtn"
+                        id="saveWebsiteBtn"
                         class="btn btn-primary">
+
+                        Simpan
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- TRYOUT -->
+
+        <div class="col-lg-6">
+
+            <div class="card shadow-sm">
+
+                <div class="card-header">
+
+                    Pengaturan Tryout
+
+                </div>
+
+                <div class="card-body">
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+
+                            Durasi Default (menit)
+
+                        </label>
+
+                        <input
+                            id="defaultDuration"
+                            type="number"
+                            class="form-control"
+                            value="90">
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+
+                            Maksimal Guest
+
+                        </label>
+
+                        <input
+                            id="guestQuestionLimit"
+                            type="number"
+                            class="form-control"
+                            value="50">
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+
+                            Status Website
+
+                        </label>
+
+                        <select
+                            id="websiteStatus"
+                            class="form-select">
+
+                            <option value="online">
+
+                                Online
+
+                            </option>
+
+                            <option value="maintenance">
+
+                                Maintenance
+
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <button
+                        id="saveTryoutSettingBtn"
+                        class="btn btn-success">
 
                         Simpan Pengaturan
 
@@ -1341,43 +1638,51 @@
 
         </div>
 
-        <div class="col-lg-6">
+    </div>
 
-            <div class="card shadow-sm">
+    <!-- DATABASE -->
 
-                <div class="card-header">
+    <div class="card shadow-sm mt-4">
 
-                    Operasional
+        <div class="card-header">
 
-                </div>
+            Database
 
-                <div class="card-body">
+        </div>
 
-                    <button
-                        id="backupBtn"
-                        class="btn btn-success w-100 mb-2">
+        <div class="card-body">
 
-                        Backup Database
+            <div class="d-flex flex-wrap gap-2">
 
-                    </button>
+                <button
+                    id="backupDatabaseBtn"
+                    class="btn btn-success">
 
-                    <button
-                        id="restoreBtn"
-                        class="btn btn-warning w-100 mb-2">
+                    <i class="bi bi-cloud-download"></i>
 
-                        Restore Database
+                    Backup
 
-                    </button>
+                </button>
 
-                    <button
-                        id="deleteAllQuestionBtn"
-                        class="btn btn-danger w-100">
+                <button
+                    id="restoreDatabaseBtn"
+                    class="btn btn-warning">
 
-                        Hapus Semua Soal
+                    <i class="bi bi-cloud-upload"></i>
 
-                    </button>
+                    Restore
 
-                </div>
+                </button>
+
+                <button
+                    id="resetDatabaseBtn"
+                    class="btn btn-danger">
+
+                    <i class="bi bi-trash3"></i>
+
+                    Reset Database
+
+                </button>
 
             </div>
 
@@ -1396,7 +1701,7 @@
     id="questionModal"
     tabindex="-1">
 
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
 
         <div class="modal-content">
 
@@ -1404,14 +1709,15 @@
 
                 <div class="modal-header">
 
-                    <h5 class="modal-title">
+                    <h5
+                        id="questionModalTitle"
+                        class="modal-title">
 
-                        Tambah / Edit Soal
+                        Tambah Soal
 
                     </h5>
 
                     <button
-                        type="button"
                         class="btn-close"
                         data-bs-dismiss="modal">
 
@@ -1421,19 +1727,41 @@
 
                 <div class="modal-body">
 
+                    <input
+                        type="hidden"
+                        id="questionId">
+
                     <div class="row g-3">
 
                         <div class="col-md-3">
 
-                            <label>Program</label>
+                            <label class="form-label">
+
+                                Program
+
+                            </label>
 
                             <select
                                 id="program"
                                 class="form-select">
 
-                                <option>SKD</option>
-                                <option>SNBT</option>
-                                <option>Bahasa</option>
+                                <option value="SKD">
+
+                                    SKD
+
+                                </option>
+
+                                <option value="SNBT">
+
+                                    SNBT
+
+                                </option>
+
+                                <option value="Bahasa">
+
+                                    Bahasa
+
+                                </option>
 
                             </select>
 
@@ -1441,7 +1769,11 @@
 
                         <div class="col-md-3">
 
-                            <label>Kategori</label>
+                            <label class="form-label">
+
+                                Kategori
+
+                            </label>
 
                             <input
                                 id="category"
@@ -1451,7 +1783,11 @@
 
                         <div class="col-md-2">
 
-                            <label>Nomor</label>
+                            <label class="form-label">
+
+                                Nomor
+
+                            </label>
 
                             <input
                                 id="number"
@@ -1460,9 +1796,41 @@
 
                         </div>
 
+                        <div class="col-md-4">
+
+                            <label class="form-label">
+
+                                Status
+
+                            </label>
+
+                            <select
+                                id="questionStatus"
+                                class="form-select">
+
+                                <option value="active">
+
+                                    Aktif
+
+                                </option>
+
+                                <option value="inactive">
+
+                                    Nonaktif
+
+                                </option>
+
+                            </select>
+
+                        </div>
+
                         <div class="col-12">
 
-                            <label>Soal</label>
+                            <label class="form-label">
+
+                                Pertanyaan
+
+                            </label>
 
                             <textarea
                                 id="question"
@@ -1522,13 +1890,53 @@
                                 id="answer"
                                 class="form-select">
 
-                                <option value="A">A</option>
-                                <option value="B">B</option>
-                                <option value="C">C</option>
-                                <option value="D">D</option>
-                                <option value="E">E</option>
+                                <option value="A">
+
+                                    Jawaban A
+
+                                </option>
+
+                                <option value="B">
+
+                                    Jawaban B
+
+                                </option>
+
+                                <option value="C">
+
+                                    Jawaban C
+
+                                </option>
+
+                                <option value="D">
+
+                                    Jawaban D
+
+                                </option>
+
+                                <option value="E">
+
+                                    Jawaban E
+
+                                </option>
 
                             </select>
+
+                        </div>
+
+                        <div class="col-12">
+
+                            <label class="form-label">
+
+                                Pembahasan
+
+                            </label>
+
+                            <textarea
+                                id="discussion"
+                                rows="5"
+                                class="form-control"
+                                placeholder="Pembahasan soal..."></textarea>
 
                         </div>
 
@@ -1548,16 +1956,467 @@
                     </button>
 
                     <button
+                        id="saveQuestionBtn"
                         type="submit"
                         class="btn btn-primary">
 
-                        Simpan
+                        Simpan Soal
 
                     </button>
 
                 </div>
 
             </form>
+
+        </div>
+
+    </div>
+
+</div>
+<!-- ==========================================
+     MODAL DETAIL PESERTA
+========================================== -->
+
+<div
+    class="modal fade"
+    id="participantModal"
+    tabindex="-1"
+    aria-hidden="true">
+
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title">
+
+                    Detail Peserta
+
+                </h5>
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal">
+
+                </button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <div class="row g-4">
+
+                    <div class="col-lg-4">
+
+                        <div class="card shadow-sm">
+
+                            <div class="card-body text-center">
+
+                                <i
+                                    class="bi bi-person-circle"
+                                    style="font-size:90px;">
+
+                                </i>
+
+                                <h4
+                                    class="mt-3"
+                                    id="participantName">
+
+                                    -
+
+                                </h4>
+
+                                <p
+                                    class="text-muted"
+                                    id="participantEmail">
+
+                                    -
+
+                                </p>
+
+                                <span
+                                    id="participantStatusBadge"
+                                    class="badge bg-secondary">
+
+                                    -
+
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-8">
+
+                        <table class="table table-bordered">
+
+                            <tbody>
+
+                                <tr>
+
+                                    <th width="200">
+
+                                        Nama
+
+                                    </th>
+
+                                    <td id="detailName">
+
+                                        -
+
+                                    </td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <th>
+
+                                        Email
+
+                                    </th>
+
+                                    <td id="detailEmail">
+
+                                        -
+
+                                    </td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <th>
+
+                                        Program
+
+                                    </th>
+
+                                    <td id="detailProgram">
+
+                                        -
+
+                                    </td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <th>
+
+                                        Sekolah
+
+                                    </th>
+
+                                    <td id="detailSchool">
+
+                                        -
+
+                                    </td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <th>
+
+                                        Tanggal Daftar
+
+                                    </th>
+
+                                    <td id="detailRegisterDate">
+
+                                        -
+
+                                    </td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <th>
+
+                                        Total Tryout
+
+                                    </th>
+
+                                    <td id="detailTryout">
+
+                                        0
+
+                                    </td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <th>
+
+                                        Nilai Terbaik
+
+                                    </th>
+
+                                    <td id="detailBestScore">
+
+                                        0
+
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+                <hr>
+
+                <h5>
+
+                    Riwayat Tryout
+
+                </h5>
+
+                <div class="table-responsive">
+
+                    <table class="table table-hover">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Tanggal</th>
+                                <th>Program</th>
+                                <th>Nilai</th>
+                                <th>Status</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="participantHistory">
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button
+                    id="upgradePremiumBtn"
+                    class="btn btn-success">
+
+                    Upgrade Premium
+
+                </button>
+
+                <button
+                    id="deleteParticipantBtn"
+                    class="btn btn-danger">
+
+                    Hapus Peserta
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+     MODAL DETAIL HASIL
+========================================== -->
+
+<div
+    class="modal fade"
+    id="resultModal"
+    tabindex="-1"
+    aria-hidden="true">
+
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title">
+
+                    Detail Hasil Tryout
+
+                </h5>
+
+                <button
+                    class="btn-close"
+                    data-bs-dismiss="modal">
+
+                </button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <div class="row">
+
+                    <div class="col-lg-3">
+
+                        <div class="card shadow-sm">
+
+                            <div class="card-body text-center">
+
+                                <h6>
+
+                                    Nilai
+
+                                </h6>
+
+                                <h1
+                                    id="modalScore">
+
+                                    0
+
+                                </h1>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-9">
+
+                        <table class="table table-bordered">
+
+                            <tbody>
+
+                                <tr>
+
+                                    <th width="200">
+
+                                        Nama
+
+                                    </th>
+
+                                    <td id="modalResultName">
+
+                                    </td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <th>
+
+                                        Program
+
+                                    </th>
+
+                                    <td id="modalResultProgram">
+
+                                    </td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <th>
+
+                                        Benar
+
+                                    </th>
+
+                                    <td id="modalCorrect">
+
+                                    </td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <th>
+
+                                        Salah
+
+                                    </th>
+
+                                    <td id="modalWrong">
+
+                                    </td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <th>
+
+                                        Tanggal
+
+                                    </th>
+
+                                    <td id="modalDate">
+
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+                <hr>
+
+                <h5>
+
+                    Jawaban Peserta
+
+                </h5>
+
+                <div id="answerReview">
+
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button
+                    id="downloadCertificateBtn"
+                    class="btn btn-success">
+
+                    <i class="bi bi-award"></i>
+
+                    Download Sertifikat
+
+                </button>
+
+                <button
+                    id="showDiscussionBtn"
+                    class="btn btn-primary">
+
+                    <i class="bi bi-book"></i>
+
+                    Lihat Pembahasan
+
+                </button>
+
+            </div>
 
         </div>
 
@@ -1572,9 +2431,10 @@
 <div
     class="modal fade"
     id="previewModal"
-    tabindex="-1">
+    tabindex="-1"
+    aria-hidden="true">
 
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-fullscreen">
 
         <div class="modal-content">
 
@@ -1582,7 +2442,7 @@
 
                 <h5 class="modal-title">
 
-                    Preview Import Soal
+                    Preview Import Bank Soal
 
                 </h5>
 
@@ -1594,16 +2454,138 @@
 
             </div>
 
-            <div
-                id="previewBody"
-                class="modal-body">
+            <div class="modal-body">
+
+                <div class="row mb-4">
+
+                    <div class="col-lg-3">
+
+                        <div class="card">
+
+                            <div class="card-body text-center">
+
+                                <h2 id="previewTotal">
+
+                                    0
+
+                                </h2>
+
+                                <small>Total Soal</small>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-3">
+
+                        <div class="card">
+
+                            <div class="card-body text-center">
+
+                                <h2
+                                    class="text-success"
+                                    id="previewValid">
+
+                                    0
+
+                                </h2>
+
+                                <small>Valid</small>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-3">
+
+                        <div class="card">
+
+                            <div class="card-body text-center">
+
+                                <h2
+                                    class="text-danger"
+                                    id="previewInvalid">
+
+                                    0
+
+                                </h2>
+
+                                <small>Error</small>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-3">
+
+                        <div class="card">
+
+                            <div class="card-body text-center">
+
+                                <h2
+                                    class="text-primary"
+                                    id="previewReady">
+
+                                    0
+
+                                </h2>
+
+                                <small>Siap Import</small>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="table-responsive">
+
+                    <table class="table table-bordered">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>No</th>
+                                <th>Program</th>
+                                <th>Kategori</th>
+                                <th>Nomor</th>
+                                <th>Status</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="previewImportTable">
+
+                        </tbody>
+
+                    </table>
+
+                </div>
 
             </div>
 
             <div class="modal-footer">
 
                 <button
-                    id="importFirestoreBtn"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal">
+
+                    Tutup
+
+                </button>
+
+                <button
+                    id="confirmImportBtn"
                     class="btn btn-success">
 
                     Import ke Firestore
@@ -1617,16 +2599,118 @@
     </div>
 
 </div>
+<!-- ==========================================
+     MODAL BULK DELETE
+========================================== -->
+
+<div
+    class="modal fade"
+    id="bulkDeleteModal"
+    tabindex="-1"
+    aria-hidden="true">
+
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <div class="modal-header bg-danger text-white">
+
+                <h5 class="modal-title">
+
+                    Konfirmasi Hapus
+
+                </h5>
+
+                <button
+                    class="btn-close btn-close-white"
+                    data-bs-dismiss="modal">
+
+                </button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <div class="text-center">
+
+                    <i
+                        class="bi bi-trash3-fill text-danger"
+                        style="font-size:70px;">
+
+                    </i>
+
+                    <h5 class="mt-3">
+
+                        Hapus semua data yang dipilih?
+
+                    </h5>
+
+                    <p class="text-muted">
+
+                        Data yang dihapus tidak dapat dikembalikan.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal">
+
+                    Batal
+
+                </button>
+
+                <button
+                    id="confirmBulkDeleteBtn"
+                    class="btn btn-danger">
+
+                    Ya, Hapus
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
 
 <!-- ==========================================
-     LOADING
+     GLOBAL LOADING
 ========================================== -->
 
 <div
     id="loadingOverlay"
-    class="loading-overlay d-none">
+    class="d-none">
 
-    <div class="spinner-border text-light"></div>
+    <div class="loading-box">
+
+        <div
+            class="spinner-border text-primary"
+            role="status">
+
+        </div>
+
+        <h5 class="mt-3">
+
+            Memproses...
+
+        </h5>
+
+        <small
+            id="loadingText">
+
+            Mohon tunggu...
+
+        </small>
+
+    </div>
 
 </div>
 
@@ -1635,7 +2719,11 @@
 ========================================== -->
 
 <div
-    class="toast-container position-fixed bottom-0 end-0 p-3">
+    class="toast-container
+           position-fixed
+           bottom-0
+           end-0
+           p-3">
 
     <div
         id="liveToast"
@@ -1649,6 +2737,12 @@
 
             </strong>
 
+            <small>
+
+                Sistem
+
+            </small>
+
             <button
                 class="btn-close"
                 data-bs-dismiss="toast">
@@ -1661,15 +2755,44 @@
             id="toastMessage"
             class="toast-body">
 
+            -
+
         </div>
 
     </div>
 
 </div>
 
+<!-- ==========================================
+     FLOATING BUTTON
+========================================== -->
+
+<button
+
+    id="scrollTopBtn"
+
+    class="btn btn-primary rounded-circle"
+
+    style="
+        position:fixed;
+        right:30px;
+        bottom:30px;
+        width:55px;
+        height:55px;
+        display:none;
+        z-index:9999;">
+
+    <i class="bi bi-arrow-up"></i>
+
+</button>
+
 </main>
 
 </div>
+
+<!-- ==========================================
+     LIBRARY
+========================================== -->
 
 <!-- Bootstrap -->
 
@@ -1679,17 +2802,37 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<!-- Firebase -->
+<!-- XLSX -->
+
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+
+<!-- PDF.js -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.js"></script>
+
+<!-- PapaParse -->
+
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+
+<!-- ==========================================
+     FIREBASE
+========================================== -->
 
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
 
 <!-- Firebase Config -->
 
 <script src="firebase.js"></script>
 
-<!-- Admin -->
+<!-- ==========================================
+     ADMIN SYSTEM
+========================================== -->
 
 <script src="admin-v2.js"></script>
 
