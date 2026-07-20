@@ -1,1 +1,673 @@
+/* ==========================================
+   KSATRIA AKADEMI
+   ADMIN PANEL
+========================================== */
 
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    font-family:'Poppins',sans-serif;
+
+    background:#f4f7fb;
+
+    color:#1f2937;
+
+}
+
+a{
+
+    text-decoration:none;
+
+    color:inherit;
+
+}
+
+.admin-wrapper{
+
+    display:flex;
+
+    min-height:100vh;
+
+}
+
+/* ==========================================
+   SIDEBAR
+========================================== */
+
+.sidebar{
+
+    width:270px;
+
+    background:#0b1f4d;
+
+    color:#fff;
+
+    position:fixed;
+
+    top:0;
+
+    left:0;
+
+    bottom:0;
+
+    overflow-y:auto;
+
+    box-shadow:3px 0 15px rgba(0,0,0,.12);
+
+}
+
+.sidebar-header{
+
+    text-align:center;
+
+    padding:30px 20px;
+
+    border-bottom:1px solid rgba(255,255,255,.12);
+
+}
+
+.logo{
+
+    width:80px;
+
+    margin-bottom:12px;
+
+}
+
+.sidebar-header h4{
+
+    margin:0;
+
+    font-weight:700;
+
+    letter-spacing:.5px;
+
+}
+
+.sidebar-header small{
+
+    color:#d7d7d7;
+
+}
+
+.sidebar-menu{
+
+    list-style:none;
+
+    margin:0;
+
+    padding:20px 0;
+
+}
+
+.sidebar-menu li{
+
+    margin:6px 15px;
+
+}
+
+.sidebar-menu li a{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:14px 18px;
+
+    border-radius:12px;
+
+    transition:.25s;
+
+    color:#fff;
+
+}
+
+.sidebar-menu li a i{
+
+    font-size:18px;
+
+}
+
+.sidebar-menu li:hover a{
+
+    background:#16377e;
+
+}
+
+.sidebar-menu li.active a{
+
+    background:#ffc83d;
+
+    color:#081f4d;
+
+    font-weight:600;
+
+}
+
+/* ==========================================
+   CONTENT
+========================================== */
+
+.content{
+
+    margin-left:270px;
+
+    width:calc(100% - 270px);
+
+    padding:35px;
+
+}
+/* ==========================================
+   TOPBAR
+========================================== */
+
+.topbar{
+
+    background:#ffffff;
+
+    border-radius:18px;
+
+    padding:22px 28px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:30px;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.06);
+
+}
+
+.topbar h2{
+
+    margin:0;
+
+    font-size:28px;
+
+    font-weight:700;
+
+    color:#081f4d;
+
+}
+
+.topbar p{
+
+    margin:4px 0 0;
+
+    color:#6b7280;
+
+    font-size:14px;
+
+}
+
+.admin-profile{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    font-weight:600;
+
+}
+
+.admin-profile i{
+
+    font-size:34px;
+
+    color:#081f4d;
+
+}
+
+/* ==========================================
+   DASHBOARD CARD
+========================================== */
+
+.dashboard-card{
+
+    background:#ffffff;
+
+    border-radius:18px;
+
+    padding:28px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.05);
+
+    transition:.3s;
+
+    height:100%;
+
+}
+
+.dashboard-card:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:0 15px 30px rgba(0,0,0,.10);
+
+}
+
+.dashboard-card i{
+
+    font-size:42px;
+
+    color:#ffc83d;
+
+}
+
+.dashboard-card h6{
+
+    margin-top:15px;
+
+    color:#6b7280;
+
+    font-weight:600;
+
+}
+
+.dashboard-card h2{
+
+    margin-top:10px;
+
+    font-size:34px;
+
+    font-weight:700;
+
+    color:#081f4d;
+
+}
+
+/* ==========================================
+   SECTION
+========================================== */
+
+.admin-section{
+
+    margin-top:40px;
+
+}
+
+.card{
+
+    border:none;
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.05);
+
+}
+
+.card-header{
+
+    background:#081f4d;
+
+    color:#ffffff;
+
+    padding:18px 24px;
+
+    border:none;
+
+}
+
+.card-header h4{
+
+    margin:0;
+
+    font-size:22px;
+
+    font-weight:600;
+
+}
+
+.card-body{
+
+    background:#ffffff;
+
+    padding:25px;
+
+}
+
+/* ==========================================
+   BUTTON
+========================================== */
+
+.btn-primary{
+
+    background:#081f4d;
+
+    border:none;
+
+}
+
+.btn-primary:hover{
+
+    background:#0d2c70;
+
+}
+
+.btn-success{
+
+    background:#16a34a;
+
+    border:none;
+
+}
+
+.btn-success:hover{
+
+    background:#15803d;
+
+}
+
+.btn-secondary{
+
+    border:none;
+
+}
+
+/* ==========================================
+   FORM
+========================================== */
+
+.form-control,
+.form-select{
+
+    border-radius:12px;
+
+    padding:10px 14px;
+
+    border:1px solid #d1d5db;
+
+}
+
+.form-control:focus,
+.form-select:focus{
+
+    border-color:#081f4d;
+
+    box-shadow:0 0 0 .2rem rgba(8,31,77,.15);
+
+}
+/* ==========================================
+   TABLE
+========================================== */
+
+.table{
+
+    margin-bottom:0;
+
+    vertical-align:middle;
+
+}
+
+.table thead{
+
+    background:#081f4d;
+
+    color:#ffffff;
+
+}
+
+.table thead th{
+
+    border:none;
+
+    padding:15px;
+
+    font-weight:600;
+
+}
+
+.table tbody td{
+
+    padding:14px;
+
+    vertical-align:middle;
+
+}
+
+.table-hover tbody tr:hover{
+
+    background:#f4f8ff;
+
+}
+
+/* ==========================================
+   BADGE
+========================================== */
+
+.badge{
+
+    padding:8px 12px;
+
+    border-radius:20px;
+
+    font-size:12px;
+
+    font-weight:600;
+
+}
+
+.badge-success{
+
+    background:#22c55e;
+
+    color:#fff;
+
+}
+
+.badge-danger{
+
+    background:#ef4444;
+
+    color:#fff;
+
+}
+
+.badge-warning{
+
+    background:#f59e0b;
+
+    color:#fff;
+
+}
+
+/* ==========================================
+   MODAL
+========================================== */
+
+.modal-content{
+
+    border:none;
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+}
+
+.modal-header{
+
+    background:#081f4d;
+
+    color:#ffffff;
+
+}
+
+.modal-title{
+
+    font-weight:600;
+
+}
+
+.modal-footer{
+
+    border-top:none;
+
+}
+
+/* ==========================================
+   CANVAS
+========================================== */
+
+canvas{
+
+    width:100% !important;
+
+}
+
+/* ==========================================
+   SCROLLBAR
+========================================== */
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#edf2f7;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#081f4d;
+
+    border-radius:10px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#16377e;
+
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media(max-width:992px){
+
+    .sidebar{
+
+        width:80px;
+
+    }
+
+    .sidebar-header h4,
+    .sidebar-header small{
+
+        display:none;
+
+    }
+
+    .sidebar-menu li a{
+
+        justify-content:center;
+
+        padding:16px;
+
+    }
+
+    .sidebar-menu li a span{
+
+        display:none;
+
+    }
+
+    .content{
+
+        margin-left:80px;
+
+        width:calc(100% - 80px);
+
+        padding:20px;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .topbar{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:15px;
+
+    }
+
+    .dashboard-card{
+
+        margin-bottom:20px;
+
+    }
+
+}
+
+@media(max-width:576px){
+
+    .content{
+
+        margin-left:0;
+
+        width:100%;
+
+        padding:15px;
+
+    }
+
+    .sidebar{
+
+        display:none;
+
+    }
+
+}
+
+/* ==========================================
+   ANIMATION
+========================================== */
+
+.card,
+.dashboard-card,
+.btn{
+
+    transition:all .3s ease;
+
+}
+
+.dashboard-card:hover{
+
+    transform:translateY(-4px);
+
+}
+
+.btn:hover{
+
+    transform:translateY(-2px);
+
+}
+
+/* ==========================================
+   END
+========================================== */
