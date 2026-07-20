@@ -21,7 +21,7 @@
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
         rel="stylesheet">
 
-    <!-- Bootstrap Icon -->
+    <!-- Bootstrap Icons -->
 
     <link
         rel="stylesheet"
@@ -45,858 +45,1124 @@
 
 <div class="admin-wrapper">
 
-    <!-- ===========================
-         SIDEBAR
-    ============================ -->
+<!-- ==========================================
+     SIDEBAR
+========================================== -->
 
-    <aside class="sidebar">
+<aside class="sidebar">
 
-        <div class="sidebar-header">
+    <div class="sidebar-header">
 
-            <img
-                src="images/logo.png"
-                class="logo"
-                alt="Logo">
+        <img
+            src="images/logo.png"
+            class="logo"
+            alt="Logo">
 
-            <h4>
+        <h4>
 
-                KSATRIA
+            KSATRIA
 
-            </h4>
+        </h4>
+
+        <small>
+
+            Admin Panel
+
+        </small>
+
+    </div>
+
+    <ul class="sidebar-menu">
+
+        <li class="active">
+
+            <a href="#dashboard">
+
+                <i class="bi bi-grid-fill"></i>
+
+                Dashboard
+
+            </a>
+
+        </li>
+
+        <li>
+
+            <a href="#questions">
+
+                <i class="bi bi-journal-bookmark-fill"></i>
+
+                Kelola Soal
+
+            </a>
+
+        </li>
+
+        <li>
+
+            <a href="#upload">
+
+                <i class="bi bi-cloud-arrow-up-fill"></i>
+
+                Upload Bank Soal
+
+            </a>
+
+        </li>
+
+        <li>
+
+            <a href="#participants">
+
+                <i class="bi bi-people-fill"></i>
+
+                Peserta
+
+            </a>
+
+        </li>
+
+        <li>
+
+            <a href="#results">
+
+                <i class="bi bi-clipboard2-check-fill"></i>
+
+                Hasil Tryout
+
+            </a>
+
+        </li>
+
+        <li>
+
+            <a href="#statistics">
+
+                <i class="bi bi-bar-chart-fill"></i>
+
+                Statistik
+
+            </a>
+
+        </li>
+
+        <li>
+
+            <a href="#settings">
+
+                <i class="bi bi-gear-fill"></i>
+
+                Pengaturan
+
+            </a>
+
+        </li>
+
+        <li>
+
+            <a
+                href="#"
+                id="logoutBtn">
+
+                <i class="bi bi-box-arrow-right"></i>
+
+                Logout
+
+            </a>
+
+        </li>
+
+    </ul>
+
+</aside>
+
+<!-- ==========================================
+     CONTENT
+========================================== -->
+
+<main class="content">
+
+<!-- ==========================================
+     TOPBAR
+========================================== -->
+
+<header class="topbar">
+
+    <div>
+
+        <h2>
+
+            Dashboard Admin
+
+        </h2>
+
+        <p>
+
+            Sistem Manajemen Ksatria Akademi
+
+        </p>
+
+    </div>
+
+    <div class="admin-profile">
+
+        <i class="bi bi-person-circle"></i>
+
+        <div>
+
+            <strong id="adminName">
+
+                Administrator
+
+            </strong>
+
+            <br>
 
             <small>
 
-                Admin Panel
+                Super Admin
 
             </small>
 
         </div>
 
-        <ul class="sidebar-menu">
+    </div>
 
-            <li class="active">
+</header>
 
-                <a href="#dashboard">
+<!-- ==========================================
+     DASHBOARD
+========================================== -->
 
-                    <i class="bi bi-grid-fill"></i>
+<section
+    id="dashboard"
+    class="dashboard-section">
 
-                    Dashboard
+    <div class="row g-4">
 
-                </a>
+        <div class="col-lg-3 col-md-6">
 
-            </li>
+            <div class="dashboard-card">
 
-            <li>
+                <i class="bi bi-journal-bookmark-fill"></i>
 
-                <a href="#questions">
+                <h6>
 
-                    <i class="bi bi-journal-bookmark-fill"></i>
+                    Total Soal
 
-                    Kelola Soal
+                </h6>
 
-                </a>
+                <h2 id="totalQuestions">
 
-            </li>
-
-            <li>
-
-                <a href="#participants">
-
-                    <i class="bi bi-people-fill"></i>
-
-                    Peserta
-
-                </a>
-
-            </li>
-
-            <li>
-
-                <a href="#results">
-
-                    <i class="bi bi-clipboard2-check-fill"></i>
-
-                    Hasil Tryout
-
-                </a>
-
-            </li>
-
-            <li>
-
-                <a href="#statistics">
-
-                    <i class="bi bi-graph-up-arrow"></i>
-
-                    Statistik
-
-                </a>
-
-            </li>
-
-            <li>
-
-                <a href="#settings">
-
-                    <i class="bi bi-gear-fill"></i>
-
-                    Pengaturan
-
-                </a>
-
-            </li>
-
-            <li>
-
-                <a href="index.html">
-
-                    <i class="bi bi-box-arrow-right"></i>
-
-                    Logout
-
-                </a>
-
-            </li>
-
-        </ul>
-
-    </aside>
-
-    <!-- ===========================
-         CONTENT
-    ============================ -->
-
-    <main class="content">
-
-        <!-- TOPBAR -->
-
-        <header class="topbar">
-
-            <div>
-
-                <h2>
-
-                    Dashboard Admin
+                    0
 
                 </h2>
 
-                <p>
+            </div>
 
-                    Sistem Manajemen Ksatria Akademi
+        </div>
 
-                </p>
+        <div class="col-lg-3 col-md-6">
+
+            <div class="dashboard-card">
+
+                <i class="bi bi-people-fill"></i>
+
+                <h6>
+
+                    Total Peserta
+
+                </h6>
+
+                <h2 id="totalParticipants">
+
+                    0
+
+                </h2>
 
             </div>
 
-            <div class="admin-profile">
+        </div>
 
-                <i class="bi bi-person-circle"></i>
+        <div class="col-lg-3 col-md-6">
 
-                <span id="adminName">
+            <div class="dashboard-card">
 
-                    Administrator
+                <i class="bi bi-clipboard2-check-fill"></i>
 
-                </span>
+                <h6>
+
+                    Total Tryout
+
+                </h6>
+
+                <h2 id="totalResults">
+
+                    0
+
+                </h2>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="dashboard-card">
+
+                <i class="bi bi-award-fill"></i>
+
+                <h6>
+
+                    Nilai Rata-rata
+
+                </h6>
+
+                <h2 id="averageScore">
+
+                    0
+
+                </h2>
 
             </div>
 
-        </header>
+        </div>
 
-        <!-- DASHBOARD -->
+    </div>
 
-        <section
-            id="dashboard"
-            class="dashboard-section">
+    <!-- Statistik Tambahan -->
 
-            <div class="row g-4">
+    <div class="row g-4 mt-2">
 
-                <div class="col-lg-3 col-md-6">
+        <div class="col-lg-3">
 
-                    <div class="dashboard-card">
+            <div class="dashboard-card secondary">
 
-                        <i class="bi bi-journal-bookmark-fill"></i>
+                <h6>
 
-                        <h6>
+                    Soal Aktif
 
-                            Total Soal
+                </h6>
 
-                        </h6>
+                <h3 id="activeQuestions">
 
-                        <h2 id="totalQuestions">
+                    0
 
-                            0
-
-                        </h2>
-
-                    </div>
-
-                </div>
-
-                <div class="col-lg-3 col-md-6">
-
-                    <div class="dashboard-card">
-
-                        <i class="bi bi-people-fill"></i>
-
-                        <h6>
-
-                            Total Peserta
-
-                        </h6>
-
-                        <h2 id="totalParticipants">
-
-                            0
-
-                        </h2>
-
-                    </div>
-
-                </div>
-
-                <div class="col-lg-3 col-md-6">
-
-                    <div class="dashboard-card">
-
-                        <i class="bi bi-clipboard2-check-fill"></i>
-
-                        <h6>
-
-                            Total Tryout
-
-                        </h6>
-
-                        <h2 id="totalResults">
-
-                            0
-
-                        </h2>
-
-                    </div>
-
-                </div>
-
-                <div class="col-lg-3 col-md-6">
-
-                    <div class="dashboard-card">
-
-                        <i class="bi bi-award-fill"></i>
-
-                        <h6>
-
-                            Nilai Rata-rata
-
-                        </h6>
-
-                        <h2 id="averageScore">
-
-                            0
-
-                        </h2>
-
-                    </div>
-
-                </div>
+                </h3>
 
             </div>
-                  <!-- ==========================================
-             KELOLA SOAL
-        =========================================== -->
 
-        <section
-            id="questions"
-            class="admin-section mt-5">
+        </div>
 
-            <div class="card shadow-sm">
+        <div class="col-lg-3">
 
-                <div class="card-header d-flex justify-content-between align-items-center">
+            <div class="dashboard-card secondary">
 
-                    <h4 class="mb-0">
+                <h6>
 
-                        <i class="bi bi-journal-bookmark-fill"></i>
+                    Soal Nonaktif
 
-                        Kelola Soal
+                </h6>
 
-                    </h4>
+                <h3 id="inactiveQuestions">
+
+                    0
+
+                </h3>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3">
+
+            <div class="dashboard-card secondary">
+
+                <h6>
+
+                    Program Favorit
+
+                </h6>
+
+                <h3 id="favoriteProgram">
+
+                    -
+
+                </h3>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3">
+
+            <div class="dashboard-card secondary">
+
+                <h6>
+
+                    Tryout Hari Ini
+
+                </h6>
+
+                <h3 id="todayTryout">
+
+                    0
+
+                </h3>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>
+
+        Dashboard Admin | Ksatria Akademi
+
+    </title>
+
+    <!-- Bootstrap -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Google Font -->
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS -->
+
+    <link
+        rel="stylesheet"
+        href="admin.css">
+
+</head>
+
+<body>
+
+<div class="admin-wrapper">
+
+<!-- ==========================================
+     SIDEBAR
+========================================== -->
+
+<aside class="sidebar">
+
+    <div class="sidebar-header">
+
+        <img
+            src="images/logo.png"
+            class="logo"
+            alt="Logo">
+
+        <h4>
+
+            KSATRIA
+
+        </h4>
+
+        <small>
+
+            Admin Panel
+
+        </small>
+
+    </div>
+
+    <ul class="sidebar-menu">
+
+        <li class="active">
+
+            <a href="#dashboard">
+
+                <i class="bi bi-grid-fill"></i>
+
+                Dashboard
+
+            </a>
+
+        </li>
+
+        <li>
+
+            <a href="#questions">
+
+                <i class="bi bi-journal-bookmark-fill"></i>
+
+                Kelola Soal
+
+            </a>
+
+        </li>
+
+        <li>
+
+            <a href="#upload">
+
+                <i class="bi bi-cloud-arrow-up-fill"></i>
+
+                Upload Bank Soal
+
+            </a>
+
+        </li>
+
+        <li>
+
+            <a href="#participants">
+
+                <i class="bi bi-people-fill"></i>
+
+                Peserta
+
+            </a>
+
+        </li>
+
+        <li>
+
+            <a href="#results">
+
+                <i class="bi bi-clipboard2-check-fill"></i>
+
+                Hasil Tryout
+
+            </a>
+
+        </li>
+
+        <li>
+
+            <a href="#statistics">
+
+                <i class="bi bi-bar-chart-fill"></i>
+
+                Statistik
+
+            </a>
+
+        </li>
+
+        <li>
+
+            <a href="#settings">
+
+                <i class="bi bi-gear-fill"></i>
+
+                Pengaturan
+
+            </a>
+
+        </li>
+
+        <li>
+
+            <a
+                href="#"
+                id="logoutBtn">
+
+                <i class="bi bi-box-arrow-right"></i>
+
+                Logout
+
+            </a>
+
+        </li>
+
+    </ul>
+
+</aside>
+
+<!-- ==========================================
+     CONTENT
+========================================== -->
+
+<main class="content">
+
+<!-- ==========================================
+     TOPBAR
+========================================== -->
+
+<header class="topbar">
+
+    <div>
+
+        <h2>
+
+            Dashboard Admin
+
+        </h2>
+
+        <p>
+
+            Sistem Manajemen Ksatria Akademi
+
+        </p>
+
+    </div>
+
+    <div class="admin-profile">
+
+        <i class="bi bi-person-circle"></i>
+
+        <div>
+
+            <strong id="adminName">
+
+                Administrator
+
+            </strong>
+
+            <br>
+
+            <small>
+
+                Super Admin
+
+            </small>
+
+        </div>
+
+    </div>
+
+</header>
+
+<!-- ==========================================
+     DASHBOARD
+========================================== -->
+
+<section
+    id="dashboard"
+    class="dashboard-section">
+
+    <div class="row g-4">
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="dashboard-card">
+
+                <i class="bi bi-journal-bookmark-fill"></i>
+
+                <h6>
+
+                    Total Soal
+
+                </h6>
+
+                <h2 id="totalQuestions">
+
+                    0
+
+                </h2>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="dashboard-card">
+
+                <i class="bi bi-people-fill"></i>
+
+                <h6>
+
+                    Total Peserta
+
+                </h6>
+
+                <h2 id="totalParticipants">
+
+                    0
+
+                </h2>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="dashboard-card">
+
+                <i class="bi bi-clipboard2-check-fill"></i>
+
+                <h6>
+
+                    Total Tryout
+
+                </h6>
+
+                <h2 id="totalResults">
+
+                    0
+
+                </h2>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="dashboard-card">
+
+                <i class="bi bi-award-fill"></i>
+
+                <h6>
+
+                    Nilai Rata-rata
+
+                </h6>
+
+                <h2 id="averageScore">
+
+                    0
+
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Statistik Tambahan -->
+
+    <div class="row g-4 mt-2">
+
+        <div class="col-lg-3">
+
+            <div class="dashboard-card secondary">
+
+                <h6>
+
+                    Soal Aktif
+
+                </h6>
+
+                <h3 id="activeQuestions">
+
+                    0
+
+                </h3>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3">
+
+            <div class="dashboard-card secondary">
+
+                <h6>
+
+                    Soal Nonaktif
+
+                </h6>
+
+                <h3 id="inactiveQuestions">
+
+                    0
+
+                </h3>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3">
+
+            <div class="dashboard-card secondary">
+
+                <h6>
+
+                    Program Favorit
+
+                </h6>
+
+                <h3 id="favoriteProgram">
+
+                    -
+
+                </h3>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3">
+
+            <div class="dashboard-card secondary">
+
+                <h6>
+
+                    Tryout Hari Ini
+
+                </h6>
+
+                <h3 id="todayTryout">
+
+                    0
+
+                </h3>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- ==========================================
+     KELOLA PESERTA
+========================================== -->
+
+<section
+    id="participants"
+    class="content-section mt-5">
+
+    <div class="section-header">
+
+        <div>
+
+            <h3>
+
+                Kelola Peserta
+
+            </h3>
+
+            <p>
+
+                Manajemen seluruh akun peserta.
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- FILTER -->
+
+    <div class="card shadow-sm mt-3">
+
+        <div class="card-body">
+
+            <div class="row g-3">
+
+                <div class="col-lg-5">
+
+                    <input
+                        type="text"
+                        id="searchParticipant"
+                        class="form-control"
+                        placeholder="Cari nama peserta...">
+
+                </div>
+
+                <div class="col-lg-3">
+
+                    <select
+                        id="participantProgram"
+                        class="form-select">
+
+                        <option value="">
+
+                            Semua Program
+
+                        </option>
+
+                        <option value="SKD">
+
+                            SKD
+
+                        </option>
+
+                        <option value="SNBT">
+
+                            SNBT
+
+                        </option>
+
+                        <option value="Bahasa">
+
+                            Bahasa
+
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="col-lg-2">
 
                     <button
-                        class="btn btn-primary"
-                        data-bs-toggle="modal"
-                        data-bs-target="#questionModal">
+                        id="refreshParticipantBtn"
+                        class="btn btn-secondary w-100">
 
-                        <i class="bi bi-plus-circle"></i>
-
-                        Tambah Soal
+                        Refresh
 
                     </button>
-
-                </div>
-
-                <div class="card-body">
-
-                    <div class="row mb-3">
-
-                        <div class="col-md-4">
-
-                            <input
-                                type="text"
-                                id="searchQuestion"
-                                class="form-control"
-                                placeholder="Cari soal...">
-
-                        </div>
-
-                        <div class="col-md-3">
-
-                            <select
-                                id="filterProgram"
-                                class="form-select">
-
-                                <option value="">
-
-                                    Semua Program
-
-                                </option>
-
-                                <option value="SKD">
-
-                                    SKD
-
-                                </option>
-
-                                <option value="SNBT">
-
-                                    SNBT
-
-                                </option>
-
-                                <option value="Bahasa">
-
-                                    Bahasa
-
-                                </option>
-
-                            </select>
-
-                        </div>
-
-                        <div class="col-md-3">
-
-                            <select
-                                id="filterCategory"
-                                class="form-select">
-
-                                <option value="">
-
-                                    Semua Kategori
-
-                                </option>
-
-                                <option value="TWK">
-
-                                    TWK
-
-                                </option>
-
-                                <option value="TIU">
-
-                                    TIU
-
-                                </option>
-
-                                <option value="TKP">
-
-                                    TKP
-
-                                </option>
-
-                            </select>
-
-                        </div>
-
-                    </div>
-
-                    <div class="table-responsive">
-
-                        <table
-                            class="table table-bordered table-hover align-middle">
-
-                            <thead class="table-dark">
-
-                                <tr>
-
-                                    <th width="70">
-
-                                        No
-
-                                    </th>
-
-                                    <th>
-
-                                        Program
-
-                                    </th>
-
-                                    <th>
-
-                                        Kategori
-
-                                    </th>
-
-                                    <th>
-
-                                        Pertanyaan
-
-                                    </th>
-
-                                    <th width="160">
-
-                                        Aksi
-
-                                    </th>
-
-                                </tr>
-
-                            </thead>
-
-                            <tbody id="questionTable">
-
-                                <!-- Firestore -->
-
-                            </tbody>
-
-                        </table>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-        <!-- ==========================================
-             MODAL SOAL
-        =========================================== -->
-
-        <div
-            class="modal fade"
-            id="questionModal"
-            tabindex="-1">
-
-            <div class="modal-dialog modal-xl">
-
-                <div class="modal-content">
-
-                    <div class="modal-header">
-
-                        <h5 class="modal-title">
-
-                            Tambah / Edit Soal
-
-                        </h5>
-
-                        <button
-                            class="btn-close"
-                            data-bs-dismiss="modal">
-
-                        </button>
-
-                    </div>
-
-                    <div class="modal-body">
-
-                        <form id="questionForm">
-
-                            <input
-                                type="hidden"
-                                id="questionId">
-
-                            <div class="row">
-
-                                <div class="col-md-2">
-
-                                    <label>
-
-                                        Nomor
-
-                                    </label>
-
-                                    <input
-                                        type="number"
-                                        id="number"
-                                        class="form-control">
-
-                                </div>
-
-                                <div class="col-md-5">
-
-                                    <label>
-
-                                        Program
-
-                                    </label>
-
-                                    <select
-                                        id="program"
-                                        class="form-select">
-
-                                        <option>
-
-                                            SKD
-
-                                        </option>
-
-                                        <option>
-
-                                            SNBT
-
-                                        </option>
-
-                                        <option>
-
-                                            Bahasa
-
-                                        </option>
-
-                                    </select>
-
-                                </div>
-
-                                <div class="col-md-5">
-
-                                    <label>
-
-                                        Kategori
-
-                                    </label>
-
-                                    <input
-                                        type="text"
-                                        id="category"
-                                        class="form-control">
-
-                                </div>
-
-                            </div>
-
-                            <div class="mt-3">
-
-                                <label>
-
-                                    Pertanyaan
-
-                                </label>
-
-                                <textarea
-                                    id="question"
-                                    rows="4"
-                                    class="form-control"></textarea>
-
-                            </div>
-
-                            <div class="row mt-3">
-
-                                <div class="col-md-6">
-
-                                    <label>
-
-                                        Pilihan A
-
-                                    </label>
-
-                                    <input
-                                        id="optionA"
-                                        class="form-control">
-
-                                </div>
-
-                                <div class="col-md-6">
-
-                                    <label>
-
-                                        Pilihan B
-
-                                    </label>
-
-                                    <input
-                                        id="optionB"
-                                        class="form-control">
-
-                                </div>
-
-                            </div>
-
-                            <div class="row mt-3">
-
-                                <div class="col-md-6">
-
-                                    <label>
-
-                                        Pilihan C
-
-                                    </label>
-
-                                    <input
-                                        id="optionC"
-                                        class="form-control">
-
-                                </div>
-
-                                <div class="col-md-6">
-
-                                    <label>
-
-                                        Pilihan D
-
-                                    </label>
-
-                                    <input
-                                        id="optionD"
-                                        class="form-control">
-
-                                </div>
-
-                            </div>
-
-                            <div class="row mt-3">
-
-                                <div class="col-md-6">
-
-                                    <label>
-
-                                        Pilihan E
-
-                                    </label>
-
-                                    <input
-                                        id="optionE"
-                                        class="form-control">
-
-                                </div>
-
-                                <div class="col-md-3">
-
-                                    <label>
-
-                                        Jawaban
-
-                                    </label>
-
-                                    <select
-                                        id="answer"
-                                        class="form-select">
-
-                                        <option>A</option>
-                                        <option>B</option>
-                                        <option>C</option>
-                                        <option>D</option>
-                                        <option>E</option>
-
-                                    </select>
-
-                                </div>
-
-                                <div class="col-md-3">
-
-                                    <label>
-
-                                        Status
-
-                                    </label>
-
-                                    <select
-                                        id="isActive"
-                                        class="form-select">
-
-                                        <option value="true">
-
-                                            Aktif
-
-                                        </option>
-
-                                        <option value="false">
-
-                                            Nonaktif
-
-                                        </option>
-
-                                    </select>
-
-                                </div>
-
-                            </div>
-
-                        </form>
-
-                    </div>
-
-                    <div class="modal-footer">
-
-                        <button
-                            class="btn btn-secondary"
-                            data-bs-dismiss="modal">
-
-                            Tutup
-
-                        </button>
-
-                        <button
-                            id="saveQuestion"
-                            class="btn btn-success">
-
-                            Simpan Soal
-
-                        </button>
-
-                    </div>
 
                 </div>
 
             </div>
 
         </div>
-                  <!-- ==========================================
-             KELOLA PESERTA
-        =========================================== -->
 
-        <section
-            id="participants"
-            class="admin-section mt-5">
+    </div>
 
-            <div class="card shadow-sm">
+    <!-- TABLE -->
 
-                <div class="card-header">
+    <div class="table-responsive mt-4">
 
-                    <h4>
+        <table class="table table-hover align-middle">
 
-                        <i class="bi bi-people-fill"></i>
+            <thead>
 
-                        Data Peserta
+                <tr>
 
-                    </h4>
+                    <th>Nama</th>
+
+                    <th>Email</th>
+
+                    <th>Program</th>
+
+                    <th>Status</th>
+
+                    <th width="180">
+
+                        Aksi
+
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="participantTable">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+<!-- ==========================================
+     HASIL TRYOUT
+========================================== -->
+
+<section
+    id="results"
+    class="content-section mt-5">
+
+    <div class="section-header">
+
+        <div>
+
+            <h3>
+
+                Hasil Tryout
+
+            </h3>
+
+            <p>
+
+                Seluruh hasil tryout peserta.
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- FILTER -->
+
+    <div class="card shadow-sm mt-3">
+
+        <div class="card-body">
+
+            <div class="row g-3">
+
+                <div class="col-lg-4">
+
+                    <input
+                        type="text"
+                        id="searchResult"
+                        class="form-control"
+                        placeholder="Cari peserta...">
 
                 </div>
 
-                <div class="card-body">
+                <div class="col-lg-3">
 
-                    <div class="table-responsive">
+                    <select
+                        id="resultProgram"
+                        class="form-select">
 
-                        <table
-                            class="table table-striped table-hover">
+                        <option value="">
 
-                            <thead class="table-dark">
+                            Semua Program
 
-                                <tr>
+                        </option>
 
-                                    <th>Nama</th>
+                        <option value="SKD">
 
-                                    <th>Sekolah</th>
+                            SKD
 
-                                    <th>Program</th>
+                        </option>
 
-                                    <th>Email</th>
+                        <option value="SNBT">
 
-                                </tr>
+                            SNBT
 
-                            </thead>
+                        </option>
 
-                            <tbody id="participantTable">
+                        <option value="Bahasa">
 
-                            </tbody>
+                            Bahasa
 
-                        </table>
+                        </option>
 
-                    </div>
+                    </select>
+
+                </div>
+
+                <div class="col-lg-2">
+
+                    <button
+                        id="refreshResultBtn"
+                        class="btn btn-secondary w-100">
+
+                        Refresh
+
+                    </button>
+
+                </div>
+
+                <div class="col-lg-3 text-end">
+
+                    <button
+                        id="exportResultExcelBtn"
+                        class="btn btn-success">
+
+                        <i class="bi bi-file-earmark-excel"></i>
+
+                        Export Excel
+
+                    </button>
 
                 </div>
 
             </div>
 
-        </section>
+        </div>
 
-        <!-- ==========================================
-             HASIL TRYOUT
-        =========================================== -->
+    </div>
 
-        <section
-            id="results"
-            class="admin-section mt-5">
+    <!-- TABLE -->
+
+    <div class="table-responsive mt-4">
+
+        <table class="table table-hover align-middle">
+
+            <thead>
+
+                <tr>
+
+                    <th>Nama</th>
+
+                    <th>Program</th>
+
+                    <th>Nilai</th>
+
+                    <th>Benar</th>
+
+                    <th>Salah</th>
+
+                    <th>Tanggal</th>
+
+                    <th width="160">
+
+                        Detail
+
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="resultTable">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+<!-- ==========================================
+     STATISTIK
+========================================== -->
+
+<section
+    id="statistics"
+    class="content-section mt-5">
+
+    <div class="section-header">
+
+        <div>
+
+            <h3>
+
+                Statistik
+
+            </h3>
+
+            <p>
+
+                Analisis keseluruhan sistem.
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="row g-4">
+
+        <div class="col-lg-8">
 
             <div class="card shadow-sm">
 
                 <div class="card-header">
 
-                    <h4>
-
-                        <i class="bi bi-clipboard2-check-fill"></i>
-
-                        Hasil Tryout
-
-                    </h4>
-
-                </div>
-
-                <div class="card-body">
-
-                    <div class="table-responsive">
-
-                        <table
-                            class="table table-bordered table-hover">
-
-                            <thead class="table-dark">
-
-                                <tr>
-
-                                    <th>Nama</th>
-
-                                    <th>Program</th>
-
-                                    <th>Nilai</th>
-
-                                    <th>Benar</th>
-
-                                    <th>Salah</th>
-
-                                    <th>Tanggal</th>
-
-                                </tr>
-
-                            </thead>
-
-                            <tbody id="resultTable">
-
-                            </tbody>
-
-                        </table>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-        <!-- ==========================================
-             STATISTIK
-        =========================================== -->
-
-        <section
-            id="statistics"
-            class="admin-section mt-5">
-
-            <div class="card shadow-sm">
-
-                <div class="card-header">
-
-                    <h4>
-
-                        <i class="bi bi-graph-up-arrow"></i>
-
-                        Statistik
-
-                    </h4>
+                    Grafik Aktivitas
 
                 </div>
 
@@ -912,71 +1178,158 @@
 
             </div>
 
-        </section>
+        </div>
 
-        <!-- ==========================================
-             PENGATURAN
-        =========================================== -->
-
-        <section
-            id="settings"
-            class="admin-section mt-5 mb-5">
+        <div class="col-lg-4">
 
             <div class="card shadow-sm">
 
                 <div class="card-header">
 
-                    <h4>
-
-                        <i class="bi bi-gear-fill"></i>
-
-                        Pengaturan
-
-                    </h4>
+                    Ringkasan
 
                 </div>
 
                 <div class="card-body">
 
-                    <div class="row">
+                    <ul class="list-group">
 
-                        <div class="col-md-6">
+                        <li class="list-group-item">
 
-                            <label>
+                            Program Favorit
 
-                                Nama Website
+                            <strong
+                                id="statFavoriteProgram"
+                                class="float-end">
 
-                            </label>
+                                -
 
-                            <input
-                                type="text"
-                                class="form-control"
-                                value="Ksatria Akademi">
+                            </strong>
 
-                        </div>
+                        </li>
 
-                        <div class="col-md-6">
+                        <li class="list-group-item">
 
-                            <label>
+                            Nilai Tertinggi
 
-                                Versi
+                            <strong
+                                id="highestScore"
+                                class="float-end">
 
-                            </label>
+                                0
 
-                            <input
-                                type="text"
-                                class="form-control"
-                                value="Version 1.0"
-                                readonly>
+                            </strong>
 
-                        </div>
+                        </li>
+
+                        <li class="list-group-item">
+
+                            Nilai Terendah
+
+                            <strong
+                                id="lowestScore"
+                                class="float-end">
+
+                                0
+
+                            </strong>
+
+                        </li>
+
+                        <li class="list-group-item">
+
+                            Rata-rata
+
+                            <strong
+                                id="avgScore"
+                                class="float-end">
+
+                                0
+
+                            </strong>
+
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- ==========================================
+     PENGATURAN
+========================================== -->
+
+<section
+    id="settings"
+    class="content-section mt-5">
+
+    <div class="section-header">
+
+        <div>
+
+            <h3>Pengaturan</h3>
+
+            <p>Konfigurasi sistem Ksatria Akademi.</p>
+
+        </div>
+
+    </div>
+
+    <div class="row g-4">
+
+        <div class="col-lg-6">
+
+            <div class="card shadow-sm">
+
+                <div class="card-header">
+
+                    Website
+
+                </div>
+
+                <div class="card-body">
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+
+                            Nama Website
+
+                        </label>
+
+                        <input
+                            type="text"
+                            id="websiteName"
+                            class="form-control"
+                            value="Ksatria Akademi">
 
                     </div>
 
-                    <hr>
+                    <div class="mb-3">
+
+                        <label class="form-label">
+
+                            Motto
+
+                        </label>
+
+                        <input
+                            type="text"
+                            id="websiteTagline"
+                            class="form-control"
+                            value="Belajar • Berjuang • Berprestasi">
+
+                    </div>
 
                     <button
-                        class="btn btn-success">
+                        id="saveSettingBtn"
+                        class="btn btn-primary">
 
                         Simpan Pengaturan
 
@@ -986,9 +1339,335 @@
 
             </div>
 
-        </section>
+        </div>
 
-    </main>
+        <div class="col-lg-6">
+
+            <div class="card shadow-sm">
+
+                <div class="card-header">
+
+                    Operasional
+
+                </div>
+
+                <div class="card-body">
+
+                    <button
+                        id="backupBtn"
+                        class="btn btn-success w-100 mb-2">
+
+                        Backup Database
+
+                    </button>
+
+                    <button
+                        id="restoreBtn"
+                        class="btn btn-warning w-100 mb-2">
+
+                        Restore Database
+
+                    </button>
+
+                    <button
+                        id="deleteAllQuestionBtn"
+                        class="btn btn-danger w-100">
+
+                        Hapus Semua Soal
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ==========================================
+     MODAL TAMBAH / EDIT SOAL
+========================================== -->
+
+<div
+    class="modal fade"
+    id="questionModal"
+    tabindex="-1">
+
+    <div class="modal-dialog modal-xl">
+
+        <div class="modal-content">
+
+            <form id="questionForm">
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title">
+
+                        Tambah / Edit Soal
+
+                    </h5>
+
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal">
+
+                    </button>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="row g-3">
+
+                        <div class="col-md-3">
+
+                            <label>Program</label>
+
+                            <select
+                                id="program"
+                                class="form-select">
+
+                                <option>SKD</option>
+                                <option>SNBT</option>
+                                <option>Bahasa</option>
+
+                            </select>
+
+                        </div>
+
+                        <div class="col-md-3">
+
+                            <label>Kategori</label>
+
+                            <input
+                                id="category"
+                                class="form-control">
+
+                        </div>
+
+                        <div class="col-md-2">
+
+                            <label>Nomor</label>
+
+                            <input
+                                id="number"
+                                type="number"
+                                class="form-control">
+
+                        </div>
+
+                        <div class="col-12">
+
+                            <label>Soal</label>
+
+                            <textarea
+                                id="question"
+                                rows="5"
+                                class="form-control"></textarea>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <input
+                                id="optionA"
+                                class="form-control"
+                                placeholder="Pilihan A">
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <input
+                                id="optionB"
+                                class="form-control"
+                                placeholder="Pilihan B">
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <input
+                                id="optionC"
+                                class="form-control"
+                                placeholder="Pilihan C">
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <input
+                                id="optionD"
+                                class="form-control"
+                                placeholder="Pilihan D">
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <input
+                                id="optionE"
+                                class="form-control"
+                                placeholder="Pilihan E">
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <select
+                                id="answer"
+                                class="form-select">
+
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="C">C</option>
+                                <option value="D">D</option>
+                                <option value="E">E</option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal">
+
+                        Tutup
+
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary">
+
+                        Simpan
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+     MODAL PREVIEW IMPORT
+========================================== -->
+
+<div
+    class="modal fade"
+    id="previewModal"
+    tabindex="-1">
+
+    <div class="modal-dialog modal-xl">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title">
+
+                    Preview Import Soal
+
+                </h5>
+
+                <button
+                    class="btn-close"
+                    data-bs-dismiss="modal">
+
+                </button>
+
+            </div>
+
+            <div
+                id="previewBody"
+                class="modal-body">
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button
+                    id="importFirestoreBtn"
+                    class="btn btn-success">
+
+                    Import ke Firestore
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+     LOADING
+========================================== -->
+
+<div
+    id="loadingOverlay"
+    class="loading-overlay d-none">
+
+    <div class="spinner-border text-light"></div>
+
+</div>
+
+<!-- ==========================================
+     TOAST
+========================================== -->
+
+<div
+    class="toast-container position-fixed bottom-0 end-0 p-3">
+
+    <div
+        id="liveToast"
+        class="toast">
+
+        <div class="toast-header">
+
+            <strong class="me-auto">
+
+                Ksatria Akademi
+
+            </strong>
+
+            <button
+                class="btn-close"
+                data-bs-dismiss="toast">
+
+            </button>
+
+        </div>
+
+        <div
+            id="toastMessage"
+            class="toast-body">
+
+        </div>
+
+    </div>
+
+</div>
+
+</main>
 
 </div>
 
@@ -1003,18 +1682,16 @@
 <!-- Firebase -->
 
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
 <!-- Firebase Config -->
 
-<script src="firebase-config.js"></script>
+<script src="firebase.js"></script>
 
-<!-- Admin JS -->
+<!-- Admin -->
 
-<script src="admin.js"></script>
+<script src="admin-v2.js"></script>
 
 </body>
 
