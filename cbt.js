@@ -1,16 +1,20 @@
 /* ==========================================
    KSATRIA AKADEMI
-   CBT V4 FINAL
+   CBT V5 FINAL
 ========================================== */
 
 document.addEventListener("DOMContentLoaded", async () => {
 
+    // ==========================================
+    // FIREBASE
+    // ==========================================
+
     const auth = firebase.auth();
     const db = firebase.firestore();
 
-    /* ==========================================
-       DATA PESERTA
-    ========================================== */
+    // ==========================================
+    // DATA PESERTA
+    // ==========================================
 
     const participantData = JSON.parse(
         sessionStorage.getItem("ksatriaParticipant")
@@ -26,24 +30,20 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     }
 
-    /* ==========================================
-       DATABASE SOAL
-    ========================================== */
+    // ==========================================
+    // VARIABEL
+    // ==========================================
 
     let questions = [];
-
     let currentQuestion = 0;
     let answers = [];
-
     let totalQuestion = 0;
-
     let timeLeft = 50 * 60;
-
     let examFinished = false;
 
-    /* ==========================================
-       ELEMENT HTML
-    ========================================== */
+    // ==========================================
+    // ELEMENT HTML
+    // ==========================================
 
     const questionText =
         document.getElementById("questionText");
@@ -72,9 +72,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     const finishBtn =
         document.getElementById("finishBtn");
 
-    /* ==========================================
-       LOAD SOAL FIRESTORE
-    ========================================== */
+    // ==========================================
+    // LOAD SOAL DARI FIRESTORE
+    // ==========================================
 
     async function loadQuestions() {
 
@@ -82,7 +82,16 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             const snapshot = await db
                 .collection("questions")
-                .where("isActive", "==", true)
+                .where(
+                    "program",
+                    "==",
+                    participantData.program
+                )
+                .where(
+                    "isActive",
+                    "==",
+                    true
+                )
                 .orderBy("number")
                 .get();
 
@@ -98,9 +107,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                     number: data.number,
 
-                    program: data.program,
-
                     category: data.category,
+
+                    program: data.program,
 
                     question: data.question,
 
@@ -122,7 +131,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             if (questions.length === 0) {
 
-                alert("Belum ada soal yang aktif.");
+                alert(
+                    "Belum ada soal untuk program ini."
+                );
 
                 return;
 
@@ -136,21 +147,23 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             loadQuestion();
 
-        }
+        } catch (error) {
 
-        catch (error) {
+            console.error(
+                "Load Question Error :",
+                error
+            );
 
-            console.error("Firestore Error :", error);
-
-            alert("Gagal memuat soal dari Firestore.");
+            alert(
+                "Gagal memuat soal dari Firestore."
+            );
 
         }
 
     }
-
-    /* ==========================================
-       MEMBUAT NOMOR SOAL
-    ========================================== */
+       // ==========================================
+    // MEMBUAT NOMOR SOAL
+    // ==========================================
 
     function createQuestionNumbers() {
 
@@ -179,9 +192,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
 
     }
-       /* ==========================================
-       TAMPILKAN SOAL
-    ========================================== */
+
+    // ==========================================
+    // TAMPILKAN SOAL
+    // ==========================================
 
     function loadQuestion() {
 
@@ -252,16 +266,15 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     }
 
-    /* ==========================================
-       SIMPAN JAWABAN
-    ========================================== */
+    // ==========================================
+    // SIMPAN JAWABAN
+    // ==========================================
 
     function saveAnswer() {
 
-        const selected =
-            document.querySelector(
-                'input[name="answer"]:checked'
-            );
+        const selected = document.querySelector(
+            'input[name="answer"]:checked'
+        );
 
         if (selected) {
 
@@ -271,9 +284,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     }
 
-    /* ==========================================
-       UPDATE STATUS NOMOR SOAL
-    ========================================== */
+    // ==========================================
+    // UPDATE STATUS NOMOR SOAL
+    // ==========================================
 
     function updateNumber() {
 
@@ -307,30 +320,23 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (answers[currentQuestion]) {
 
             status.innerHTML = `
-
                 <i class="bi bi-check-circle-fill"></i>
-
                 Sudah Dijawab
-
             `;
 
         } else {
 
             status.innerHTML = `
-
                 <i class="bi bi-pencil-square"></i>
-
                 Belum Dijawab
-
             `;
 
         }
 
     }
-
-    /* ==========================================
-       BUTTON NEXT
-    ========================================== */
+       // ==========================================
+    // BUTTON NEXT
+    // ==========================================
 
     nextBtn.addEventListener("click", () => {
 
@@ -346,9 +352,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     });
 
-    /* ==========================================
-       BUTTON PREVIOUS
-    ========================================== */
+    // ==========================================
+    // BUTTON PREVIOUS
+    // ==========================================
 
     previousBtn.addEventListener("click", () => {
 
@@ -363,20 +369,23 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
 
     });
-       /* ==========================================
-       TIMER
-    ========================================== */
+
+    // ==========================================
+    // TIMER
+    // ==========================================
 
     const timer = setInterval(() => {
 
         if (examFinished) {
 
             clearInterval(timer);
+
             return;
 
         }
 
         const minute = Math.floor(timeLeft / 60);
+
         const second = String(timeLeft % 60).padStart(2, "0");
 
         timerElement.textContent = `${minute}:${second}`;
@@ -391,9 +400,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     }, 1000);
 
-    /* ==========================================
-       HITUNG NILAI
-    ========================================== */
+    // ==========================================
+    // HITUNG NILAI
+    // ==========================================
 
     function calculateScore() {
 
@@ -412,33 +421,31 @@ document.addEventListener("DOMContentLoaded", async () => {
         const wrong = totalQuestion - correct;
 
         const score = Math.round(
-
             (correct / totalQuestion) * 100
-
         );
 
         return {
 
-            correct,
-            wrong,
-            score
+            correct: correct,
+
+            wrong: wrong,
+
+            score: score
 
         };
 
     }
 
-    /* ==========================================
-       BUTTON SELESAI
-    ========================================== */
+    // ==========================================
+    // BUTTON SELESAI
+    // ==========================================
 
     finishBtn.addEventListener("click", () => {
 
         saveAnswer();
 
         const confirmFinish = confirm(
-
             "Yakin ingin menyelesaikan tryout?"
-
         );
 
         if (confirmFinish) {
@@ -448,10 +455,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
 
     });
-
-    /* ==========================================
-       SELESAI UJIAN
-    ========================================== */
+       // ==========================================
+    // SELESAI UJIAN
+    // ==========================================
 
     async function finishExam() {
 
@@ -461,22 +467,20 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         clearInterval(timer);
 
+        saveAnswer();
+
         nextBtn.disabled = true;
         previousBtn.disabled = true;
         finishBtn.disabled = true;
-
-        saveAnswer();
 
         const result = calculateScore();
 
         const year = new Date().getFullYear();
 
         const runningNumber =
-
             String(Date.now()).slice(-6);
 
         const certificateNumber =
-
             `KSA-TRYOUT-${year}-${runningNumber}`;
 
         const finalResult = {
@@ -495,9 +499,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         };
 
-        const user = auth.currentUser;
-
         try {
+
+            const user = auth.currentUser;
 
             if (user) {
 
@@ -526,8 +530,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                 });
 
-            }
-                           console.log(
+                console.log(
                     "✅ Hasil berhasil disimpan ke Firestore."
                 );
 
@@ -538,8 +541,11 @@ document.addEventListener("DOMContentLoaded", async () => {
             // ==========================================
 
             sessionStorage.setItem(
+
                 "ksatriaResult",
+
                 JSON.stringify(finalResult)
+
             );
 
             // ==========================================
@@ -559,19 +565,19 @@ document.addEventListener("DOMContentLoaded", async () => {
                 "Terjadi kesalahan saat menyimpan hasil tryout.\nSilakan coba lagi."
             );
 
-            finishBtn.disabled = false;
+            examFinished = false;
+
             nextBtn.disabled = false;
             previousBtn.disabled = false;
-
-            examFinished = false;
+            finishBtn.disabled = false;
 
         }
 
     }
 
-    /* ==========================================
-       MULAI CBT
-    ========================================== */
+    // ==========================================
+    // MULAI CBT
+    // ==========================================
 
     await loadQuestions();
 
