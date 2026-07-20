@@ -27,94 +27,19 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     /* ==========================================
-   DATABASE SOAL FIRESTORE
-========================================== */
-
-let questions = [];
-/* ==========================================
-   LOAD SOAL DARI FIRESTORE
-========================================== */
-
-async function loadQuestions() {
-
-    try {
-
-        const snapshot = await db
-            .collection("questions")
-            .get();
-
-        questions = [];
-
-        snapshot.forEach(doc => {
-
-            const data = doc.data();
-
-            questions.push({
-
-                id: doc.id,
-
-                program: data.program,
-
-                category: data.category,
-
-                question: data.question,
-
-                options: [
-
-                    data.optionA,
-                    data.optionB,
-                    data.optionC,
-                    data.optionD,
-                    data.optionE
-
-                ],
-
-                answer: data.answer
-
-            });
-
-        });
-
-        if (questions.length === 0) {
-
-            alert("Belum ada soal di Firestore.");
-
-            return;
-
-        }
-
-        totalQuestion = questions.length;
-
-        totalNumber.textContent = totalQuestion;
-
-        createQuestionNumbers();
-
-        loadQuestion();
-
-    }
-
-    catch (error) {
-
-        console.error(error);
-
-        alert("Gagal memuat soal.");
-
-    }
-
-}
-    /* ==========================================
-       VARIABEL
+       DATABASE SOAL
     ========================================== */
 
-    let currentQuestion = 0;
+    let questions = [];
 
+    let currentQuestion = 0;
     let answers = [];
+
+    let totalQuestion = 0;
 
     let timeLeft = 50 * 60;
 
     let examFinished = false;
-
-    const totalQuestion = questions.length;
 
     /* ==========================================
        ELEMENT HTML
@@ -147,31 +72,111 @@ async function loadQuestions() {
     const finishBtn =
         document.getElementById("finishBtn");
 
-    totalNumber.textContent = totalQuestion;
+    /* ==========================================
+       LOAD SOAL FIRESTORE
+    ========================================== */
+
+    async function loadQuestions() {
+
+        try {
+
+            const snapshot = await db
+                .collection("questions")
+                .where("isActive", "==", true)
+                .orderBy("number")
+                .get();
+
+            questions = [];
+
+            snapshot.forEach(doc => {
+
+                const data = doc.data();
+
+                questions.push({
+
+                    id: doc.id,
+
+                    number: data.number,
+
+                    program: data.program,
+
+                    category: data.category,
+
+                    question: data.question,
+
+                    options: [
+
+                        data.optionA,
+                        data.optionB,
+                        data.optionC,
+                        data.optionD,
+                        data.optionE
+
+                    ],
+
+                    answer: data.answer
+
+                });
+
+            });
+
+            if (questions.length === 0) {
+
+                alert("Belum ada soal yang aktif.");
+
+                return;
+
+            }
+
+            totalQuestion = questions.length;
+
+            totalNumber.textContent = totalQuestion;
+
+            createQuestionNumbers();
+
+            loadQuestion();
+
+        }
+
+        catch (error) {
+
+            console.error("Firestore Error :", error);
+
+            alert("Gagal memuat soal dari Firestore.");
+
+        }
+
+    }
 
     /* ==========================================
        MEMBUAT NOMOR SOAL
     ========================================== */
 
-    for (let i = 0; i < totalQuestion; i++) {
+    function createQuestionNumbers() {
 
-        const button = document.createElement("button");
+        questionNumbers.innerHTML = "";
 
-        button.className = "number-item";
+        for (let i = 0; i < totalQuestion; i++) {
 
-        button.textContent = i + 1;
+            const button = document.createElement("button");
 
-        button.addEventListener("click", () => {
+            button.className = "number-item";
 
-            saveAnswer();
+            button.textContent = i + 1;
 
-            currentQuestion = i;
+            button.addEventListener("click", () => {
 
-            loadQuestion();
+                saveAnswer();
 
-        });
+                currentQuestion = i;
 
-        questionNumbers.appendChild(button);
+                loadQuestion();
+
+            });
+
+            questionNumbers.appendChild(button);
+
+        }
 
     }
        /* ==========================================
@@ -180,17 +185,21 @@ async function loadQuestions() {
 
     function loadQuestion() {
 
+        if (questions.length === 0) return;
+
         const data = questions[currentQuestion];
 
         currentNumber.textContent = currentQuestion + 1;
 
-        answerArea.innerHTML = "";
-
         questionText.textContent = data.question;
 
-        const letters = ["A", "B", "C", "D"];
+        answerArea.innerHTML = "";
+
+        const letters = ["A", "B", "C", "D", "E"];
 
         data.options.forEach((option, index) => {
+
+            if (!option) return;
 
             const checked =
                 answers[currentQuestion] === letters[index]
@@ -198,6 +207,7 @@ async function loadQuestions() {
                     : "";
 
             answerArea.innerHTML += `
+
                 <label class="answer-item">
 
                     <input
@@ -207,14 +217,19 @@ async function loadQuestions() {
                         ${checked}>
 
                     <span class="option-letter">
+
                         ${letters[index]}
+
                     </span>
 
                     <span class="option-text">
+
                         ${option}
+
                     </span>
 
                 </label>
+
             `;
 
         });
@@ -250,8 +265,7 @@ async function loadQuestions() {
 
         if (selected) {
 
-            answers[currentQuestion] =
-                selected.value;
+            answers[currentQuestion] = selected.value;
 
         }
 
@@ -293,15 +307,21 @@ async function loadQuestions() {
         if (answers[currentQuestion]) {
 
             status.innerHTML = `
+
                 <i class="bi bi-check-circle-fill"></i>
+
                 Sudah Dijawab
+
             `;
 
         } else {
 
             status.innerHTML = `
+
                 <i class="bi bi-pencil-square"></i>
+
                 Belum Dijawab
+
             `;
 
         }
@@ -352,13 +372,11 @@ async function loadQuestions() {
         if (examFinished) {
 
             clearInterval(timer);
-
             return;
 
         }
 
         const minute = Math.floor(timeLeft / 60);
-
         const second = String(timeLeft % 60).padStart(2, "0");
 
         timerElement.textContent = `${minute}:${second}`;
@@ -366,8 +384,6 @@ async function loadQuestions() {
         timeLeft--;
 
         if (timeLeft < 0) {
-
-            clearInterval(timer);
 
             finishExam();
 
@@ -383,9 +399,9 @@ async function loadQuestions() {
 
         let correct = 0;
 
-        questions.forEach((item, index) => {
+        questions.forEach((question, index) => {
 
-            if (answers[index] === item.answer) {
+            if (answers[index] === question.answer) {
 
                 correct++;
 
@@ -393,15 +409,19 @@ async function loadQuestions() {
 
         });
 
+        const wrong = totalQuestion - correct;
+
+        const score = Math.round(
+
+            (correct / totalQuestion) * 100
+
+        );
+
         return {
 
             correct,
-
-            wrong: totalQuestion - correct,
-
-            score: Math.round(
-                (correct / totalQuestion) * 100
-            )
+            wrong,
+            score
 
         };
 
@@ -416,7 +436,9 @@ async function loadQuestions() {
         saveAnswer();
 
         const confirmFinish = confirm(
-            "Yakin ingin menyelesaikan ujian?"
+
+            "Yakin ingin menyelesaikan tryout?"
+
         );
 
         if (confirmFinish) {
@@ -439,18 +461,22 @@ async function loadQuestions() {
 
         clearInterval(timer);
 
-        finishBtn.disabled = true;
         nextBtn.disabled = true;
         previousBtn.disabled = true;
+        finishBtn.disabled = true;
+
+        saveAnswer();
 
         const result = calculateScore();
 
         const year = new Date().getFullYear();
 
         const runningNumber =
+
             String(Date.now()).slice(-6);
 
         const certificateNumber =
+
             `KSA-TRYOUT-${year}-${runningNumber}`;
 
         const finalResult = {
@@ -460,6 +486,8 @@ async function loadQuestions() {
             result: result,
 
             answers: answers,
+
+            totalQuestion: totalQuestion,
 
             date: new Date().toLocaleDateString("id-ID"),
 
@@ -489,6 +517,8 @@ async function loadQuestions() {
 
                     wrong: result.wrong,
 
+                    totalQuestion: totalQuestion,
+
                     certificateNumber: certificateNumber,
 
                     createdAt:
@@ -496,22 +526,32 @@ async function loadQuestions() {
 
                 });
 
-                console.log(
-                    "✅ Hasil berhasil disimpan ke Firestore"
+            }
+                           console.log(
+                    "✅ Hasil berhasil disimpan ke Firestore."
                 );
 
             }
-                       sessionStorage.setItem(
+
+            // ==========================================
+            // SIMPAN HASIL KE SESSION
+            // ==========================================
+
+            sessionStorage.setItem(
                 "ksatriaResult",
                 JSON.stringify(finalResult)
             );
+
+            // ==========================================
+            // PINDAH KE HALAMAN HASIL
+            // ==========================================
 
             window.location.href = "result.html";
 
         } catch (error) {
 
             console.error(
-                "Firestore Error:",
+                "Firestore Error :",
                 error
             );
 
@@ -533,6 +573,6 @@ async function loadQuestions() {
        MULAI CBT
     ========================================== */
 
-    loadQuestion();
+    await loadQuestions();
 
 });
