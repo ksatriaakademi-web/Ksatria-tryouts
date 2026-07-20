@@ -1,760 +1,939 @@
-/* ==========================================
+/* ============================================================
    KSATRIA AKADEMI
-   ADMIN PANEL
+   ADMIN PANEL V2
    PART 1
-========================================== */
+   Inisialisasi + Global + UI
+============================================================ */
 
-document.addEventListener("DOMContentLoaded", () => {
+/* ============================================================
+   FIREBASE
+============================================================ */
 
-    // ==========================================
-    // FIREBASE
-    // ==========================================
+const db = firebase.firestore();
+const auth = firebase.auth();
+const storage = firebase.storage();
 
-    const auth = firebase.auth();
-    const db = firebase.firestore();
+/* ============================================================
+   GLOBAL STATE
+============================================================ */
 
-    // ==========================================
-    // ELEMENT HTML
-    // ==========================================
+let questionList = [];
+let participantList = [];
+let resultList = [];
 
-    const totalQuestions =
-        document.getElementById("totalQuestions");
+let filteredQuestions = [];
 
-    const totalParticipants =
-        document.getElementById("totalParticipants");
+let currentPage = 1;
+let pageSize = 10;
 
-    const totalResults =
-        document.getElementById("totalResults");
+let editingQuestionId = null;
 
-    const averageScore =
-        document.getElementById("averageScore");
+/* ============================================================
+   DOM ELEMENT
+============================================================ */
 
-    const questionTable =
-        document.getElementById("questionTable");
+const loadingOverlay = document.getElementById("loadingOverlay");
+const loadingText = document.getElementById("loadingText");
 
-    const participantTable =
-        document.getElementById("participantTable");
+const toastElement = document.getElementById("liveToast");
+const toastMessage = document.getElementById("toastMessage");
 
-    const resultTable =
-        document.getElementById("resultTable");
+const scrollTopBtn = document.getElementById("scrollTopBtn");
 
-    const questionForm =
-        document.getElementById("questionForm");
+/* Dashboard */
 
-    const statisticsCanvas =
-        document.getElementById("statisticsChart");
+const totalQuestions = document.getElementById("totalQuestions");
+const totalParticipants = document.getElementById("totalParticipants");
+const totalResults = document.getElementById("totalResults");
+const averageScore = document.getElementById("averageScore");
 
-    const addQuestionBtn =
-        document.getElementById("addQuestionBtn");
+const activeQuestions = document.getElementById("activeQuestions");
+const inactiveQuestions = document.getElementById("inactiveQuestions");
+const favoriteProgram = document.getElementById("favoriteProgram");
+const todayTryout = document.getElementById("todayTryout");
 
-    const logoutBtn =
-        document.getElementById("logoutBtn");
+/* ============================================================
+   BOOTSTRAP
+============================================================ */
 
-    // ==========================================
-    // VARIABEL GLOBAL
-    // ==========================================
+const toast = new bootstrap.Toast(toastElement);
 
-    let chart = null;
+/* ============================================================
+   TOAST
+============================================================ */
 
-    let editingQuestionId = null;
+function showToast(message) {
 
-    // ==========================================
-    // LOAD DASHBOARD
-    // ==========================================
+    toastMessage.textContent = message;
 
-    async function loadDashboard() {
+    toast.show();
 
-        try {
+}
 
-            const questionSnapshot =
-                await db.collection("questions").get();
+/* ============================================================
+   LOADING
+============================================================ */
 
-            const participantSnapshot =
-                await db.collection("users").get();
+function showLoading(message = "Memproses...") {
 
-            const resultSnapshot =
-                await db.collection("results").get();
+    loadingText.textContent = message;
 
-            totalQuestions.textContent =
-                questionSnapshot.size;
+    loadingOverlay.classList.remove("d-none");
 
-            totalParticipants.textContent =
-                participantSnapshot.size;
+}
 
-            totalResults.textContent =
-                resultSnapshot.size;
+function hideLoading() {
 
-            let totalScore = 0;
+    loadingOverlay.classList.add("d-none");
 
-            resultSnapshot.forEach(doc => {
+}
 
-                totalScore += doc.data().score || 0;
+/* ============================================================
+   FORMAT NILAI
+============================================================ */
 
-            });
+function formatNumber(number) {
 
-            const average =
-                resultSnapshot.size === 0
-                ? 0
-                : Math.round(
-                    totalScore / resultSnapshot.size
-                );
+    return new Intl.NumberFormat("id-ID").format(number);
 
-            averageScore.textContent = average;
+}
 
-            loadStatistics(
+/* ============================================================
+   FORMAT TANGGAL
+============================================================ */
 
-                questionSnapshot.size,
+function formatDate(date) {
 
-                participantSnapshot.size,
+    if (!date) return "-";
 
-                resultSnapshot.size
+    return new Date(date).toLocaleDateString("id-ID");
 
-            );
+}
 
-        }
+/* ============================================================
+   SCROLL TO TOP
+============================================================ */
 
-        catch (error) {
+window.addEventListener("scroll", () => {
 
-            console.error(
-                "Dashboard Error :",
-                error
-            );
+    if (window.scrollY > 250) {
 
-        }
+        scrollTopBtn.style.display = "block";
+
+    } else {
+
+        scrollTopBtn.style.display = "none";
 
     }
 
-    // ==========================================
-    // CHART STATISTIK
-    // ==========================================
+});
 
-    function loadStatistics(
+scrollTopBtn.addEventListener("click", () => {
 
-        questionCount,
+    window.scrollTo({
 
-        participantCount,
+        top: 0,
 
-        resultCount
+        behavior: "smooth"
 
-    ) {
+    });
 
-        if (chart) {
+});
 
-            chart.destroy();
+/* ============================================================
+   NAVIGATION
+============================================================ */
 
-        }
+const menuLinks = document.querySelectorAll(".sidebar-menu a");
 
-        chart = new Chart(statisticsCanvas, {
+const sections = document.querySelectorAll(".content-section");
 
-            type: "bar",
+menuLinks.forEach(link => {
 
-            data: {
+    link.addEventListener("click", function(e) {
 
-                labels: [
+        const href = this.getAttribute("href");
 
-                    "Soal",
-
-                    "Peserta",
-
-                    "Tryout"
-
-                ],
-
-                datasets: [{
-
-                    label: "Statistik",
-
-                    data: [
-
-                        questionCount,
-
-                        participantCount,
-
-                        resultCount
-
-                    ]
-
-                }]
-
-            },
-
-            options: {
-
-                responsive: true,
-
-                maintainAspectRatio: false
-
-            }
-
-        });
-
-    }
-       // ==========================================
-    // LOAD SOAL
-    // ==========================================
-
-    async function loadQuestions() {
-
-        try {
-
-            questionTable.innerHTML = "";
-
-            const snapshot = await db
-                .collection("questions")
-                .orderBy("program")
-                .orderBy("number")
-                .get();
-
-            snapshot.forEach(doc => {
-
-                const data = doc.data();
-
-                const row = document.createElement("tr");
-
-                row.innerHTML = `
-
-                    <td>${data.number || "-"}</td>
-
-                    <td>${data.program || "-"}</td>
-
-                    <td>${data.category || "-"}</td>
-
-                    <td>${data.question || "-"}</td>
-
-                    <td>${data.answer || "-"}</td>
-
-                    <td>
-
-                        <span class="badge ${data.isActive ? "bg-success" : "bg-secondary"}">
-
-                            ${data.isActive ? "Aktif" : "Nonaktif"}
-
-                        </span>
-
-                    </td>
-
-                    <td>
-
-                        <button
-                            class="btn btn-warning btn-sm edit-question"
-                            data-id="${doc.id}">
-
-                            <i class="bi bi-pencil"></i>
-
-                        </button>
-
-                        <button
-                            class="btn btn-danger btn-sm delete-question"
-                            data-id="${doc.id}">
-
-                            <i class="bi bi-trash"></i>
-
-                        </button>
-
-                    </td>
-
-                `;
-
-                questionTable.appendChild(row);
-
-            });
-
-            registerQuestionButtons();
-
-        }
-
-        catch (error) {
-
-            console.error(
-                "Load Question Error :",
-                error
-            );
-
-        }
-
-    }
-
-    // ==========================================
-    // REGISTER BUTTON EDIT & DELETE
-    // ==========================================
-
-    function registerQuestionButtons() {
-
-        document
-            .querySelectorAll(".edit-question")
-            .forEach(button => {
-
-                button.onclick = () => {
-
-                    editQuestion(button.dataset.id);
-
-                };
-
-            });
-
-        document
-            .querySelectorAll(".delete-question")
-            .forEach(button => {
-
-                button.onclick = () => {
-
-                    deleteQuestion(button.dataset.id);
-
-                };
-
-            });
-
-    }
-
-    // ==========================================
-    // EDIT SOAL
-    // ==========================================
-
-    async function editQuestion(id) {
-
-        try {
-
-            const doc = await db
-                .collection("questions")
-                .doc(id)
-                .get();
-
-            if (!doc.exists) return;
-
-            const data = doc.data();
-
-            editingQuestionId = id;
-
-            document.getElementById("number").value =
-                data.number || "";
-
-            document.getElementById("program").value =
-                data.program || "";
-
-            document.getElementById("category").value =
-                data.category || "";
-
-            document.getElementById("question").value =
-                data.question || "";
-
-            document.getElementById("optionA").value =
-                data.optionA || "";
-
-            document.getElementById("optionB").value =
-                data.optionB || "";
-
-            document.getElementById("optionC").value =
-                data.optionC || "";
-
-            document.getElementById("optionD").value =
-                data.optionD || "";
-
-            document.getElementById("optionE").value =
-                data.optionE || "";
-
-            document.getElementById("answer").value =
-                data.answer || "";
-
-            document.getElementById("isActive").checked =
-                data.isActive === true;
-
-            const modal = new bootstrap.Modal(
-                document.getElementById("questionModal")
-            );
-
-            modal.show();
-
-        }
-
-        catch (error) {
-
-            console.error(
-                "Edit Question Error :",
-                error
-            );
-
-        }
-
-    }
-
-    // ==========================================
-    // HAPUS SOAL
-    // ==========================================
-
-    async function deleteQuestion(id) {
-
-        const confirmDelete = confirm(
-            "Yakin ingin menghapus soal ini?"
-        );
-
-        if (!confirmDelete) return;
-
-        try {
-
-            await db
-                .collection("questions")
-                .doc(id)
-                .delete();
-
-            await loadQuestions();
-
-            await loadDashboard();
-
-            alert("Soal berhasil dihapus.");
-
-        }
-
-        catch (error) {
-
-            console.error(
-                "Delete Question Error :",
-                error
-            );
-
-            alert("Gagal menghapus soal.");
-
-        }
-
-    }
-       // ==========================================
-    // SIMPAN / UPDATE SOAL
-    // ==========================================
-
-    questionForm.addEventListener("submit", async (e) => {
+        if (!href.startsWith("#")) return;
 
         e.preventDefault();
 
-        const questionData = {
+        menuLinks.forEach(item => {
 
-            number: Number(document.getElementById("number").value),
+            item.parentElement.classList.remove("active");
 
-            program: document.getElementById("program").value,
+        });
 
-            category: document.getElementById("category").value,
+        this.parentElement.classList.add("active");
 
-            question: document.getElementById("question").value,
+        sections.forEach(section => {
 
-            optionA: document.getElementById("optionA").value,
+            section.classList.remove("active");
 
-            optionB: document.getElementById("optionB").value,
+        });
 
-            optionC: document.getElementById("optionC").value,
+        const target = document.querySelector(href);
 
-            optionD: document.getElementById("optionD").value,
+        if (target) {
 
-            optionE: document.getElementById("optionE").value,
+            target.classList.add("active");
 
-            answer: document.getElementById("answer").value,
+            window.scrollTo({
 
-            isActive: document.getElementById("isActive").checked
+                top: 0,
 
-        };
-
-        try {
-
-            if (editingQuestionId) {
-
-                await db
-                    .collection("questions")
-                    .doc(editingQuestionId)
-                    .update(questionData);
-
-                alert("Soal berhasil diperbarui.");
-
-            } else {
-
-                await db
-                    .collection("questions")
-                    .add(questionData);
-
-                alert("Soal berhasil ditambahkan.");
-
-            }
-
-            editingQuestionId = null;
-
-            questionForm.reset();
-
-            bootstrap.Modal
-                .getInstance(
-                    document.getElementById("questionModal")
-                )
-                .hide();
-
-            await loadQuestions();
-
-            await loadDashboard();
-
-        }
-
-        catch (error) {
-
-            console.error(
-                "Save Question Error :",
-                error
-            );
-
-            alert("Gagal menyimpan soal.");
-
-        }
-
-    });
-
-    // ==========================================
-    // LOAD PESERTA
-    // ==========================================
-
-    async function loadParticipants() {
-
-        participantTable.innerHTML = "";
-
-        try {
-
-            const snapshot = await db
-                .collection("users")
-                .orderBy("fullname")
-                .get();
-
-            snapshot.forEach(doc => {
-
-                const data = doc.data();
-
-                const row = document.createElement("tr");
-
-                row.innerHTML = `
-
-                    <td>${data.fullname || "-"}</td>
-
-                    <td>${data.school || "-"}</td>
-
-                    <td>${data.program || "-"}</td>
-
-                    <td>${data.email || "-"}</td>
-
-                `;
-
-                participantTable.appendChild(row);
+                behavior: "smooth"
 
             });
 
         }
 
-        catch (error) {
+    });
 
-            console.error(
-                "Load Participant Error :",
-                error
-            );
+});
 
-        }
+/* ============================================================
+   AUTH CHECK
+============================================================ */
+
+auth.onAuthStateChanged(user => {
+
+    if (!user) {
+
+        window.location.href = "login.html";
+
+        return;
 
     }
 
-    // ==========================================
-    // LOAD HASIL TRYOUT
-    // ==========================================
+    console.log("Login :", user.email);
 
-    async function loadResults() {
+});
 
-        resultTable.innerHTML = "";
+/* ============================================================
+   START
+============================================================ */
 
-        try {
+document.addEventListener("DOMContentLoaded", () => {
 
-            const snapshot = await db
-                .collection("results")
-                .orderBy("createdAt", "desc")
-                .get();
+    console.log("Admin V2 Loaded");
 
-            snapshot.forEach(doc => {
+    showToast("Dashboard Admin siap.");
 
-                const data = doc.data();
+});
+/* ============================================================
+   ADMIN PANEL V2
+   PART 2
+   DASHBOARD REALTIME
+============================================================ */
 
-                let tanggal = "-";
+/* ============================================================
+   LOAD DASHBOARD
+============================================================ */
 
-                if (data.createdAt) {
+async function loadDashboard() {
 
-                    tanggal = data.createdAt
-                        .toDate()
-                        .toLocaleDateString("id-ID");
+    try {
 
-                }
+        showLoading("Memuat Dashboard...");
 
-                const row = document.createElement("tr");
+        /* ==========================
+           QUESTIONS
+        ========================== */
 
-                row.innerHTML = `
+        const questionSnapshot = await db
+            .collection("questions")
+            .get();
 
-                    <td>${data.fullname || "-"}</td>
+        questionList = [];
 
-                    <td>${data.program || "-"}</td>
+        questionSnapshot.forEach(doc => {
 
-                    <td>${data.score || 0}</td>
+            questionList.push({
 
-                    <td>${data.correct || 0}</td>
+                id: doc.id,
 
-                    <td>${data.wrong || 0}</td>
-
-                    <td>${tanggal}</td>
-
-                `;
-
-                resultTable.appendChild(row);
+                ...doc.data()
 
             });
 
-        }
+        });
 
-        catch (error) {
+        /* ==========================
+           PARTICIPANTS
+        ========================== */
 
-            console.error(
-                "Load Result Error :",
-                error
-            );
+        const participantSnapshot = await db
+            .collection("participants")
+            .get();
 
-        }
+        participantList = [];
 
-    }
-      // ==========================================
-    // BUTTON TAMBAH SOAL
-    // ==========================================
+        participantSnapshot.forEach(doc => {
 
-    if (addQuestionBtn) {
+            participantList.push({
 
-        addQuestionBtn.addEventListener("click", () => {
+                id: doc.id,
 
-            editingQuestionId = null;
+                ...doc.data()
 
-            questionForm.reset();
-
-            document.getElementById("isActive").checked = true;
-
-            const modal = new bootstrap.Modal(
-                document.getElementById("questionModal")
-            );
-
-            modal.show();
+            });
 
         });
 
-    }
+        /* ==========================
+           RESULTS
+        ========================== */
 
-    // ==========================================
-    // LOGOUT ADMIN
-    // ==========================================
+        const resultSnapshot = await db
+            .collection("results")
+            .get();
 
-    if (logoutBtn) {
+        resultList = [];
 
-        logoutBtn.addEventListener("click", async () => {
+        resultSnapshot.forEach(doc => {
 
-            const keluar = confirm(
-                "Yakin ingin logout?"
-            );
+            resultList.push({
 
-            if (!keluar) return;
+                id: doc.id,
 
-            try {
+                ...doc.data()
 
-                await auth.signOut();
-
-                window.location.href = "login.html";
-
-            }
-
-            catch (error) {
-
-                console.error(
-                    "Logout Error :",
-                    error
-                );
-
-                alert("Logout gagal.");
-
-            }
+            });
 
         });
 
-    }
+        updateDashboard();
 
-    // ==========================================
-    // INISIALISASI ADMIN
-    // ==========================================
+        hideLoading();
 
-    async function initializeAdmin() {
+    } catch (error) {
 
-        await loadDashboard();
+        console.error(error);
 
-        await loadQuestions();
+        hideLoading();
 
-        await loadParticipants();
-
-        await loadResults();
+        showToast("Gagal memuat Dashboard.");
 
     }
 
-    // ==========================================
-    // CEK LOGIN ADMIN
-    // ==========================================
+}
 
-    auth.onAuthStateChanged(async (user) => {
+/* ============================================================
+   UPDATE DASHBOARD
+============================================================ */
 
-        if (!user) {
+function updateDashboard() {
 
-            window.location.href = "login.html";
+    /* ==========================
+       TOTAL
+    ========================== */
 
-            return;
+    totalQuestions.textContent =
+        formatNumber(questionList.length);
 
-        }
+    totalParticipants.textContent =
+        formatNumber(participantList.length);
 
-        try {
+    totalResults.textContent =
+        formatNumber(resultList.length);
 
-            const userDoc = await db
-                .collection("users")
-                .doc(user.uid)
-                .get();
+    /* ==========================
+       ACTIVE
+    ========================== */
 
-            if (!userDoc.exists) {
+    const active =
+        questionList.filter(item =>
+            item.status === "active"
+        ).length;
 
-                alert("Data pengguna tidak ditemukan.");
+    activeQuestions.textContent =
+        formatNumber(active);
 
-                await auth.signOut();
+    /* ==========================
+       INACTIVE
+    ========================== */
 
-                return;
+    const inactive =
+        questionList.filter(item =>
+            item.status === "inactive"
+        ).length;
 
-            }
+    inactiveQuestions.textContent =
+        formatNumber(inactive);
 
-            const userData = userDoc.data();
+    /* ==========================
+       RATA-RATA NILAI
+    ========================== */
 
-            if (userData.role !== "admin") {
+    let totalScore = 0;
 
-                alert("Akses ditolak. Halaman ini hanya untuk Admin.");
+    resultList.forEach(item => {
 
-                await auth.signOut();
+        totalScore += Number(item.score || 0);
 
-                return;
+    });
 
-            }
+    const avg =
 
-            console.log(
-                "Admin Login :",
-                userData.fullname
-            );
+        resultList.length > 0
 
-            await initializeAdmin();
+            ? Math.round(totalScore / resultList.length)
 
-        }
+            : 0;
 
-        catch (error) {
+    averageScore.textContent = avg;
 
-            console.error(
-                "Admin Init Error :",
-                error
-            );
+    /* ==========================
+       PROGRAM FAVORIT
+    ========================== */
 
-            alert(
-                "Gagal memuat Dashboard Admin."
-            );
+    const counter = {};
+
+    participantList.forEach(item => {
+
+        const program = item.program || "-";
+
+        counter[program] =
+
+            (counter[program] || 0) + 1;
+
+    });
+
+    let favProgram = "-";
+
+    let highest = 0;
+
+    Object.keys(counter).forEach(program => {
+
+        if (counter[program] > highest) {
+
+            highest = counter[program];
+
+            favProgram = program;
 
         }
 
     });
 
-}); 
+    favoriteProgram.textContent = favProgram;
+
+    /* ==========================
+       TRYOUT HARI INI
+    ========================== */
+
+    const today =
+
+        new Date().toLocaleDateString("id-ID");
+
+    const todayCount =
+
+        resultList.filter(item => {
+
+            if (!item.createdAt) return false;
+
+            const date =
+
+                new Date(item.createdAt)
+
+                    .toLocaleDateString("id-ID");
+
+            return date === today;
+
+        }).length;
+
+    todayTryout.textContent =
+
+        formatNumber(todayCount);
+
+}
+
+/* ============================================================
+   REALTIME LISTENER
+============================================================ */
+
+function startRealtimeDashboard() {
+
+    db.collection("questions")
+
+        .onSnapshot(() => {
+
+            loadDashboard();
+
+        });
+
+    db.collection("participants")
+
+        .onSnapshot(() => {
+
+            loadDashboard();
+
+        });
+
+    db.collection("results")
+
+        .onSnapshot(() => {
+
+            loadDashboard();
+
+        });
+
+}
+
+/* ============================================================
+   START DASHBOARD
+============================================================ */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    loadDashboard();
+
+    startRealtimeDashboard();
+
+});
+/* ============================================================
+   ADMIN PANEL V2
+   PART 3
+   LOAD QUESTION
+============================================================ */
+
+/* ============================================================
+   GLOBAL
+============================================================ */
+
+let currentSort = "number";
+let currentProgram = "";
+let currentCategory = "";
+let currentKeyword = "";
+
+/* ============================================================
+   ELEMENT
+============================================================ */
+
+const questionTable =
+    document.getElementById("questionTable");
+
+const searchQuestion =
+    document.getElementById("searchQuestion");
+
+const filterProgram =
+    document.getElementById("filterProgram");
+
+const filterCategory =
+    document.getElementById("filterCategory");
+
+const sortQuestion =
+    document.getElementById("sortQuestion");
+
+const refreshQuestionBtn =
+    document.getElementById("refreshQuestionBtn");
+
+const pageSizeSelect =
+    document.getElementById("pageSize");
+
+const pagination =
+    document.getElementById("questionPagination");
+
+/* ============================================================
+   LOAD QUESTION
+============================================================ */
+
+async function loadQuestions() {
+
+    try {
+
+        showLoading("Memuat soal...");
+
+        const snapshot =
+            await db.collection("questions")
+            .orderBy("number")
+            .get();
+
+        questionList = [];
+
+        snapshot.forEach(doc => {
+
+            questionList.push({
+
+                id: doc.id,
+
+                ...doc.data()
+
+            });
+
+        });
+
+        buildCategoryFilter();
+
+        applyQuestionFilter();
+
+        hideLoading();
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        hideLoading();
+
+        showToast("Gagal memuat soal.");
+
+    }
+
+}
+
+/* ============================================================
+   CATEGORY
+============================================================ */
+
+function buildCategoryFilter(){
+
+    const categories = [];
+
+    questionList.forEach(item=>{
+
+        if(
+            item.category &&
+            !categories.includes(item.category)
+        ){
+
+            categories.push(item.category);
+
+        }
+
+    });
+
+    categories.sort();
+
+    filterCategory.innerHTML =
+
+        `<option value="">Semua Kategori</option>`;
+
+    categories.forEach(category=>{
+
+        filterCategory.innerHTML +=
+
+        `<option value="${category}">
+            ${category}
+        </option>`;
+
+    });
+
+}
+
+/* ============================================================
+   FILTER
+============================================================ */
+
+function applyQuestionFilter(){
+
+    filteredQuestions =
+
+        questionList.filter(item=>{
+
+            const keywordMatch =
+
+                item.question
+                ?.toLowerCase()
+                .includes(currentKeyword.toLowerCase());
+
+            const programMatch =
+
+                currentProgram === "" ||
+
+                item.program === currentProgram;
+
+            const categoryMatch =
+
+                currentCategory === "" ||
+
+                item.category === currentCategory;
+
+            return (
+
+                keywordMatch &&
+
+                programMatch &&
+
+                categoryMatch
+
+            );
+
+        });
+
+    sortQuestions();
+
+}
+
+/* ============================================================
+   SORT
+============================================================ */
+
+function sortQuestions(){
+
+    filteredQuestions.sort((a,b)=>{
+
+        switch(currentSort){
+
+            case "program":
+
+                return (a.program || "")
+                .localeCompare(b.program || "");
+
+            case "category":
+
+                return (a.category || "")
+                .localeCompare(b.category || "");
+
+            default:
+
+                return Number(a.number)-Number(b.number);
+
+        }
+
+    });
+
+    renderQuestionTable();
+
+}
+
+/* ============================================================
+   TABLE
+============================================================ */
+
+function renderQuestionTable(){
+
+    questionTable.innerHTML="";
+
+    const start =
+
+        (currentPage-1)*pageSize;
+
+    const end =
+
+        start+pageSize;
+
+    const data =
+
+        filteredQuestions.slice(start,end);
+
+    data.forEach(question=>{
+
+        questionTable.innerHTML +=
+
+        `
+<tr>
+
+<td>
+
+<input
+type="checkbox"
+class="question-check"
+value="${question.id}">
+
+</td>
+
+<td>${question.number ?? "-"}</td>
+
+<td>${question.program ?? "-"}</td>
+
+<td>${question.category ?? "-"}</td>
+
+<td>
+
+${question.question ?? "-"}
+
+</td>
+
+<td>
+
+<span class="badge bg-${
+question.status==="inactive"
+?"danger":"success"}">
+
+${question.status ?? "active"}
+
+</span>
+
+</td>
+
+<td>
+
+<button
+
+class="btn btn-sm btn-warning edit-btn"
+
+data-id="${question.id}">
+
+<i class="bi bi-pencil"></i>
+
+</button>
+
+<button
+
+class="btn btn-sm btn-danger delete-btn"
+
+data-id="${question.id}">
+
+<i class="bi bi-trash"></i>
+
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+    });
+
+    renderPagination();
+
+}
+
+/* ============================================================
+   PAGINATION
+============================================================ */
+
+function renderPagination(){
+
+    pagination.innerHTML="";
+
+    const totalPage =
+
+        Math.ceil(
+
+            filteredQuestions.length/pageSize
+
+        );
+
+    for(let i=1;i<=totalPage;i++){
+
+        pagination.innerHTML+=
+
+        `
+
+<li class="page-item ${
+
+i===currentPage
+
+?
+
+"active"
+
+:
+
+""
+
+}">
+
+<a
+
+href="#"
+
+class="page-link"
+
+onclick="gotoPage(${i})">
+
+${i}
+
+</a>
+
+</li>
+
+`;
+
+    }
+
+}
+
+/* ============================================================
+   GOTO PAGE
+============================================================ */
+
+function gotoPage(page){
+
+    currentPage = page;
+
+    renderQuestionTable();
+
+}
+
+/* ============================================================
+   EVENT
+============================================================ */
+
+searchQuestion.addEventListener("input",()=>{
+
+    currentKeyword =
+
+        searchQuestion.value;
+
+    currentPage=1;
+
+    applyQuestionFilter();
+
+});
+
+filterProgram.addEventListener("change",()=>{
+
+    currentProgram=
+
+        filterProgram.value;
+
+    currentPage=1;
+
+    applyQuestionFilter();
+
+});
+
+filterCategory.addEventListener("change",()=>{
+
+    currentCategory=
+
+        filterCategory.value;
+
+    currentPage=1;
+
+    applyQuestionFilter();
+
+});
+
+sortQuestion.addEventListener("change",()=>{
+
+    currentSort=
+
+        sortQuestion.value;
+
+    sortQuestions();
+
+});
+
+pageSizeSelect.addEventListener("change",()=>{
+
+    pageSize=
+
+        Number(pageSizeSelect.value);
+
+    currentPage=1;
+
+    renderQuestionTable();
+
+});
+
+refreshQuestionBtn.addEventListener("click",()=>{
+
+    loadQuestions();
+
+});
+
+/* ============================================================
+   START
+============================================================ */
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+    loadQuestions();
+
+});
