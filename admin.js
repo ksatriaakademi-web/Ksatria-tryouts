@@ -941,7 +941,7 @@ document.addEventListener("DOMContentLoaded",()=>{
    IMPORT SOAL
 ========================================== */
 
-const questionFile = document.getElementById("questionFile");
+const questionFile = document.getElementById("pdfFile");
 const parseQuestionBtn = document.getElementById("parseQuestionBtn");
 
 if (parseQuestionBtn) {
@@ -983,7 +983,6 @@ if (parseQuestionBtn) {
 /* ==========================================
    IMPORT DOCX
 ========================================== */
-
 async function importDocx(file) {
 
     showLoading("Membaca dokumen...");
@@ -993,18 +992,51 @@ async function importDocx(file) {
         const arrayBuffer = await file.arrayBuffer();
 
         const result = await mammoth.extractRawText({
-
-            arrayBuffer: arrayBuffer
-
+            arrayBuffer
         });
 
         const text = result.value;
 
         console.log(text);
 
-        alert("DOCX berhasil dibaca.\nSilakan buka Console (F12).");
-
         hideLoading();
+
+        const rows = text
+            .split(/\n+/)
+            .map(v => v.trim())
+            .filter(v => v !== "");
+
+        document.getElementById("previewTable").innerHTML = "";
+
+        let total = 0;
+
+        rows.forEach(line => {
+
+            if (!/^\d+\./.test(line)) return;
+
+            total++;
+
+            document.getElementById("previewTable").innerHTML += `
+                <tr>
+                    <td>${total}</td>
+                    <td>TKD</td>
+                    <td>Umum</td>
+                    <td><span class="badge bg-success">Terdeteksi</span></td>
+                </tr>
+            `;
+
+        });
+
+        document.getElementById("previewTotal").textContent = total;
+        document.getElementById("previewReady").textContent = total;
+        document.getElementById("previewValid").textContent = total;
+        document.getElementById("previewInvalid").textContent = 0;
+
+        console.log("Jumlah soal:", total);
+
+        window.docxText = text;
+
+        alert(`Berhasil membaca ${total} soal.`);
 
     }
 
@@ -1014,8 +1046,9 @@ async function importDocx(file) {
 
         hideLoading();
 
-        alert("Gagal membaca file DOCX.");
+        alert("Gagal membaca DOCX.");
 
     }
 
+}
 }
