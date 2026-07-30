@@ -1,36 +1,48 @@
 /* ==========================================
-   KSATRIA AKADEMI
-   TRYOUT.JS - Form Peserta Tamu (Guest)
+   TRYOUT GRATIS
+   tryout.js
 ========================================== */
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
 
     const form = document.getElementById("tryoutForm");
 
-    if (!form) return;
-
-    form.addEventListener("submit", function (e) {
+    form.addEventListener("submit", (e) => {
 
         e.preventDefault();
 
-        const name = document.getElementById("fullname").value.trim();
+        const fullname = document.getElementById("fullname").value.trim();
         const school = document.getElementById("school").value.trim();
         const program = document.getElementById("program").value;
 
-        if (!name || !school || !program) {
-            alert("Mohon lengkapi seluruh data terlebih dahulu.");
+        if (!fullname || !school || !program) {
+
+            alert("Silakan lengkapi seluruh data.");
             return;
+
         }
 
-        const participantData = {
-            name: name,
+        const participant = {
+
+            id: "GST-" + Date.now(),
+
+            name: fullname,
+
             school: school,
-            program: program
+
+            program: program,
+
+            type: "guest",
+
+            startTime: Date.now(),
+
+            createdAt: new Date().toISOString()
+
         };
 
         sessionStorage.setItem(
             "ksatriaParticipant",
-            JSON.stringify(participantData)
+            JSON.stringify(participant)
         );
 
         window.location.href = "cbt.html";
