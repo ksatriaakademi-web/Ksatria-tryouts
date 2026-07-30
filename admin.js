@@ -937,3 +937,85 @@ document.addEventListener("DOMContentLoaded",()=>{
     loadQuestions();
 
 });
+/* ==========================================
+   IMPORT SOAL
+========================================== */
+
+const questionFile = document.getElementById("questionFile");
+const parseQuestionBtn = document.getElementById("parseQuestionBtn");
+
+if (parseQuestionBtn) {
+
+    parseQuestionBtn.addEventListener("click", () => {
+
+        if (!questionFile.files.length) {
+
+            alert("Pilih file terlebih dahulu.");
+            return;
+
+        }
+
+        const file = questionFile.files[0];
+
+        const extension = file.name.split(".").pop().toLowerCase();
+
+        if (extension === "docx") {
+
+            importDocx(file);
+
+        } else if (extension === "pdf") {
+
+            importPdf(file);
+
+        } else if (extension === "xlsx" || extension === "xls") {
+
+            importExcel(file);
+
+        } else {
+
+            alert("Format file tidak didukung.");
+
+        }
+
+    });
+
+}
+/* ==========================================
+   IMPORT DOCX
+========================================== */
+
+async function importDocx(file) {
+
+    showLoading("Membaca dokumen...");
+
+    try {
+
+        const arrayBuffer = await file.arrayBuffer();
+
+        const result = await mammoth.extractRawText({
+
+            arrayBuffer: arrayBuffer
+
+        });
+
+        const text = result.value;
+
+        console.log(text);
+
+        alert("DOCX berhasil dibaca.\nSilakan buka Console (F12).");
+
+        hideLoading();
+
+    }
+
+    catch (err) {
+
+        console.error(err);
+
+        hideLoading();
+
+        alert("Gagal membaca file DOCX.");
+
+    }
+
+}
