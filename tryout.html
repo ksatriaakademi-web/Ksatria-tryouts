@@ -137,12 +137,14 @@ body{
 
         <span class="tryout-badge">100% Gratis &bull; Tanpa Perlu Daftar Akun</span>
 
-        <h2>Tryout Gratis SKD</h2>
-        <p>Simulasi Seleksi Kompetensi Dasar (TWK, TIU, TKP) untuk persiapan seleksi TNI, POLRI, dan Sekolah Kedinasan.</p>
+        <h2>Tryout Gratis</h2>
 
+<p>
+Silakan pilih paket Tryout Gratis yang ingin dikerjakan. Hasil dapat langsung dilihat setelah ujian selesai.
+</p>
         <ul class="aturan-list">
 
-            <li><i class="bi bi-journal-check"></i> 30 soal (TWK, TIU, dan TKP)</li>
+            <li><i class="bi bi-journal-check"></i> 30 soal sesuai paket yang dipilih (TKD atau TKA)</li>
             <li><i class="bi bi-clock-fill"></i> Waktu pengerjaan 30 menit, dimulai begitu tryout dibuka</li>
             <li><i class="bi bi-info-circle-fill"></i> Kerjakan sejujurnya, ini simulasi latihan &mdash; hasil langsung terlihat setelah selesai</li>
             <li><i class="bi bi-wifi"></i> Pastikan koneksi internet stabil selama mengerjakan</li>
@@ -157,14 +159,23 @@ body{
             <label class="form-label" for="school">Asal Sekolah / Instansi</label>
             <input type="text" class="form-control" id="school" placeholder="Contoh: SMA Negeri 1 Jakarta" required>
 
-            <label class="form-label" for="program">Program yang Diminati</label>
-            <select class="form-select" id="program" required>
-                <option value="" selected disabled>Pilih program</option>
-                <option value="TNI">TNI</option>
-                <option value="POLRI">POLRI</option>
-                <option value="Kedinasan">Sekolah Kedinasan</option>
-                <option value="SNBT">SNBT</option>
-            </select>
+            <label class="form-label" for="program">Pilih Paket Tryout</label>
+
+<select class="form-select" id="program" required>
+
+    <option value="" selected disabled>
+        Pilih Paket Tryout
+    </option>
+
+    <option value="TKD">
+        TKD (Tes Kompetensi Dasar)
+    </option>
+
+    <option value="TKA">
+        TKA (Tes Kompetensi Akademik)
+    </option>
+
+</select>
 
             <button type="submit" class="btn-mulai-tryout">
                 Mulai Tryout Sekarang <i class="bi bi-arrow-right"></i>
