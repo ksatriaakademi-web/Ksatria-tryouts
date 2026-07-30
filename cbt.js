@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     let currentQuestion = 0;
     let answers = [];
     let totalQuestion = 0;
-    let timeLeft = 50 * 60;
+    let timeLeft = 30 * 60;
     let examFinished = false;
 
     // ==========================================
@@ -453,115 +453,105 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
 
     });
-       // ==========================================
-    // SELESAI UJIAN
-    // ==========================================
+      // ==========================================
+// SELESAI UJIAN
+// ==========================================
 
-    async function finishExam() {
+async function finishExam() {
 
-        if (examFinished) return;
+    if (examFinished) return;
 
-        examFinished = true;
+    examFinished = true;
 
-        saveAnswer();
+    saveAnswer();
 
-        nextBtn.disabled = true;
-        previousBtn.disabled = true;
-        finishBtn.disabled = true;
+    nextBtn.disabled = true;
+    previousBtn.disabled = true;
+    finishBtn.disabled = true;
 
-        const result = calculateScore();
+    const result = calculateScore();
 
-        const year = new Date().getFullYear();
+    const year = new Date().getFullYear();
+    const runningNumber = String(Date.now()).slice(-6);
 
-        const runningNumber =
-            String(Date.now()).slice(-6);
+    const certificateNumber =
+        `KSA-TRYOUT-${year}-${runningNumber}`;
 
-        const certificateNumber =
-            `KSA-TRYOUT-${year}-${runningNumber}`;
+    const finalResult = {
 
-        const finalResult = {
+        participant: participantData,
 
-            participant: participantData,
+        result: result,
 
-            result: result,
+        answers: answers,
 
-            answers: answers,
+        questions: questions,
+
+        totalQuestion: totalQuestion,
+
+        date: new Date().toLocaleDateString("id-ID"),
+
+        certificateNumber: certificateNumber
+
+    };
+
+    try {
+
+        await db.collection("results").add({
+
+            participantId: participantData.id,
+
+            fullname: participantData.name,
+
+            school: participantData.school,
+
+            program: participantData.program,
+
+            participantType: participantData.type,
+
+            score: result.score,
+
+            correct: result.correct,
+
+            wrong: result.wrong,
 
             totalQuestion: totalQuestion,
 
-            date: new Date().toLocaleDateString("id-ID"),
+            answers: answers,
 
-            certificateNumber: certificateNumber
+            certificateNumber: certificateNumber,
 
-        };
+            createdAt:
+                firebase.firestore.FieldValue.serverTimestamp()
 
-        try {
+        });
 
-            const user = auth.currentUser;
+        console.log("✅ Hasil berhasil disimpan.");
 
-            if (user) {
+        sessionStorage.setItem(
+            "ksatriaResult",
+            JSON.stringify(finalResult)
+        );
 
-                await db.collection("results").add({
-
-                    uid: user.uid,
-
-                    fullname: participantData.name,
-
-                    school: participantData.school,
-
-                    program: participantData.program,
-
-                    score: result.score,
-
-                    correct: result.correct,
-
-                    wrong: result.wrong,
-
-                    totalQuestion: totalQuestion,
-
-                    certificateNumber: certificateNumber,
-
-                    createdAt:
-                        firebase.firestore.FieldValue.serverTimestamp()
-
-                });
-
-                console.log("✅ Hasil berhasil disimpan.");
-
-            }
-
-            sessionStorage.setItem(
-
-                "ksatriaResult",
-
-                JSON.stringify(finalResult)
-
-            );
-
-            window.location.href = "result.html";
-
-        }
-
-        catch (error) {
-
-            console.error(
-                "Firestore Error :",
-                error
-            );
-
-            alert(
-                "Terjadi kesalahan saat menyimpan hasil tryout."
-            );
-
-            examFinished = false;
-
-            nextBtn.disabled = false;
-            previousBtn.disabled = false;
-            finishBtn.disabled = false;
-
-        }
+        window.location.href = "result.html";
 
     }
+
+    catch (error) {
+
+        console.error("Firestore Error :", error);
+
+        alert("Terjadi kesalahan saat menyimpan hasil tryout.");
+
+        examFinished = false;
+
+        nextBtn.disabled = false;
+        previousBtn.disabled = false;
+        finishBtn.disabled = false;
+
+    }
+
+}
 
     // ==========================================
     // MULAI CBT
