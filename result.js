@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         alert("Data hasil tidak ditemukan.");
 
-        window.location.href = "dashboard.html";
+        window.location.href = "tryout.html";
 
         return;
 
@@ -138,9 +138,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
         retryBtn.addEventListener("click", () => {
 
-            window.location.href = "dashboard.html";
+    sessionStorage.removeItem("ksatriaResult");
+    sessionStorage.removeItem("ksatriaParticipant");
 
-        });
+    window.location.href = "tryout.html";
+
+});
 
     }
 
