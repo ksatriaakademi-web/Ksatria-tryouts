@@ -1122,8 +1122,8 @@ document.getElementById("uploadStatus").textContent =
    IMPORT FIRESTORE
 ========================================== */
 
-const importFirestoreBtn = document.getElementById("importFirestoreBtn");
-
+const importFirestoreBtn =
+document.getElementById("confirmImportBtn");
 if (importFirestoreBtn) {
 
     importFirestoreBtn.addEventListener("click", async () => {
