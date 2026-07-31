@@ -1051,3 +1051,145 @@ async function importDocx(file) {
     }
 
 }
+/* ==========================================
+   IMPORT EXCEL
+========================================== */
+
+async function importExcel(file) {
+
+    showLoading("Membaca Excel...");
+
+    try {
+
+        const buffer = await file.arrayBuffer();
+
+        const workbook = XLSX.read(buffer, {
+            type: "array"
+        });
+
+        const sheet = workbook.Sheets[workbook.SheetNames[0]];
+
+        const data = XLSX.utils.sheet_to_json(sheet);
+
+        document.getElementById("previewTable").innerHTML = "";
+
+        let total = 0;
+
+        for (const row of data) {
+
+            total++;
+
+            document.getElementById("previewTable").innerHTML += `
+                <tr>
+                    <td>${total}</td>
+                    <td>${row.program || "TKD"}</td>
+                    <td>${row.category || "Umum"}</td>
+                    <td><span class="badge bg-success">Siap Import</span></td>
+                </tr>
+            `;
+
+        }
+
+        document.getElementById("summaryTotal").textContent = total;
+        document.getElementById("summaryValid").textContent = total;
+        document.getElementById("summaryInvalid").textContent = 0;
+
+        window.importQuestions = data;
+
+        hideLoading();
+
+        alert(total + " soal berhasil dibaca.");
+
+    } catch (e) {
+
+        console.error(e);
+
+        hideLoading();
+
+        alert("Import Excel gagal.");
+
+    }
+
+}
+
+/* ==========================================
+   IMPORT FIRESTORE
+========================================== */
+
+const importFirestoreBtn = document.getElementById("importFirestoreBtn");
+
+if (importFirestoreBtn) {
+
+    importFirestoreBtn.addEventListener("click", async () => {
+
+        if (!window.importQuestions || window.importQuestions.length === 0) {
+
+            alert("Belum ada data.");
+
+            return;
+
+        }
+
+        showLoading("Upload Firestore...");
+
+        try {
+
+            const batch = db.batch();
+
+            window.importQuestions.forEach((q, index) => {
+
+                const ref = db.collection("questions").doc();
+
+                batch.set(ref, {
+
+                    number: Number(q.number || index + 1),
+
+                    program: q.program || "TKD",
+
+                    category: q.category || "Umum",
+
+                    question: q.question || "",
+
+                    optionA: q.optionA || "",
+
+                    optionB: q.optionB || "",
+
+                    optionC: q.optionC || "",
+
+                    optionD: q.optionD || "",
+
+                    optionE: q.optionE || "",
+
+                    answer: q.answer || "A",
+
+                    discussion: q.discussion || "",
+
+                    status: "active",
+
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+
+                });
+
+            });
+
+            await batch.commit();
+
+            hideLoading();
+
+            alert("Import selesai.");
+
+            loadQuestions();
+
+        } catch (e) {
+
+            console.error(e);
+
+            hideLoading();
+
+            alert("Upload gagal.");
+
+        }
+
+    });
+
+}
