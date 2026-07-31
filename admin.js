@@ -1197,14 +1197,7 @@ async function uploadQuestionsToFirestore() {
 
         hideLoading();
 
-        status.textContent =
-            `${success} soal berhasil diupload.`;
-
-        showToast("Import selesai.");
-
-        importQuestions = [];
-
-        loadQuestions();
+await finishImport();
 
     } catch (err) {
 
@@ -1213,6 +1206,47 @@ async function uploadQuestionsToFirestore() {
         hideLoading();
 
         alert("Upload gagal.");
+
+    }
+
+}
+/* ==========================================
+   SEND 4C
+   REFRESH + RESET SETELAH IMPORT
+========================================== */
+
+async function finishImport() {
+
+    try {
+
+        document.getElementById("previewTable").innerHTML = "";
+
+        document.getElementById("previewTotal").textContent = "0";
+        document.getElementById("previewReady").textContent = "0";
+        document.getElementById("previewValid").textContent = "0";
+        document.getElementById("previewInvalid").textContent = "0";
+
+        document.getElementById("uploadProgress").style.width = "0%";
+        document.getElementById("uploadProgress").textContent = "0%";
+
+        document.getElementById("uploadStatus").textContent =
+            "Import selesai.";
+
+        questionFile.value = "";
+
+        importQuestions = [];
+
+        await loadQuestions();
+
+        await loadDashboard();
+
+        showToast("Semua soal berhasil diupload.");
+
+    }
+
+    catch(err){
+
+        console.error(err);
 
     }
 
