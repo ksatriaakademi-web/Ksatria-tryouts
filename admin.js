@@ -1090,9 +1090,15 @@ async function importExcel(file) {
 
         }
 
-        document.getElementById("summaryTotal").textContent = total;
-        document.getElementById("summaryValid").textContent = total;
-        document.getElementById("summaryInvalid").textContent = 0;
+       document.getElementById("previewTotal").textContent = total;
+document.getElementById("previewValid").textContent = total;
+document.getElementById("previewInvalid").textContent = 0;
+document.getElementById("previewReady").textContent = total;
+
+document.getElementById("uploadProgress").style.width = "100%";
+document.getElementById("uploadProgress").textContent = "100%";
+document.getElementById("uploadStatus").textContent =
+`${total} soal siap diupload`;
 
         window.importQuestions = data;
 
