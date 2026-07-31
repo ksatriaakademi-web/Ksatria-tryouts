@@ -938,11 +938,18 @@ document.addEventListener("DOMContentLoaded",()=>{
 
 });
 /* ==========================================
-   IMPORT SOAL
+   IMPORT SOAL V3
+   SEND 4A
 ========================================== */
 
 const questionFile = document.getElementById("pdfFile");
 const parseQuestionBtn = document.getElementById("parseQuestionBtn");
+
+let importQuestions = [];
+
+/* ==========================================
+   CLICK IMPORT
+========================================== */
 
 if (parseQuestionBtn) {
 
@@ -951,92 +958,60 @@ if (parseQuestionBtn) {
         if (!questionFile.files.length) {
 
             alert("Pilih file terlebih dahulu.");
+
             return;
 
         }
 
         const file = questionFile.files[0];
 
-        const extension = file.name.split(".").pop().toLowerCase();
+        const ext = file.name.split(".").pop().toLowerCase();
 
-        if (extension === "docx") {
-
-            importDocx(file);
-
-        } else if (extension === "pdf") {
-
-            importPdf(file);
-
-        } else if (extension === "xlsx" || extension === "xls") {
+        if (ext === "xlsx" || ext === "xls") {
 
             importExcel(file);
 
-        } else {
-
-            alert("Format file tidak didukung.");
+            return;
 
         }
+
+        alert("Gunakan file Excel (.xlsx)");
 
     });
 
 }
-/* ==========================================
-   IMPORT DOCX
-========================================== */
-async function importDocx(file) {
 
-    showLoading("Membaca dokumen...");
+/* ==========================================
+   IMPORT EXCEL
+========================================== */
+
+async function importExcel(file) {
+
+    showLoading("Membaca file Excel...");
 
     try {
 
-        const arrayBuffer = await file.arrayBuffer();
+        const buffer = await file.arrayBuffer();
 
-        const result = await mammoth.extractRawText({
-            arrayBuffer
+        const workbook = XLSX.read(buffer, {
+
+            type: "array"
+
         });
 
-        const text = result.value;
+        const sheetName = workbook.SheetNames[0];
 
-        console.log(text);
+        const sheet = workbook.Sheets[sheetName];
+
+        importQuestions = XLSX.utils.sheet_to_json(sheet, {
+
+            defval: ""
+
+        });
 
         hideLoading();
 
-        const rows = text
-            .split(/\n+/)
-            .map(v => v.trim())
-            .filter(v => v !== "");
-
-        document.getElementById("previewTable").innerHTML = "";
-
-        let total = 0;
-
-        rows.forEach(line => {
-
-            if (!/^\d+\./.test(line)) return;
-
-            total++;
-
-            document.getElementById("previewTable").innerHTML += `
-                <tr>
-                    <td>${total}</td>
-                    <td>TKD</td>
-                    <td>Umum</td>
-                    <td><span class="badge bg-success">Terdeteksi</span></td>
-                </tr>
-            `;
-
-        });
-
-        document.getElementById("previewTotal").textContent = total;
-        document.getElementById("previewReady").textContent = total;
-        document.getElementById("previewValid").textContent = total;
-        document.getElementById("previewInvalid").textContent = 0;
-
-        console.log("Jumlah soal:", total);
-
-        window.docxText = text;
-
-        alert(`Berhasil membaca ${total} soal.`);
+        previewImport();
 
     }
 
@@ -1046,156 +1021,199 @@ async function importDocx(file) {
 
         hideLoading();
 
-        alert("Gagal membaca DOCX.");
+        alert("Gagal membaca file Excel.");
 
     }
 
 }
+
 /* ==========================================
-   IMPORT EXCEL
+   PREVIEW
 ========================================== */
 
-async function importExcel(file) {
+function previewImport() {
 
-    showLoading("Membaca Excel...");
+    const tbody =
+
+        document.getElementById("previewTable");
+
+    tbody.innerHTML = "";
+
+    let valid = 0;
+
+    let invalid = 0;
+
+    importQuestions.forEach((q, index) => {
+
+        const ready =
+
+            q.question &&
+            q.optionA &&
+            q.optionB &&
+            q.optionC &&
+            q.optionD &&
+            q.answer;
+
+        if (ready) {
+
+            valid++;
+
+        } else {
+
+            invalid++;
+
+        }
+
+        tbody.innerHTML += `
+
+<tr>
+
+<td>${index + 1}</td>
+
+<td>${q.program || "TKD"}</td>
+
+<td>${q.category || "-"}</td>
+
+<td>
+
+<span class="badge bg-${ready ? "success" : "danger"}">
+
+${ready ? "Siap" : "Error"}
+
+</span>
+
+</td>
+
+</tr>
+
+`;
+
+    });
+
+    document.getElementById("previewTotal").textContent =
+
+        importQuestions.length;
+
+    document.getElementById("previewValid").textContent =
+
+        valid;
+
+    document.getElementById("previewInvalid").textContent =
+
+        invalid;
+
+    document.getElementById("previewReady").textContent =
+
+        valid;
+
+    document.getElementById("uploadProgress").style.width = "100%";
+
+    document.getElementById("uploadProgress").textContent = "100%";
+
+    document.getElementById("uploadStatus").textContent =
+
+        `${valid} soal siap diupload`;
+
+    showToast(valid + " soal berhasil dibaca.");
+
+}
+/* ==========================================
+   SEND 4B
+   IMPORT KE FIRESTORE
+========================================== */
+
+const confirmImportBtn = document.getElementById("confirmImportBtn");
+
+if (confirmImportBtn) {
+
+    confirmImportBtn.addEventListener("click", uploadQuestionsToFirestore);
+
+}
+
+async function uploadQuestionsToFirestore() {
+
+    if (!importQuestions.length) {
+
+        alert("Belum ada soal yang diimport.");
+
+        return;
+
+    }
+
+    showLoading("Mengupload soal...");
+
+    const progressBar = document.getElementById("uploadProgress");
+    const status = document.getElementById("uploadStatus");
+
+    let success = 0;
 
     try {
 
-        const buffer = await file.arrayBuffer();
+        for (let i = 0; i < importQuestions.length; i++) {
 
-        const workbook = XLSX.read(buffer, {
-            type: "array"
-        });
+            const q = importQuestions[i];
 
-        const sheet = workbook.Sheets[workbook.SheetNames[0]];
+            await db.collection("questions").add({
 
-        const data = XLSX.utils.sheet_to_json(sheet);
+                number: Number(q.number || i + 1),
 
-        document.getElementById("previewTable").innerHTML = "";
+                program: q.program || "TKD",
 
-        let total = 0;
+                category: q.category || "Umum",
 
-        for (const row of data) {
+                question: q.question || "",
 
-            total++;
+                optionA: q.optionA || "",
 
-            document.getElementById("previewTable").innerHTML += `
-                <tr>
-                    <td>${total}</td>
-                    <td>${row.program || "TKD"}</td>
-                    <td>${row.category || "Umum"}</td>
-                    <td><span class="badge bg-success">Siap Import</span></td>
-                </tr>
-            `;
+                optionB: q.optionB || "",
 
-        }
+                optionC: q.optionC || "",
 
-       document.getElementById("previewTotal").textContent = total;
-document.getElementById("previewValid").textContent = total;
-document.getElementById("previewInvalid").textContent = 0;
-document.getElementById("previewReady").textContent = total;
+                optionD: q.optionD || "",
 
-document.getElementById("uploadProgress").style.width = "100%";
-document.getElementById("uploadProgress").textContent = "100%";
-document.getElementById("uploadStatus").textContent =
-`${total} soal siap diupload`;
+                optionE: q.optionE || "",
 
-        window.importQuestions = data;
+                answer: String(q.answer || "").trim().toUpperCase(),
 
-        hideLoading();
+                discussion: q.discussion || "",
 
-        alert(total + " soal berhasil dibaca.");
+                status: "active",
 
-    } catch (e) {
-
-        console.error(e);
-
-        hideLoading();
-
-        alert("Import Excel gagal.");
-
-    }
-
-}
-
-/* ==========================================
-   IMPORT FIRESTORE
-========================================== */
-
-const importFirestoreBtn =
-document.getElementById("confirmImportBtn");
-if (importFirestoreBtn) {
-
-    importFirestoreBtn.addEventListener("click", async () => {
-
-        if (!window.importQuestions || window.importQuestions.length === 0) {
-
-            alert("Belum ada data.");
-
-            return;
-
-        }
-
-        showLoading("Upload Firestore...");
-
-        try {
-
-            const batch = db.batch();
-
-            window.importQuestions.forEach((q, index) => {
-
-                const ref = db.collection("questions").doc();
-
-                batch.set(ref, {
-
-                    number: Number(q.number || index + 1),
-
-                    program: q.program || "TKD",
-
-                    category: q.category || "Umum",
-
-                    question: q.question || "",
-
-                    optionA: q.optionA || "",
-
-                    optionB: q.optionB || "",
-
-                    optionC: q.optionC || "",
-
-                    optionD: q.optionD || "",
-
-                    optionE: q.optionE || "",
-
-                    answer: q.answer || "A",
-
-                    discussion: q.discussion || "",
-
-                    status: "active",
-
-                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
-
-                });
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
 
             });
 
-            await batch.commit();
+            success++;
 
-            hideLoading();
+            const percent = Math.round((success / importQuestions.length) * 100);
 
-            alert("Import selesai.");
+            progressBar.style.width = percent + "%";
+            progressBar.textContent = percent + "%";
 
-            loadQuestions();
-
-        } catch (e) {
-
-            console.error(e);
-
-            hideLoading();
-
-            alert("Upload gagal.");
+            status.textContent =
+                `Mengupload ${success} / ${importQuestions.length} soal...`;
 
         }
 
-    });
+        hideLoading();
+
+        status.textContent =
+            `${success} soal berhasil diupload.`;
+
+        showToast("Import selesai.");
+
+        importQuestions = [];
+
+        loadQuestions();
+
+    } catch (err) {
+
+        console.error(err);
+
+        hideLoading();
+
+        alert("Upload gagal.");
+
+    }
 
 }
