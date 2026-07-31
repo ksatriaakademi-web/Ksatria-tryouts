@@ -937,52 +937,94 @@ document.addEventListener("DOMContentLoaded",()=>{
     loadQuestions();
 
 });
-/* ==========================================
-   IMPORT SOAL V3
-   SEND 4A
-========================================== */
-
-const questionFile = document.getElementById("pdfFile");
-const parseQuestionBtn = document.getElementById("parseQuestionBtn");
+/* ============================================================
+   IMPORT SOAL (XLSX -> FIRESTORE)
+   MODUL PERBAIKAN - GANTI SELURUH BLOK
+   "IMPORT SOAL V3" (SEND 4A, 4B, 4C) DI admin.js DENGAN INI
+============================================================ */
 
 let importQuestions = [];
+let isImporting = false;
 
-/* ==========================================
-   CLICK IMPORT
-========================================== */
+/* ============================================================
+   INIT - DIPASANG SETELAH DOM SIAP
+   (Ini kemungkinan besar penyebab upload tidak jalan:
+   kalau elemen #confirmImportBtn belum ada di DOM saat
+   admin.js pertama kali dieksekusi -- misalnya karena ada
+   di dalam modal yang dirender belakangan -- maka
+   document.getElementById() akan mengembalikan null dan
+   event listener-nya tidak pernah terpasang sama sekali.
+   Dengan membungkus semua query + listener di dalam
+   DOMContentLoaded, ini dijamin terpasang.)
+============================================================ */
 
-if (parseQuestionBtn) {
+document.addEventListener("DOMContentLoaded", initImportModule);
+
+function initImportModule() {
+
+    const questionFile = document.getElementById("pdfFile");
+    const parseQuestionBtn = document.getElementById("parseQuestionBtn");
+    const confirmImportBtn = document.getElementById("confirmImportBtn");
+
+    if (!questionFile || !parseQuestionBtn || !confirmImportBtn) {
+        console.warn("Elemen import soal tidak ditemukan di DOM. Cek ID: pdfFile, parseQuestionBtn, confirmImportBtn.");
+        return;
+    }
+
+    /* ==========================================
+       KLIK: PILIH & BACA FILE EXCEL
+    ========================================== */
 
     parseQuestionBtn.addEventListener("click", () => {
 
         if (!questionFile.files.length) {
-
             alert("Pilih file terlebih dahulu.");
-
             return;
-
         }
 
         const file = questionFile.files[0];
-
         const ext = file.name.split(".").pop().toLowerCase();
 
-        if (ext === "xlsx" || ext === "xls") {
-
-            importExcel(file);
-
+        if (ext !== "xlsx" && ext !== "xls") {
+            alert("Gunakan file Excel (.xlsx atau .xls)");
             return;
-
         }
 
-        alert("Gunakan file Excel (.xlsx)");
+        importExcel(file);
+
+    });
+
+    /* ==========================================
+       KLIK: UPLOAD KE FIRESTORE
+    ========================================== */
+
+    confirmImportBtn.addEventListener("click", () => {
+
+        if (isImporting) return;
+
+        uploadQuestionsToFirestore(confirmImportBtn);
 
     });
 
 }
 
+/* ============================================================
+   HELPER: AMBIL NILAI KOLOM EXCEL DENGAN AMAN
+   (trim spasi, biar "  A  " tetap dianggap valid)
+============================================================ */
+
+function readCell(row, key) {
+
+    const value = row[key];
+
+    if (value === undefined || value === null) return "";
+
+    return String(value).trim();
+
+}
+
 /* ==========================================
-   IMPORT EXCEL
+   BACA FILE EXCEL
 ========================================== */
 
 async function importExcel(file) {
@@ -994,34 +1036,39 @@ async function importExcel(file) {
         const buffer = await file.arrayBuffer();
 
         const workbook = XLSX.read(buffer, {
-
             type: "array"
-
         });
 
         const sheetName = workbook.SheetNames[0];
-
         const sheet = workbook.Sheets[sheetName];
 
-        importQuestions = XLSX.utils.sheet_to_json(sheet, {
-
+        const rows = XLSX.utils.sheet_to_json(sheet, {
             defval: ""
-
         });
+
+        importQuestions = rows.map(row => ({
+            number: readCell(row, "number"),
+            program: readCell(row, "program") || "TKD",
+            category: readCell(row, "category") || "Umum",
+            question: readCell(row, "question"),
+            optionA: readCell(row, "optionA"),
+            optionB: readCell(row, "optionB"),
+            optionC: readCell(row, "optionC"),
+            optionD: readCell(row, "optionD"),
+            optionE: readCell(row, "optionE"),
+            answer: readCell(row, "answer").toUpperCase(),
+            discussion: readCell(row, "discussion")
+        }));
 
         hideLoading();
 
         previewImport();
 
-    }
-
-    catch (err) {
+    } catch (err) {
 
         console.error(err);
-
         hideLoading();
-
-        alert("Gagal membaca file Excel.");
+        alert("Gagal membaca file Excel: " + err.message);
 
     }
 
@@ -1033,194 +1080,176 @@ async function importExcel(file) {
 
 function previewImport() {
 
-    const tbody =
-
-        document.getElementById("previewTable");
-
+    const tbody = document.getElementById("previewTable");
     tbody.innerHTML = "";
 
     let valid = 0;
-
     let invalid = 0;
 
     importQuestions.forEach((q, index) => {
 
         const ready =
-
             q.question &&
             q.optionA &&
             q.optionB &&
             q.optionC &&
             q.optionD &&
-            q.answer;
+            q.answer &&
+            ["A", "B", "C", "D", "E"].includes(q.answer);
 
         if (ready) {
-
             valid++;
-
         } else {
-
             invalid++;
-
         }
 
         tbody.innerHTML += `
-
 <tr>
-
 <td>${index + 1}</td>
-
 <td>${q.program || "TKD"}</td>
-
 <td>${q.category || "-"}</td>
-
 <td>
-
 <span class="badge bg-${ready ? "success" : "danger"}">
-
 ${ready ? "Siap" : "Error"}
-
 </span>
-
 </td>
-
 </tr>
-
 `;
 
     });
 
-    document.getElementById("previewTotal").textContent =
+    document.getElementById("previewTotal").textContent = importQuestions.length;
+    document.getElementById("previewValid").textContent = valid;
+    document.getElementById("previewInvalid").textContent = invalid;
+    document.getElementById("previewReady").textContent = valid;
 
-        importQuestions.length;
-
-    document.getElementById("previewValid").textContent =
-
-        valid;
-
-    document.getElementById("previewInvalid").textContent =
-
-        invalid;
-
-    document.getElementById("previewReady").textContent =
-
-        valid;
-
-    document.getElementById("uploadProgress").style.width = "100%";
-
-    document.getElementById("uploadProgress").textContent = "100%";
+    document.getElementById("uploadProgress").style.width = "0%";
+    document.getElementById("uploadProgress").textContent = "0%";
 
     document.getElementById("uploadStatus").textContent =
-
-        `${valid} soal siap diupload`;
+        `${valid} soal siap diupload, ${invalid} soal error (dilewati saat upload).`;
 
     showToast(valid + " soal berhasil dibaca.");
 
 }
+
 /* ==========================================
-   SEND 4B
-   IMPORT KE FIRESTORE
+   UPLOAD KE FIRESTORE (BATCH, DENGAN PROGRESS BAR ASLI)
 ========================================== */
 
-const confirmImportBtn = document.getElementById("confirmImportBtn");
+async function uploadQuestionsToFirestore(confirmImportBtn) {
 
-if (confirmImportBtn) {
+    const readyQuestions = importQuestions.filter(q =>
+        q.question &&
+        q.optionA &&
+        q.optionB &&
+        q.optionC &&
+        q.optionD &&
+        q.answer &&
+        ["A", "B", "C", "D", "E"].includes(q.answer)
+    );
 
-    confirmImportBtn.addEventListener("click", uploadQuestionsToFirestore);
-
-}
-
-async function uploadQuestionsToFirestore() {
-
-    if (!importQuestions.length) {
-
-        alert("Belum ada soal yang diimport.");
-
+    if (!readyQuestions.length) {
+        alert("Tidak ada soal valid yang bisa diupload. Cek kembali kolom question/optionA-D/answer di file Excel.");
         return;
-
     }
-
-    showLoading("Mengupload soal...");
 
     const progressBar = document.getElementById("uploadProgress");
     const status = document.getElementById("uploadStatus");
 
-    let success = 0;
+    isImporting = true;
+    confirmImportBtn.disabled = true;
+
+    showLoading("Mengupload soal...");
+
+    /* Firestore batch v8 maksimal 500 operasi per batch.
+       Dipecah per 20 supaya progress bar terlihat berjalan halus
+       dan kalau salah satu batch gagal, batch sebelumnya
+       tetap sudah tersimpan (tidak semua hilang). */
+    const CHUNK_SIZE = 20;
+    const chunks = [];
+
+    for (let i = 0; i < readyQuestions.length; i += CHUNK_SIZE) {
+        chunks.push(readyQuestions.slice(i, i + CHUNK_SIZE));
+    }
+
+    let uploaded = 0;
 
     try {
 
-        for (let i = 0; i < importQuestions.length; i++) {
+        for (const chunk of chunks) {
 
-            const q = importQuestions[i];
+            const batch = db.batch();
 
-            await db.collection("questions").add({
+            chunk.forEach((q, idx) => {
 
-                number: Number(q.number || i + 1),
+                const docRef = db.collection("questions").doc();
 
-                program: q.program || "TKD",
-
-                category: q.category || "Umum",
-
-                question: q.question || "",
-
-                optionA: q.optionA || "",
-
-                optionB: q.optionB || "",
-
-                optionC: q.optionC || "",
-
-                optionD: q.optionD || "",
-
-                optionE: q.optionE || "",
-
-                answer: String(q.answer || "").trim().toUpperCase(),
-
-                discussion: q.discussion || "",
-
-                status: "active",
-
-                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                batch.set(docRef, {
+                    number: Number(q.number) || (uploaded + idx + 1),
+                    program: q.program || "TKD",
+                    category: q.category || "Umum",
+                    question: q.question || "",
+                    optionA: q.optionA || "",
+                    optionB: q.optionB || "",
+                    optionC: q.optionC || "",
+                    optionD: q.optionD || "",
+                    optionE: q.optionE || "",
+                    answer: q.answer || "",
+                    discussion: q.discussion || "",
+                    status: "active",
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
 
             });
 
-            success++;
+            await batch.commit();
 
-            const percent = Math.round((success / importQuestions.length) * 100);
+            uploaded += chunk.length;
+
+            const percent = Math.round((uploaded / readyQuestions.length) * 100);
 
             progressBar.style.width = percent + "%";
             progressBar.textContent = percent + "%";
 
-            status.textContent =
-                `Mengupload ${success} / ${importQuestions.length} soal...`;
+            status.textContent = `Mengupload ${uploaded} / ${readyQuestions.length} soal...`;
 
         }
 
         hideLoading();
 
-await finishImport();
+        await finishImport(uploaded);
 
     } catch (err) {
 
         console.error(err);
-
         hideLoading();
 
-        alert("Upload gagal.");
+        /* Tampilkan pesan error asli dari Firestore, misalnya
+           "Missing or insufficient permissions" kalau rules
+           yang memblokir write, supaya gampang didiagnosis. */
+        alert("Upload gagal: " + err.message);
+
+        status.textContent = "Upload gagal: " + err.message;
+
+    } finally {
+
+        isImporting = false;
+        confirmImportBtn.disabled = false;
 
     }
 
 }
+
 /* ==========================================
-   SEND 4C
-   REFRESH + RESET SETELAH IMPORT
+   RESET SETELAH IMPORT SELESAI
 ========================================== */
 
-async function finishImport() {
+async function finishImport(uploadedCount) {
 
     try {
 
         document.getElementById("previewTable").innerHTML = "";
-
         document.getElementById("previewTotal").textContent = "0";
         document.getElementById("previewReady").textContent = "0";
         document.getElementById("previewValid").textContent = "0";
@@ -1229,22 +1258,19 @@ async function finishImport() {
         document.getElementById("uploadProgress").style.width = "0%";
         document.getElementById("uploadProgress").textContent = "0%";
 
-        document.getElementById("uploadStatus").textContent =
-            "Import selesai.";
+        document.getElementById("uploadStatus").textContent = "Import selesai.";
 
-        questionFile.value = "";
+        const questionFile = document.getElementById("pdfFile");
+        if (questionFile) questionFile.value = "";
 
         importQuestions = [];
 
         await loadQuestions();
-
         await loadDashboard();
 
-        showToast("Semua soal berhasil diupload.");
+        showToast(`${uploadedCount} soal berhasil diupload.`);
 
-    }
-
-    catch(err){
+    } catch (err) {
 
         console.error(err);
 
